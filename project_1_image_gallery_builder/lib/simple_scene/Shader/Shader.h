@@ -1,5 +1,8 @@
+#ifndef SS_SHADER_H
+#define SS_SHADER_H
 #pragma once
-#include <GLCommon.h>
+
+#include "../SS_GLCOMMON.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -76,3 +79,4 @@ private:
      */
     std::string read_shader_file(std::string);
 };
+#endif

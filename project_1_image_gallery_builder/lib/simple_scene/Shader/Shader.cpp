@@ -1,4 +1,4 @@
-#include "Shader/Shader.h"
+#include "./Shader.h"
 
 Shader::Shader()
 {

@@ -1,8 +1,7 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef SS_TEXTURE_H
+#define SS_TEXTURE_H
 #pragma once
-#include <GLCommon.h>
-#include <stb/stb_image.h>
+#include "../SS_GLCommon.h"
 
 #include <string>
 #include <iostream>

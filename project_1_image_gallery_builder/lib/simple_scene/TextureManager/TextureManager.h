@@ -1,9 +1,10 @@
-#ifndef TEXTURE_MANAGER_H
-#define TEXTURE_MANAGER_H
+#ifndef SS_TEXTURE_MANAGER_H
+#define SS_TEXTURE_MANAGER_H
 #pragma once
-#include <GLCommon.h>
-#include <Texture/Texture.h>
-#include <Shader/Shader.h>
+
+#include "../SS_GLcommon.h"
+#include "../Texture/Texture.h"
+#include "../Shader/Shader.h"
 
 #include <vector>
 #include <string>

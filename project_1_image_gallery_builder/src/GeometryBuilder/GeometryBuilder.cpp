@@ -1,4 +1,4 @@
-#include "GeometryBuilder/GeometryBuilder.h"
+#include "./GeometryBuilder.h"
 #include <iostream>
 
 GeometryBuilder::GeometryBuilder()

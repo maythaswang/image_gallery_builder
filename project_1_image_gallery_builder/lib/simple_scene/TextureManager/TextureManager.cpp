@@ -1,4 +1,4 @@
-#include "TextureManager/TextureManager.h"
+#include "./TextureManager.h"
 TextureManager::TextureManager()
 {
     this->textures_storage.push_back(Texture()); // Add in empty texture for slot 0

@@ -13,40 +13,37 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="dependencies">
-      <UniqueIdentifier>{43b73062-5d9e-4f41-8f9c-27c9fe6449c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="simple_scene">
-      <UniqueIdentifier>{5d6e0f37-be74-4ce8-b276-8d6b4fa3adb7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="simple_scene\src">
-      <UniqueIdentifier>{44b8b8bd-40e0-47cb-b7b6-dbfca60b3f5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="simple_scene\headers">
-      <UniqueIdentifier>{4ae073e3-3536-4401-9394-bc901f87d80f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="tester">
       <UniqueIdentifier>{a9bebb86-dd57-4e07-8de3-a96334f7a2db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ProgramSetup">
+      <UniqueIdentifier>{14e4221f-e9f7-4163-a138-9cf2e0269918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProgramSetup\src">
+      <UniqueIdentifier>{5947624a-1a40-461b-9892-a900b0009b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ProgramSetup\headers">
+      <UniqueIdentifier>{e5208167-476e-4d91-9b8c-88ad69da3659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="external_dependencies">
+      <UniqueIdentifier>{43b73062-5d9e-4f41-8f9c-27c9fe6449c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{ce283b8e-fa24-4b56-881f-48642c819eb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\simple_scene">
+      <UniqueIdentifier>{4f8dd973-94fa-485b-9555-3d8055045bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\simple_scene\src">
+      <UniqueIdentifier>{6b06c127-f19f-47bf-a7e0-c437767a522a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="libs\simple_scene\headers">
+      <UniqueIdentifier>{61825798-52ad-4852-92d4-b3a496b963fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dependencies\include\glad.c">
-      <Filter>dependencies</Filter>
-    </ClCompile>
-    <ClCompile Include="dependencies\include\stb\stb_image.cpp">
-      <Filter>dependencies</Filter>
-    </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\simple_scene\Shader\Shader.cpp">
-      <Filter>simple_scene\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\simple_scene\Texture\Texture.cpp">
-      <Filter>simple_scene\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\simple_scene\TextureManager\TextureManager.cpp">
-      <Filter>simple_scene\src</Filter>
     </ClCompile>
     <ClCompile Include="src\Lab4_textured_box.cpp">
       <Filter>tester</Filter>
@@ -54,22 +51,55 @@
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp">
       <Filter>tester</Filter>
     </ClCompile>
+    <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp">
+      <Filter>Source Files\ProgramSetup\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp">
+      <Filter>Source Files\ProgramSetup\src</Filter>
+    </ClCompile>
+    <ClCompile Include="external_dependencies\include\glad.c">
+      <Filter>external_dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="external_dependencies\include\stb\stb_image.cpp">
+      <Filter>external_dependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\Shader\Shader.cpp">
+      <Filter>libs\simple_scene\src</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\Texture\Texture.cpp">
+      <Filter>libs\simple_scene\src</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp">
+      <Filter>libs\simple_scene\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\simple_scene\Shader\Shader.h">
-      <Filter>simple_scene\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\simple_scene\Texture\Texture.h">
-      <Filter>simple_scene\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\simple_scene\TextureManager\TextureManager.h">
-      <Filter>simple_scene\headers</Filter>
-    </ClInclude>
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
       <Filter>tester</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProgramSetup\CallbackManager\CallbackManager.h">
+      <Filter>Source Files\ProgramSetup\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h">
+      <Filter>Source Files\ProgramSetup\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h">
+      <Filter>Source Files\ProgramSetup\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ProgramSetup\ProgramSetup.h">
+      <Filter>Source Files\ProgramSetup</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\Shader\Shader.h">
+      <Filter>libs\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\Texture\Texture.h">
+      <Filter>libs\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h">
+      <Filter>libs\simple_scene\headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

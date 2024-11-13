@@ -1,7 +1,8 @@
 #include <GLCommon.h>
+#include "ProgramSetup/ProgramSetup.h"
 
-#include <Shader/Shader.h>
-#include <TextureManager/TextureManager.h>
+#include <simple_scene/Shader/Shader.h>
+#include <simple_scene/TextureManager/TextureManager.h>
 
 #include <Lab4_textured_box.h>
 
@@ -20,15 +21,16 @@ GLFWwindow *init_glfw_glad();
 unsigned int compile_shader();
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 void processInput(GLFWwindow *window);
-void render_routine(GLFWwindow *, Shader *, TextureManager*, GLuint, GLuint);
+void render_routine(GLFWwindow *, Shader *, TextureManager *, GLuint, GLuint);
 // void termination_routine(GLuint, GLuint, GLuint, Shader *);
 void termination_routine(RenderComponents *render_components, Shader *shader_program);
 
 // CONSTANTS
 // ---------------------------------------------------------------
 
-const unsigned int SCR_WIDTH = 600;
-const unsigned int SCR_HEIGHT = 600;
+const unsigned int SCREEN_WIDTH = 600;
+const unsigned int SCREEN_HEIGHT = 600;
+const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
 {
@@ -36,6 +38,7 @@ int main()
     GLFWwindow *window = init_glfw_glad();
     if (!window)
     {
+        std::cerr << "Failed at program initialization stage." << std::endl;
         return -1;
     }
 
@@ -74,7 +77,7 @@ int main()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthFunc(GL_LESS);
-        render_routine(window, &shader_program, &texture_manager ,VAO, n_inds);
+        render_routine(window, &shader_program, &texture_manager, VAO, n_inds);
     }
 
     // Terminate
@@ -93,36 +96,23 @@ int main()
  */
 GLFWwindow *init_glfw_glad()
 {
-    // glfw: initialize and configure
-    // ------------------------------
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    bool glfw_initialized = ProgramInit::initialize_glfw();
+    if (!glfw_initialized)
+        return NULL;
+    WindowFactory window_factory = WindowFactory();
+    GLFWwindow *window = window_factory.create_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_NAME);
 
-#ifdef __APPLE__
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-#endif
-
-    // glfw window creation
-    // --------------------
-    GLFWwindow *window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
-    if (window == NULL)
+    if (!window)
     {
-        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return NULL;
     }
-    glfwMakeContextCurrent(window);
+
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    // glad: load all OpenGL function pointers
-    // ---------------------------------------
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-    {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+    bool glad_initialized = ProgramInit::initialize_glad();
+    if (!glad_initialized)
         return NULL;
-    }
     return window;
 }
 

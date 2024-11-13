@@ -1,5 +1,5 @@
 #include <Lab4_textured_box.h>
-#include <Shader/shader.h>
+#include <simple_scene/Shader/shader.h>
 #include <iostream>
 
 RenderComponents build_box()

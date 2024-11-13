@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>.\dependencies\include;.\include;.\src\simple_scene;$(IncludePath)</IncludePath>
-    <LibraryPath>.\dependencies\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>.\external_dependencies\include;.\include;.\lib;$(IncludePath)</IncludePath>
+    <LibraryPath>.\external_dependencies\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,21 +133,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dependencies\include\glad.c" />
-    <ClCompile Include="dependencies\include\stb\stb_image.cpp" />
+    <ClCompile Include="external_dependencies\include\glad.c" />
+    <ClCompile Include="external_dependencies\include\stb\stb_image.cpp" />
+    <ClCompile Include="lib\simple_scene\Shader\Shader.cpp" />
+    <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="lib\simple_scene\Texture\Texture.cpp" />
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Lab4_textured_box.cpp" />
-    <ClCompile Include="src\simple_scene\Shader\Shader.cpp" />
-    <ClCompile Include="src\simple_scene\TextureManager\TextureManager.cpp" />
-    <ClCompile Include="src\simple_scene\Texture\Texture.cpp" />
+    <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
+    <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h" />
+    <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
+    <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
+    <ClInclude Include="lib\simple_scene\Texture\Texture.h" />
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h" />
-    <ClInclude Include="src\simple_scene\Shader\Shader.h" />
-    <ClInclude Include="src\simple_scene\TextureManager\TextureManager.h" />
-    <ClInclude Include="src\simple_scene\Texture\Texture.h" />
+    <ClInclude Include="src\ProgramSetup\CallbackManager\CallbackManager.h" />
+    <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
+    <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
+    <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

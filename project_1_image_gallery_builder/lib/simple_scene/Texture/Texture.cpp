@@ -1,4 +1,4 @@
-#include "Texture/Texture.h"
+#include "./Texture.h"
 Texture::Texture()
 {
     this->has_texture = 0;
