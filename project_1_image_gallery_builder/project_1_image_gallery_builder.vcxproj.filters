@@ -28,16 +28,16 @@
     <Filter Include="external_dependencies">
       <UniqueIdentifier>{43b73062-5d9e-4f41-8f9c-27c9fe6449c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libs">
+    <Filter Include="lib">
       <UniqueIdentifier>{ce283b8e-fa24-4b56-881f-48642c819eb2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libs\simple_scene">
+    <Filter Include="lib\simple_scene">
       <UniqueIdentifier>{4f8dd973-94fa-485b-9555-3d8055045bc9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libs\simple_scene\src">
+    <Filter Include="lib\simple_scene\src">
       <UniqueIdentifier>{6b06c127-f19f-47bf-a7e0-c437767a522a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libs\simple_scene\headers">
+    <Filter Include="lib\simple_scene\headers">
       <UniqueIdentifier>{61825798-52ad-4852-92d4-b3a496b963fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -64,13 +64,13 @@
       <Filter>external_dependencies</Filter>
     </ClCompile>
     <ClCompile Include="lib\simple_scene\Shader\Shader.cpp">
-      <Filter>libs\simple_scene\src</Filter>
+      <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
     <ClCompile Include="lib\simple_scene\Texture\Texture.cpp">
-      <Filter>libs\simple_scene\src</Filter>
+      <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp">
-      <Filter>libs\simple_scene\src</Filter>
+      <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -93,13 +93,13 @@
       <Filter>Source Files\ProgramSetup</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\Shader\Shader.h">
-      <Filter>libs\simple_scene\headers</Filter>
+      <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\Texture\Texture.h">
-      <Filter>libs\simple_scene\headers</Filter>
+      <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h">
-      <Filter>libs\simple_scene\headers</Filter>
+      <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
