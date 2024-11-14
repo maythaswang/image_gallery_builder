@@ -40,6 +40,9 @@
     <Filter Include="lib\simple_scene\headers">
       <UniqueIdentifier>{61825798-52ad-4852-92d4-b3a496b963fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib\lin_alg">
+      <UniqueIdentifier>{92534e0b-7b1e-4fd3-b29f-d2dbea140337}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -103,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h">
       <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\math_test.hpp">
+      <Filter>tester</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\lin_alg.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\mat.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\vec.h">
+      <Filter>lib\lin_alg</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

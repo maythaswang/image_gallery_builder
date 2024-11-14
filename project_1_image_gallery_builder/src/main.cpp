@@ -1,5 +1,6 @@
 #include <GLCommon.h>
 #include "ProgramSetup/ProgramSetup.h"
+#include "math_test.hpp"
 
 #include <simple_scene/Shader/Shader.h>
 #include <simple_scene/TextureManager/TextureManager.h>
@@ -31,6 +32,9 @@ const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
 {
+    // RUN TESTS <TMP>
+    test_vec3();
+
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
     if (!window)
@@ -122,7 +126,6 @@ GLFWwindow *init_glfw_glad()
  */
 void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager)
 {
-    // processInput(window);
     // callback_manager->process_input();
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
