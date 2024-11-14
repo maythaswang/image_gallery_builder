@@ -72,6 +72,9 @@
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp">
       <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ProgramSetup\CallbackManager\CallbackManager.cpp">
+      <Filter>Source Files\ProgramSetup\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">

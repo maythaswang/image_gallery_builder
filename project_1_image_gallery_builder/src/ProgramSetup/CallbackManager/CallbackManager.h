@@ -2,6 +2,8 @@
 #define CALLBACK_MANAGER_H
 #pragma once
 #include <GLCommon.h>
+#include <iostream>
+
 class CallbackManager
 {
 public:
@@ -28,16 +30,16 @@ private:
     void handle_input();
 
     /**
+     * @brief Listen to inputs
+     * 
+     */
+    void listen();
+
+    /**
      * @brief Set the window and camera aspect ratio when framebuffer gets resized.
      *
      */
     void set_window_resize_callback();
-
-    /**
-     * @brief Set the cursor position callback.
-     *
-     */
-    void set_cursor_position_callback();
 
     /**
      * @brief Set the keyboard callback.
