@@ -17,24 +17,35 @@ namespace lin_alg
         vec<3, T>() : x(0), y(0), z(0) {}
         vec<3, T>(T x, T y, T z) : x(x), y(y), z(z) {}
 
+        // Operators
         T operator[](int index) const
         {
-            if (index == 0)
+            switch (index)
+            {
+            case 0:
                 return x;
-            if (index == 1)
+            case 1:
                 return y;
-            if (index == 2)
+            case 2:
                 return z;
+            default:
+                throw std::out_of_range("Index out of range for vec<3, T>");
+            }
         }
 
         T &operator[](int index)
         {
-            if (index == 0)
+            switch (index)
+            {
+            case 0:
                 return x;
-            if (index == 1)
+            case 1:
                 return y;
-            if (index == 2)
+            case 2:
                 return z;
+            default:
+                throw std::out_of_range("Index out of range for vec<3, T>");
+            }
         }
 
         vec3 operator+(const vec3 &other) const
@@ -73,13 +84,13 @@ namespace lin_alg
             a.x * b.y - a.y * b.x);
     }
 
-    template<typename T>
-    vec<3,T> normalize(const vec<3,T > &a) 
+    template <typename T>
+    vec<3, T> normalize(const vec<3, T> &a)
     {
         T magnitude = std::sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
         if (magnitude > 0)
         {
-            return vec<3,T>(a.x / magnitude, a.y / magnitude, a.z / magnitude);
+            return vec<3, T>(a.x / magnitude, a.y / magnitude, a.z / magnitude);
         }
         return a; // return the same vec if magnitude is 0
         // TODO: Maybe throw errors??

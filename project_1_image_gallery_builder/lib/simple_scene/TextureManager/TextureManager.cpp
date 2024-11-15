@@ -17,7 +17,7 @@ bool TextureManager::create_texture(std::string file_path, GLuint lod, GLenum in
     {
         this->textures_storage.push_back(texture);
         this->texture_ids.push_back(texture.get_texture_id());
-        std::cout << "Successfully created_texture id: " << texture.get_texture_id() << std::endl;
+        // std::cout << "Successfully created_texture id: " << texture.get_texture_id() << std::endl;
         return 1;
     }
     return 0;

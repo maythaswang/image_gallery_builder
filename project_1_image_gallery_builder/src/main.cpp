@@ -34,6 +34,7 @@ int main()
 {
     // RUN TESTS <TMP>
     test_vec3();
+    test_mat3();
 
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
