@@ -32,12 +32,6 @@ const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
 {
-    // RUN TESTS <TMP>
-    test_vec3();
-    test_mat3();
-    test_vec4();
-    test_mat4();
-
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
     if (!window)

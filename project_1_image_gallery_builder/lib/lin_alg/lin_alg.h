@@ -1,3 +1,15 @@
+#ifndef LIN_ALG_H
+#define LIN_ALG_H
+#pragma once
+#include "./vec3.h"
+#include "./vec4.h"
+#include "./mat3.h"
+#include "./mat4.h"
+#include "./utils.h"
+
+#endif
+
+
 // Linear Algebra helpers
 /**
  * types
@@ -19,20 +31,5 @@
  *  -> dot
  *  -> cross
  * 
- * graphics helpers
- *  -> rotate
- *  -> radians
- *  -> lookat
- *  -> perspective
+
  */
-
-#ifndef LIN_ALG_H
-#define LIN_ALG_H
-#pragma once
-#include "./vec3.h"
-#include "./vec4.h"
-
-#include "./mat3.h"
-#include "./mat4.h"
-
-#endif

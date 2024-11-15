@@ -3,6 +3,7 @@
 #pragma once
 
 #include <cmath>
+#include <iostream>
 #include "./mat.h"
 #include "./vec.h"
 
@@ -100,10 +101,9 @@ namespace lin_alg
                 m[2][0] * scalar, m[2][1] * scalar, m[2][2] * scalar);
         }
 
-        // TODO: Fix this later
         /**
          * @brief Might need to do some transposing first before using mat multiply (if I am free maybe change to column base fully.)
-         *
+         * @note self is always on the left and other is on the right
          * @param other
          * @return mat3
          */
