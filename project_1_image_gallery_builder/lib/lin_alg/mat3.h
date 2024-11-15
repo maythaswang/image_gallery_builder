@@ -6,10 +6,6 @@
 #include "./mat.h"
 #include "./vec.h"
 
-/**
- * TODO: MAKE THIS COLUMN MAJOR
- */
-
 namespace lin_alg
 {
     // template <int L, typename T>
@@ -94,6 +90,12 @@ namespace lin_alg
                 m[2][0] * scalar, m[2][1] * scalar, m[2][2] * scalar);
         }
 
+        /**
+         * @brief Might need to do some transposing first before using mat multiply (if I am free maybe change to column base fully.)
+         * 
+         * @param other 
+         * @return mat3 
+         */
         mat3 operator*(const mat3 &other) const
         {
             mat3 result;
@@ -135,7 +137,7 @@ namespace lin_alg
         {
             for (int j = 0; j < 3; ++j)
             {
-                result[i][j] = m[j][i]; // Swap rows and columns
+                result[i][j] = m[j][i];
             }
         }
         return result;

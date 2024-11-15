@@ -6,7 +6,6 @@
 #include "./assert_helper.hpp"
 // Homemade scuffed tester
 
-
 void test_vec3_create()
 {
     lin_alg::vec3 foo;
@@ -16,20 +15,21 @@ void test_vec3_create()
 
 void test_vec3_access()
 {
-    lin_alg::vec3 foo(1,2,3);
-    if(foo.x != 1 || foo.y != 2 || foo.z != 3){
+    lin_alg::vec3 foo(1, 2, 3);
+    if (foo.x != 1 || foo.y != 2 || foo.z != 3)
+    {
         std::cout << "Failed: test_access_with_xyz" << '\n';
     }
 
     foo.x = 3;
     foo.y = 2;
-    foo.z = 1; 
-    assert_vec3(foo, lin_alg::vec3(3,2,1), "test_access_edit_with_xyz");
+    foo.z = 1;
+    assert_vec3(foo, lin_alg::vec3(3, 2, 1), "test_access_edit_with_xyz");
 
     foo[0] = 4;
-    foo[1] = 5; 
+    foo[1] = 5;
     foo[2] = 6;
-    assert_vec3(foo, lin_alg::vec3(4,5,6), "test_access_as_array");
+    assert_vec3(foo, lin_alg::vec3(4, 5, 6), "test_access_as_array");
 }
 
 void test_vec3_add()
@@ -91,6 +91,17 @@ void test_vec3_cross()
     assert_vec3(right, lin_alg::vec3(0.786005f, -0.422495f, 0.451326f), "test_cross_product_right_camera_2.");
 }
 
+void test_vec3_outer_product()
+{
+    lin_alg::vec3 axis(0.0f, 0.707107f, 0.707107f);
+    lin_alg::mat3 result = lin_alg::outer_product(axis, axis);
+    assert_mat3(result, lin_alg::mat3(0.0f, 0, 0, 0, 0.5f, 0.5f, 0, 0.5f, 0.5f), "test_outer_product_1");
+
+    axis = lin_alg::vec3(-0.965926f, -0.183013f, 0.183013f);
+    result = lin_alg::outer_product(axis, axis);
+    assert_mat3(result, lin_alg::mat3(0.933013f, 0.176777f, -0.176777f, 0.176777f, 0.0334936f, -0.0334936f, -0.176777f, -0.0334936f, 0.0334936f), "test_outer_product_2");
+}
+
 void test_vec3()
 {
     // I'll hold off on testing ivec3 since im getting lazy.
@@ -102,5 +113,6 @@ void test_vec3()
     test_vec3_scalar_mult();
     test_vec3_normalize();
     test_vec3_cross();
+    test_vec3_outer_product();
     std::cout << "Testing completed!" << '\n';
 }

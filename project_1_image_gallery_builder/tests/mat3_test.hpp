@@ -113,7 +113,7 @@ void test_mat3_transpose()
 
     lin_alg::mat3 c = lin_alg::transpose(a) * lin_alg::transpose(b);
 
-    assert_mat3(lin_alg::transpose(c), lin_alg::mat3(90, 114, 138, 54, 69, 84, 18, 24, 30), "test_mult_transpose");
+    assert_mat3(c, lin_alg::mat3(90, 54, 18, 114, 69, 24, 138, 84, 30), "test_mult_transpose");
 }
 
 void test_mat3()

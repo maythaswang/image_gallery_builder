@@ -29,7 +29,7 @@
 #ifndef LIN_ALG_H
 #define LIN_ALG_H
 #pragma once
-#include "./vec.h"
+#include "./vec3.h"
 #include "./mat3.h"
 
 #endif
