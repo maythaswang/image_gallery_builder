@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./src;./include;./tests;./lib/lin_alg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./src;./include;./tests/lin_alg_tests;./lib/lin_alg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,7 +158,12 @@
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />
-    <ClInclude Include="tests\math_test.hpp" />
+    <ClInclude Include="tests\lin_alg_test\assert_helper.hpp" />
+    <ClInclude Include="tests\lin_alg_test\mat3_test.hpp" />
+    <ClInclude Include="tests\lin_alg_test\mat4_test.hpp" />
+    <ClInclude Include="tests\lin_alg_test\math_test.hpp" />
+    <ClInclude Include="tests\lin_alg_test\vec3_test.hpp" />
+    <ClInclude Include="tests\lin_alg_test\vec4_test.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

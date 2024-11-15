@@ -85,6 +85,7 @@ namespace lin_alg
                 m[3][0] * scalar, m[3][1] * scalar, m[3][2] * scalar, m[3][3] * scalar);
         }
 
+        // TODO: FIX LATER
         mat4 operator*(const mat4 &other) const
         {
             mat4 result;

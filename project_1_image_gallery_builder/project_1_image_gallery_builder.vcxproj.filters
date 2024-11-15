@@ -43,6 +43,9 @@
     <Filter Include="lib\lin_alg">
       <UniqueIdentifier>{92534e0b-7b1e-4fd3-b29f-d2dbea140337}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tester\lin_alg_test">
+      <UniqueIdentifier>{a811aada-6208-41e9-a720-707e8cfa3789}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -107,9 +110,6 @@
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h">
       <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
-    <ClInclude Include="tests\math_test.hpp">
-      <Filter>tester</Filter>
-    </ClInclude>
     <ClInclude Include="lib\lin_alg\lin_alg.h">
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
@@ -118,6 +118,24 @@
     </ClInclude>
     <ClInclude Include="lib\lin_alg\vec.h">
       <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\assert_helper.hpp">
+      <Filter>tester\lin_alg_test</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\mat3_test.hpp">
+      <Filter>tester\lin_alg_test</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\mat4_test.hpp">
+      <Filter>tester\lin_alg_test</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\math_test.hpp">
+      <Filter>tester\lin_alg_test</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\vec3_test.hpp">
+      <Filter>tester\lin_alg_test</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\lin_alg_test\vec4_test.hpp">
+      <Filter>tester\lin_alg_test</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

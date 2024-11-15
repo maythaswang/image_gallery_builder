@@ -39,3 +39,19 @@ void assert_mat3(lin_alg::mat3 input, lin_alg::mat3 expected, std::string test_n
         }
     }
 }
+
+void assert_mat4(lin_alg::mat4 input, lin_alg::mat4 expected, std::string test_name)
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            if (std::abs(input[i][j] - expected[i][j]) > 1e-6)
+            {
+                std::string e = "Failed: " + test_name + "!!";
+                std::cout << e << '\n';
+                return;
+            }
+        }
+    }
+}

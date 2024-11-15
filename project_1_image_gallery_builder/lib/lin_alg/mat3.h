@@ -87,6 +87,7 @@ namespace lin_alg
                 m[2][0] * scalar, m[2][1] * scalar, m[2][2] * scalar);
         }
 
+        // TODO: Fix this later
         /**
          * @brief Might need to do some transposing first before using mat multiply (if I am free maybe change to column base fully.)
          * 
@@ -112,7 +113,7 @@ namespace lin_alg
 
         /**
          * @brief
-         * @note ASSUME COLUMN MAJOR WHEN DOING THIS
+         * @note ASSUME COLUMN MAJOR WHEN DOING THIS 
          * @example A * vec, do right multiply
          * @param v
          * @return vec<3, T>

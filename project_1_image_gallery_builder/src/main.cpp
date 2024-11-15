@@ -1,6 +1,6 @@
 #include <GLCommon.h>
 #include "ProgramSetup/ProgramSetup.h"
-#include "math_test.hpp"
+#include "../tests/lin_alg_test/math_test.hpp"
 
 #include <simple_scene/Shader/Shader.h>
 #include <simple_scene/TextureManager/TextureManager.h>
@@ -36,6 +36,7 @@ int main()
     test_vec3();
     test_mat3();
     test_vec4();
+    test_mat4();
 
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
