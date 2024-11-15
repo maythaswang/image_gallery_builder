@@ -17,6 +17,7 @@ namespace lin_alg
         // Constructors
         vec<3, T>() : x(0), y(0), z(0) {}
         vec<3, T>(T x, T y, T z) : x(x), y(y), z(z) {}
+        vec<3, T>(vec<4, T> v) : x(v.x), y(v.y), z(v.z) {}
 
         // Operators
         T operator[](int index) const
@@ -100,11 +101,10 @@ namespace lin_alg
     template <typename T>
     mat<3, T> outer_product(const vec<3, T> &a, const vec<3, T> &b)
     {
-        return  mat<3, T>(
+        return mat<3, T>(
             a.x * b.x, a.x * b.y, a.x * b.z,
             a.y * b.x, a.y * b.y, a.y * b.z,
-            a.z * b.x, a.z * b.y, a.z * b.z
-        );
+            a.z * b.x, a.z * b.y, a.z * b.z);
     }
 
     typedef vec<3, float> vec3;

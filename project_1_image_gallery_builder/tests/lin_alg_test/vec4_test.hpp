@@ -11,6 +11,10 @@ void test_vec4_create()
     lin_alg::vec4 foo;
     lin_alg::vec4 bar(0, 0, 0, 0);
     assert_vec4(foo, bar, "test_create_empty");
+
+    lin_alg::vec3 fuu(1, 2, 3);
+    lin_alg::vec4 buu(fuu);
+    assert_vec4(buu, lin_alg::vec4(1, 2, 3, 0), "test_create_from_vec3");
 }
 
 void test_vec4_access()
@@ -65,11 +69,11 @@ void test_vec4_scalar_mult()
 
 void test_vec4_normalize()
 {
-    lin_alg::vec4 a(1.0f, 2.0f, 3.0f,4.0f);
+    lin_alg::vec4 a(1.0f, 2.0f, 3.0f, 4.0f);
     assert_vec4(lin_alg::normalize(a), lin_alg::vec4(0.1825741f, 0.36514837167f, 0.5477225575f, 0.73029674334f), "test_normalize_positive");
 
-    a = lin_alg::vec4(0.0f, -0.0f, 0.0f,0);
-    assert_vec4(lin_alg::normalize(a), lin_alg::vec4(0, -0, 0,0), "test_normalize_zero"); // TODO: Maybe make a assert error function?
+    a = lin_alg::vec4(0.0f, -0.0f, 0.0f, 0);
+    assert_vec4(lin_alg::normalize(a), lin_alg::vec4(0, -0, 0, 0), "test_normalize_zero"); // TODO: Maybe make a assert error function?
 }
 
 void test_vec4()

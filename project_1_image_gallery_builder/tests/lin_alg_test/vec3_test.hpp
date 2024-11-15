@@ -11,6 +11,10 @@ void test_vec3_create()
     lin_alg::vec3 foo;
     lin_alg::vec3 bar(0, 0, 0);
     assert_vec3(foo, bar, "test_create_empty");
+
+    lin_alg::vec4 fuu(1, 2, 3, 4);
+    lin_alg::vec3 buu(fuu);
+    assert_vec3(buu, lin_alg::vec3(1, 2, 3), "test_create_from_vec4");
 }
 
 void test_vec3_access()

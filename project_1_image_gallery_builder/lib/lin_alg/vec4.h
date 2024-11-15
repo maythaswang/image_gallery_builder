@@ -17,6 +17,7 @@ namespace lin_alg
         // Constructors
         vec<4, T>() : x(0), y(0), z(0), w(0) {}
         vec<4, T>(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
+        vec<4, T>(vec<3, T> v) : x(v.x), y(v.y), z(v.z), w(0) {}
 
         // Operators
         T operator[](int index) const
@@ -99,8 +100,7 @@ namespace lin_alg
             a.x * b.x, a.x * b.y, a.x * b.z, a.x * b.w,
             a.y * b.x, a.y * b.y, a.y * b.z, a.y * b.w,
             a.z * b.x, a.z * b.y, a.z * b.z, a.z * b.w,
-            a.w * b.x, a.w * b.y, a.w * b.z, a.w * b.w
-        );
+            a.w * b.x, a.w * b.y, a.w * b.z, a.w * b.w);
     }
 
     typedef vec<4, float> vec4;

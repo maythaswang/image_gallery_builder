@@ -39,6 +39,14 @@ namespace lin_alg
             m[3][0] = a41; m[3][1] = a42; m[3][2] = a43; m[3][3] = a44;
         }
 
+        mat<4, T>(mat<3,T> other)
+        {
+            m[0][0] = other[0][0]; m[0][1] = other[0][1]; m[0][2] = other[0][2]; m[0][3] = 0;
+            m[1][0] = other[1][0]; m[1][1] = other[1][1]; m[1][2] = other[1][2]; m[1][3] = 0;
+            m[2][0] = other[2][0]; m[2][1] = other[2][1]; m[2][2] = other[2][2]; m[2][3] = 0;
+            m[3][0] = 0; m[3][1] = 0; m[3][2] = 0; m[3][3] = 1;
+        }
+
         const T(&operator[](int col) const)[4]
         {
             return m[col];

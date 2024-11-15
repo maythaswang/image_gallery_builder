@@ -16,6 +16,10 @@ void test_mat4_create()
     foo = lin_alg::mat4();
     bar = lin_alg::mat4(1.0f);
     assert_mat4(foo, bar, "test_create_I");
+
+    lin_alg::mat3 fuu(0,1,2,3,4,5,6,7,8);
+    lin_alg::mat4 buu(fuu);
+    assert_mat4(buu, lin_alg::mat4(0,1,2,0,3,4,5,0,6,7,8,0,0,0,0,1), "test_create_from_mat3");
 }
 
 void test_mat4_access()

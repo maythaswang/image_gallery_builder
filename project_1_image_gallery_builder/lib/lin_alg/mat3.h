@@ -44,7 +44,20 @@ namespace lin_alg
             m[2][2] = a33;
         }
 
-        const T(&operator[](int col) const)[3]
+        mat<3, T>(mat<4, T> other)
+        {
+            m[0][0] = other[0][0];
+            m[0][1] = other[0][1];
+            m[0][2] = other[0][2];
+            m[1][0] = other[1][0];
+            m[1][1] = other[1][1];
+            m[1][2] = other[1][2];
+            m[2][0] = other[2][0];
+            m[2][1] = other[2][1];
+            m[2][2] = other[2][2];
+        }
+
+        const T (&operator[](int col) const)[3]
         {
             return m[col];
         }
@@ -90,9 +103,9 @@ namespace lin_alg
         // TODO: Fix this later
         /**
          * @brief Might need to do some transposing first before using mat multiply (if I am free maybe change to column base fully.)
-         * 
-         * @param other 
-         * @return mat3 
+         *
+         * @param other
+         * @return mat3
          */
         mat3 operator*(const mat3 &other) const
         {
@@ -113,7 +126,7 @@ namespace lin_alg
 
         /**
          * @brief
-         * @note ASSUME COLUMN MAJOR WHEN DOING THIS 
+         * @note ASSUME COLUMN MAJOR WHEN DOING THIS
          * @example A * vec, do right multiply
          * @param v
          * @return vec<3, T>
