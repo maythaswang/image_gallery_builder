@@ -93,8 +93,7 @@ namespace lin_alg
         {
             return vec<3, T>(a.x / magnitude, a.y / magnitude, a.z / magnitude);
         }
-        return a; // return the same vec if magnitude is 0
-        // TODO: Maybe throw errors??
+        return a;
     }
 
     // Outer product of two vec3

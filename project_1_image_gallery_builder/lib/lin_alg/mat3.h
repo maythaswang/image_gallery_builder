@@ -8,9 +8,6 @@
 
 namespace lin_alg
 {
-    // template <int L, typename T>
-    // struct mat;
-
     template <typename T>
     struct mat<3, T>
     {
@@ -103,10 +100,10 @@ namespace lin_alg
             {
                 for (int j = 0; j < 3; ++j)
                 {
-                    result.m[i][j] = 0;
+                    result[i][j] = 0;
                     for (int k = 0; k < 3; ++k)
                     {
-                        result.m[i][j] += m[i][k] * other.m[k][j];
+                        result[i][j] += m[i][k] * other[k][j];
                     }
                 }
             }

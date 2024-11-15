@@ -14,7 +14,7 @@
  *  -> multiply
  * 
  * vector specific fn
- *  -> outer product *(haven't implemented  )
+ *  -> outer product 
  *  -> normalize
  *  -> dot
  *  -> cross
@@ -30,6 +30,9 @@
 #define LIN_ALG_H
 #pragma once
 #include "./vec3.h"
+#include "./vec4.h"
+
 #include "./mat3.h"
+#include "./mat4.h"
 
 #endif
