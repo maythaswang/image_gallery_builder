@@ -58,17 +58,17 @@ namespace lin_alg
         mat3 operator+(const mat3 &other) const
         {
             return mat3(
-                m[0][0] + other.m[0][0], m[0][1] + other.m[0][1], m[0][2] + other.m[0][2],
-                m[1][0] + other.m[1][0], m[1][1] + other.m[1][1], m[1][2] + other.m[1][2],
-                m[2][0] + other.m[2][0], m[2][1] + other.m[2][1], m[2][2] + other.m[2][2]);
+                m[0][0] + other[0][0], m[0][1] + other[0][1], m[0][2] + other[0][2],
+                m[1][0] + other[1][0], m[1][1] + other[1][1], m[1][2] + other[1][2],
+                m[2][0] + other[2][0], m[2][1] + other[2][1], m[2][2] + other[2][2]);
         }
 
         mat3 operator-(const mat3 &other) const
         {
             return mat3(
-                m[0][0] - other.m[0][0], m[0][1] - other.m[0][1], m[0][2] - other.m[0][2],
-                m[1][0] - other.m[1][0], m[1][1] - other.m[1][1], m[1][2] - other.m[1][2],
-                m[2][0] - other.m[2][0], m[2][1] - other.m[2][1], m[2][2] - other.m[2][2]);
+                m[0][0] - other[0][0], m[0][1] - other[0][1], m[0][2] - other[0][2],
+                m[1][0] - other[1][0], m[1][1] - other[1][1], m[1][2] - other[1][2],
+                m[2][0] - other[2][0], m[2][1] - other[2][1], m[2][2] - other[2][2]);
         }
 
         mat3 operator*(T scalar) const
