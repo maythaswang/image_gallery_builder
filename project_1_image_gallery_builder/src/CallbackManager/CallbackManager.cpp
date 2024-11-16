@@ -13,11 +13,12 @@ CallbackManager::CallbackManager(GLFWwindow *window, Camera *camera)
     this->set_mouse_click_callback();
 }
 
-void CallbackManager::process_input()
+void CallbackManager::poll_events()
 {
     if (this->is_focusing)
     {
         this->update_camera_rotate();
+        this->handle_key_move();
     }
 }
 
@@ -43,7 +44,7 @@ void CallbackManager::set_keyboard_callback()
                         }
                         break;
                     case GLFW_KEY_H: 
-                        std::cout << "HELP MESSAGE HERE" << std::endl;
+                        std::cout << "HELP MESSAGE HERE" << std::endl; // Do an inline or something
                         break;
                 }
             }
@@ -128,4 +129,27 @@ void CallbackManager::toggle_focusing()
 bool CallbackManager::get_is_focusing()
 {
     return this->is_focusing;
+}
+
+void CallbackManager::handle_key_move()
+{
+    // this so that compound keys can be handled.
+    if (glfwGetKey(this->window, GLFW_KEY_W))
+    {
+        this->camera->free_forward(0.5);
+    }
+    else if (glfwGetKey(this->window, GLFW_KEY_S))
+    {
+        this->camera->free_forward(-0.5);
+    }
+
+
+    if (glfwGetKey(this->window, GLFW_KEY_D))
+    {
+        this->camera->free_side_translate(0.5);
+    }
+    else if (glfwGetKey(this->window, GLFW_KEY_A))
+        this->camera->free_side_translate(-0.5);
+    {
+    }
 }

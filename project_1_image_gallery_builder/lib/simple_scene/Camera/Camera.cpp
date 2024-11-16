@@ -14,7 +14,7 @@ Camera::Camera()
     this->z_far = 2000000.0f;
 
     this->rotation_sensitivity = 0.2f;
-    this->zoom_sensitivity = 0.3f;
+    this->zoom_sensitivity = 0.1f;
     this->translation_sensitivity = 0.2f;
 
     this->build_view_matrix();
@@ -27,8 +27,8 @@ void Camera::translate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
     lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
     lin_alg::vec3 right = lin_alg::normalize(lin_alg::cross(direction, this->up));
 
-    GLfloat x_translate = -mouse_delta_x * this->translation_sensitivity * std::min(distance,100000000.0f);
-    GLfloat y_translate = mouse_delta_y * this->translation_sensitivity * std::min(distance,100000000.0f);
+    GLfloat x_translate = -mouse_delta_x * this->translation_sensitivity * std::min(distance, 100000000.0f);
+    GLfloat y_translate = mouse_delta_y * this->translation_sensitivity * std::min(distance, 100000000.0f);
     lin_alg::vec3 translation_vector = lin_alg::normalize(right) * x_translate + lin_alg::normalize(this->up) * y_translate;
 
     this->eye = this->eye + translation_vector;
@@ -39,14 +39,26 @@ void Camera::translate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
 void Camera::free_forward(GLfloat mouse_delta_y)
 {
     lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
-    GLfloat zoom_power = -mouse_delta_y * this->zoom_sensitivity;
+    GLfloat zoom_power = mouse_delta_y * this->zoom_sensitivity;
 
-    this->eye = this->eye + direction * zoom_power;
-    this->center = this->center + direction * zoom_power;
+    this->eye = this->eye + (direction * zoom_power);
+    this->center = this->center + (direction * zoom_power);
     this->build_view_matrix();
 }
 
+void Camera::free_side_translate(GLfloat speed)
+{
+    lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
+    lin_alg::vec3 right = lin_alg::normalize(lin_alg::cross(direction, this->up));
 
+    GLfloat zoom_power = speed * this->zoom_sensitivity;
+
+    this->eye = this->eye + (right * zoom_power);
+    this->center = this->center + (right * zoom_power);
+    this->build_view_matrix();
+}
+
+// Might need to implement quarternion to mitigate some issues 
 void Camera::free_rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
 {
     lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
@@ -55,55 +67,24 @@ void Camera::free_rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
     GLfloat pitch = mouse_delta_y * rotation_sensitivity; // along right-axis
     // roll: along the center-axis
 
-    // std::cout << "direction: " << direction.x << ' ' << direction.y << ' ' << direction.z << '\n';
-    // std::cout << "right: " << right.x << ' ' << right.y << ' ' << right.z << '\n';
-    // std::cout << "yaw: " << yaw << '\n';
-    // std::cout << "pitch: " << pitch << '\n';
-
     if (pitch > 89.9999f)
-        pitch = 89.9999f;
-    if (pitch < -89.9999f)
         pitch = -89.9999f;
+    if (pitch < -89.9999f)
+        pitch = 89.9999f;
 
     // Rotation Matrix
     lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
     lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(pitch), right);
     lin_alg::mat3 rotation = lin_alg::mat3(rotationPitch);
 
-    // std::cout << "rotationYaw: " << '\n';
-	// for(int i = 0; i < 4; i++){
-	// 	for(int j = 0; j < 4; j++){
-	// 		std::cout << rotationYaw[i][j] << ' ';
-	// 	}
-	// 	std::cout << '\n';
-	// }
-
-    // std::cout << "rotationPitch: " << '\n';
-	// for(int i = 0; i < 4; i++){
-	// 	for(int j = 0; j < 4; j++){
-	// 		std::cout << rotationYaw[i][j] << ' ';
-	// 	}
-	// 	std::cout << '\n';
-	// }
-
-    // std::cout << "rotation: " << '\n';
-	// for(int i = 0; i < 3; i++){
-	// 	for(int j = 0; j < 3; j++){
-	// 		std::cout << rotationYaw[i][j] << ' ';
-	// 	}
-	// 	std::cout << '\n';
-	// }
-
     lin_alg::vec3 eye_origin = this->eye - this->center;
     lin_alg::vec3 new_eye = rotation * eye_origin;
-    lin_alg::vec3 direction_to_old =  eye_origin - new_eye;
-    
+    lin_alg::vec3 direction_to_old = eye_origin - new_eye;
+
     this->center = this->center + direction_to_old;
     // this->up = rotation * this->up;  // So that there is no weird rotation
     this->build_view_matrix();
 }
-
-// The only mutator method avaliable for use as of now is SetAspect.
 
 void Camera::set_eye(lin_alg::vec3 eye)
 {

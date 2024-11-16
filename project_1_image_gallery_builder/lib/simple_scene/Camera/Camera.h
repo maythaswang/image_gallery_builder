@@ -40,6 +40,9 @@ public:
      */
     void free_rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y);
 
+    void free_side_translate(GLfloat);
+
+
     /**
      * @brief Set eye value
      *

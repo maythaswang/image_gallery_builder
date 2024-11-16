@@ -17,10 +17,10 @@ public:
     CallbackManager(GLFWwindow *, Camera *);
 
     /**
-     * @brief Main function for processing input
+     * @brief Main function for listening for input and call other methods
      *
      */
-    void process_input();
+    void poll_events();
 
     bool get_is_focusing();
     void toggle_focusing();
@@ -35,12 +35,6 @@ private:
 
     double mouse_pos_x;
     double mouse_pos_y;
-
-    /**
-     * @brief Handle each mouse and keyboard input accordingly.
-     *
-     */
-    void handle_input();
 
     /**
      * @brief Set the window and camera aspect ratio when framebuffer gets resized.
@@ -71,5 +65,7 @@ private:
      *
      */
     void set_mouse_click_callback();
+
+    void handle_key_move();
 };
 #endif
