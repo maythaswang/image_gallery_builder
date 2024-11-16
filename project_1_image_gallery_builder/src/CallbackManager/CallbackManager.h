@@ -39,12 +39,6 @@ private:
     void handle_input();
 
     /**
-     * @brief Listen to inputs
-     *
-     */
-    void listen();
-
-    /**
      * @brief Set the window and camera aspect ratio when framebuffer gets resized.
      * TODO: Maybe fix this
      */
@@ -56,12 +50,16 @@ private:
      */
     void set_keyboard_callback();
 
-    // ---------
-
     /**
      * @brief Set the cursor position callback.
      *
      */
     void set_cursor_position_callback();
+
+    /**
+     * @brief Update camera position
+     * 
+     */
+    void update_camera_rotate();
 };
 #endif

@@ -13,58 +13,12 @@ Camera::Camera()
     this->z_near = 0.1f;
     this->z_far = 2000000.0f;
 
-    this->rotation_sensitivity = 0.7f;
+    this->rotation_sensitivity = 5.0f;
     this->zoom_sensitivity = 0.3f;
     this->translation_sensitivity = 0.2f;
 
-    this->build_model_matrix();
     this->build_view_matrix();
     this->build_projection_matrix();
-}
-
-void Camera::rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
-{
-    lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
-    lin_alg::vec3 right = lin_alg::normalize(lin_alg::cross(direction, this->up));
-    GLfloat yaw = -mouse_delta_x * rotation_sensitivity;  // along up-axis
-    GLfloat pitch = mouse_delta_y * rotation_sensitivity; // along right-axis
-    // roll: along the center-axis
-
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
-
-    // Rotation Matrix
-    lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
-    lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(pitch), right);
-    lin_alg::mat3 rotation = lin_alg::mat3(rotationPitch);
-
-    this->eye = rotation * this->eye;
-    this->up = rotation * this->up;
-    this->build_view_matrix();
-}
-
-void Camera::zoom(GLfloat mouse_delta_y)
-{
-    lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
-    GLfloat zoom_power = -mouse_delta_y * this->zoom_sensitivity;
-
-    // Set zoom limit
-    lin_alg::vec3 new_eye = this->eye + direction * zoom_power;
-
-    lin_alg::vec3 etc = this->eye - this->center;
-    lin_alg::vec3 netc = new_eye - this->center;
-
-    bool x_in_bound = (etc[0] * netc[0]) > 0 || !etc[0];
-    bool y_in_bound = (etc[1] * netc[1]) > 0 || !etc[1];
-    bool z_in_bound = (etc[2] * netc[2]) > 0 || !etc[2];
-
-    if (x_in_bound && y_in_bound && z_in_bound)
-    {
-        this->eye = new_eye;
-        this->build_view_matrix();
-    }
 }
 
 void Camera::translate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
@@ -159,11 +113,6 @@ void Camera::set_z_far(GLfloat z_far)
     this->z_far = z_far;
 }
 
-lin_alg::mat4 Camera::get_model_matrix()
-{
-    return this->model_mat;
-}
-
 lin_alg::mat4 Camera::get_view_matrix()
 {
     return this->view_mat;
@@ -172,11 +121,6 @@ lin_alg::mat4 Camera::get_view_matrix()
 lin_alg::mat4 Camera::get_projection_matrix()
 {
     return this->projection_mat;
-}
-
-void Camera::build_model_matrix()
-{
-    this->model_mat = lin_alg::mat4(1.0f);
 }
 
 void Camera::build_view_matrix()

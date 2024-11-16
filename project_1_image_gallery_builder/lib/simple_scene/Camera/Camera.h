@@ -20,20 +20,6 @@ public:
     Camera();
 
     /**
-     * @brief Zoom In-Out based on mouse drag.
-     * @param newY y position in reference to the original point
-     */
-    void zoom(GLfloat);
-
-    /**
-     * @brief Rotate camera based on mouse drag.
-     * 
-     * @param mouse_delta_x change in x position of mouse
-     * @param mouse_delta_y change in y position of mouse
-     */
-    void rotate(GLfloat, GLfloat);
-
-    /**
      * @brief Translate the camera based on mouse drag.
      * @note The translation is done in the direction of up and right only.
      */
@@ -75,13 +61,6 @@ public:
      */
     void set_up(lin_alg::vec3);
 
-    // /**
-    //  * @brief Set fovy value
-    //  *
-    //  * @param fovy field of view y 
-    //  */
-    // void set_fovy(GLfloat);
-
     /**
      * @brief Set fovy value
      *
@@ -112,13 +91,6 @@ public:
     void set_z_far(GLfloat);
 
     /**
-     * @brief Get the Model Matrix
-     *
-     * @return Model Matrix
-     */
-    lin_alg::mat4 get_model_matrix();
-
-    /**
      * @brief Get the View Matrix
      *
      * @return View Matrix
@@ -143,20 +115,12 @@ private:
     GLfloat z_near;
     GLfloat z_far;
 
-    lin_alg::mat4 model_mat;
     lin_alg::mat4 view_mat;
     lin_alg::mat4 projection_mat;
 
     GLfloat rotation_sensitivity;
     GLfloat translation_sensitivity;
     GLfloat zoom_sensitivity;
-
-    /**
-     * @brief Build model matrix.
-     *
-     * @return Model Matrix
-     */
-    void build_model_matrix();
 
     /**
      * @brief Build view matrix based on (eye, center, up) that has been previously stored.

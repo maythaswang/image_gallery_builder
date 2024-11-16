@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="tester">
-      <UniqueIdentifier>{a9bebb86-dd57-4e07-8de3-a96334f7a2db}</UniqueIdentifier>
-    </Filter>
     <Filter Include="external_dependencies">
       <UniqueIdentifier>{43b73062-5d9e-4f41-8f9c-27c9fe6449c1}</UniqueIdentifier>
     </Filter>
@@ -34,16 +31,22 @@
     <Filter Include="lib\lin_alg">
       <UniqueIdentifier>{92534e0b-7b1e-4fd3-b29f-d2dbea140337}</UniqueIdentifier>
     </Filter>
-    <Filter Include="tester\lin_alg_test">
+    <Filter Include="utils">
+      <UniqueIdentifier>{934af96c-4bd1-49a5-93b1-5daff9d6282f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\tester">
+      <UniqueIdentifier>{a9bebb86-dd57-4e07-8de3-a96334f7a2db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\tester\lin_alg_test">
       <UniqueIdentifier>{a811aada-6208-41e9-a720-707e8cfa3789}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ProgramSetup">
+    <Filter Include="utils\ProgramSetup">
       <UniqueIdentifier>{14e4221f-e9f7-4163-a138-9cf2e0269918}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ProgramSetup\src">
+    <Filter Include="utils\ProgramSetup\src">
       <UniqueIdentifier>{5947624a-1a40-461b-9892-a900b0009b07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ProgramSetup\headers">
+    <Filter Include="utils\ProgramSetup\headers">
       <UniqueIdentifier>{e5208167-476e-4d91-9b8c-88ad69da3659}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -52,16 +55,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Lab4_textured_box.cpp">
-      <Filter>tester</Filter>
+      <Filter>utils\tester</Filter>
     </ClCompile>
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp">
-      <Filter>tester</Filter>
+      <Filter>utils\tester</Filter>
     </ClCompile>
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp">
-      <Filter>ProgramSetup\src</Filter>
+      <Filter>utils\ProgramSetup\src</Filter>
     </ClCompile>
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp">
-      <Filter>ProgramSetup\src</Filter>
+      <Filter>utils\ProgramSetup\src</Filter>
     </ClCompile>
     <ClCompile Include="external_dependencies\include\glad.c">
       <Filter>external_dependencies</Filter>
@@ -93,16 +96,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
-      <Filter>tester</Filter>
+      <Filter>utils\tester</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h">
-      <Filter>ProgramSetup\headers</Filter>
+      <Filter>utils\ProgramSetup\headers</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h">
-      <Filter>ProgramSetup\headers</Filter>
+      <Filter>utils\ProgramSetup\headers</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h">
-      <Filter>ProgramSetup</Filter>
+      <Filter>utils\ProgramSetup</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\Shader\Shader.h">
       <Filter>lib\simple_scene\headers</Filter>
@@ -123,22 +126,22 @@
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\assert_helper.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\mat3_test.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\mat4_test.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\math_test.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\vec3_test.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="tests\lin_alg_test\vec4_test.hpp">
-      <Filter>tester\lin_alg_test</Filter>
+      <Filter>utils\tester\lin_alg_test</Filter>
     </ClInclude>
     <ClInclude Include="lib\lin_alg\mat3.h">
       <Filter>lib\lin_alg</Filter>
@@ -156,7 +159,7 @@
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
     <ClInclude Include="include\Lab4_textured_box.h">
-      <Filter>tester</Filter>
+      <Filter>utils\tester</Filter>
     </ClInclude>
     <ClInclude Include="src\CallbackManager\CallbackManager.h">
       <Filter>Header Files</Filter>

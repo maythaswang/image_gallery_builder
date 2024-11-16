@@ -126,7 +126,7 @@ GLFWwindow *init_glfw_glad()
  */
 void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager, Camera * camera)
 {
-    // callback_manager->process_input();
+    callback_manager->process_input();
 
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
