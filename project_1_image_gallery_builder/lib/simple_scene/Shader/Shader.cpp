@@ -108,3 +108,8 @@ void Shader::set_int_arr(const std::string &name, int count, int *value)
 {
     glUniform1iv(glGetUniformLocation(this->shader_id, name.c_str()), count, value);
 }
+
+void Shader::set_mat4(const std::string &name, const lin_alg::mat4 &value)
+{
+    glUniformMatrix4fv(glGetUniformLocation(this->shader_id, name.c_str()), 1, GL_TRUE, &value[0][0]);
+}

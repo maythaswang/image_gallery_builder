@@ -5,6 +5,9 @@
 #include "./vec.h"
 #include "./mat.h"
 
+#include <stdexcept>
+#include <cmath>
+
 namespace lin_alg
 {
     template <typename T>

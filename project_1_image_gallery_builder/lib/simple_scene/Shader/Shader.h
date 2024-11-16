@@ -3,10 +3,13 @@
 #pragma once
 
 #include "../SS_GLCOMMON.h"
+#include <lin_alg/lin_alg.h>
 #include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+
+// #include <lin_alg/lin_alg.h>
 
 /**
  * @brief Store, Initialize, Link, Compile, Destroy Shaders.
@@ -66,7 +69,7 @@ public:
     void set_float(const std::string &name, float value);
 
     void set_int_arr(const std::string &name, int, int*);
-
+    void set_mat4(const std::string &name, const lin_alg::mat4 &);
 private:
     GLuint shader_id;
     bool has_program;

@@ -7,6 +7,8 @@
 
 #include <Lab4_textured_box.h>
 
+#include "./Camera/Camera.h"
+
 #include <iostream>
 
 // TO RUN DIFFERENT FILES, PLEASE UNCOMMENT ONE OF THE LINES BELOW
@@ -31,7 +33,13 @@ const unsigned int SCREEN_HEIGHT = 600;
 const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
-{
+{   
+    //TEST
+    test_mat3();
+    test_mat4();
+    test_vec3();
+    test_vec4();
+
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
     if (!window)
@@ -41,6 +49,11 @@ int main()
     }
 
     CallbackManager callback_manager = CallbackManager(window);
+    
+    // Setup Camera
+    // Camera camera = Camera();    
+
+
 
     // Setup Shader
     Shader shader_program = Shader();

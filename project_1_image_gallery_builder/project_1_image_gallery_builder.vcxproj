@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>./src;./include;./tests/lin_alg_tests;./lib/lin_alg;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>./src;./include;./tests/lin_alg_tests;./lib/lin_alg;./lib/simple_scene;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,9 +147,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h" />
+    <ClInclude Include="include\Lab4_textured_box.h" />
     <ClInclude Include="lib\lin_alg\lin_alg.h" />
     <ClInclude Include="lib\lin_alg\mat.h" />
+    <ClInclude Include="lib\lin_alg\mat3.h" />
+    <ClInclude Include="lib\lin_alg\mat4.h" />
+    <ClInclude Include="lib\lin_alg\utils.h" />
     <ClInclude Include="lib\lin_alg\vec.h" />
+    <ClInclude Include="lib\lin_alg\vec3.h" />
+    <ClInclude Include="lib\lin_alg\vec4.h" />
     <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />

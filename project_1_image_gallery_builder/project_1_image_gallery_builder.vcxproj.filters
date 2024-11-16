@@ -137,5 +137,23 @@
     <ClInclude Include="tests\lin_alg_test\vec4_test.hpp">
       <Filter>tester\lin_alg_test</Filter>
     </ClInclude>
+    <ClInclude Include="lib\lin_alg\mat3.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\mat4.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\utils.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\vec3.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\lin_alg\vec4.h">
+      <Filter>lib\lin_alg</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Lab4_textured_box.h">
+      <Filter>tester</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

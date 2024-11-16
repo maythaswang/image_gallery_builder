@@ -9,7 +9,7 @@
 
 #endif
 
-
+// NOTE- WILL NEED TO TRANSPOSE WHEN SENDING TO SHADER 
 // Linear Algebra helpers
 /**
  * types
