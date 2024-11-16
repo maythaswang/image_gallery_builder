@@ -43,6 +43,9 @@ int main()
     // Setup Camera
     Camera camera = Camera();
 
+    Camera test_cam = Camera();
+    test_cam.free_rotate(-15,-15);
+
     CallbackManager callback_manager = CallbackManager(window, &camera);
 
     // Setup Shader
@@ -113,6 +116,7 @@ GLFWwindow *init_glfw_glad()
     bool glad_initialized = ProgramInit::initialize_glad();
     if (!glad_initialized)
         return NULL;
+
     return window;
 }
 

@@ -8,30 +8,29 @@ namespace lin_alg
         return degree * (PI_F / 180.0f);
     }
 
-    mat4 rotate(mat4 const &m, const float degrees, const vec3 &axis)
+    mat4 rotate(mat4 const &m, const float rad, const vec3 &axis)
     {
         // Rodrigues Rotation Formula
         // cos(θ)I  + (1-cos(θ)(aa^T) + sin(θ)A
 
         vec3 axis_n = normalize(axis);
-        const float theta = radians(degrees);
 
         mat3 identity = mat3(1.0);
-        mat3 aaT = transpose(mat3(outer_product(axis_n, axis_n)));
+        mat3 aaT = outer_product(axis_n, axis_n);
 
         // ※ cos(θ) is unchanged
         // Unchanged aa^T(1-cos(θ))
-        mat3 component_along_a = aaT * (1 - cos(theta));
+        mat3 component_along_a = aaT * (1 - cos(rad));
 
         // Rotated Component (A * sin(θ))
-        float x = axis.x;
-        float y = axis.y;
-        float z = axis.z;
+        float x = axis_n.x;
+        float y = axis_n.y;
+        float z = axis_n.z;
         mat3 mat_A = mat3(0, -z, y, z, 0, -x, -y, x, 0);
-        mat3 component_perpendicular_a = mat_A * sin(theta);
-        mat3 v_rot = identity * cos(theta) + component_along_a + component_perpendicular_a;
+        mat3 component_perpendicular_a = mat_A * sin(rad);
+        mat3 v_rot = identity * cos(rad) + component_along_a + component_perpendicular_a;
 
-        mat4 m_out = mat4(v_rot);
+        mat4 m_out = mat4(v_rot * mat3(m));
         m_out[0][3] = m[0][3];
         m_out[1][3] = m[1][3];
         m_out[2][3] = m[2][3];

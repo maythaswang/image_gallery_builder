@@ -50,8 +50,7 @@ void CallbackManager::set_window_resize_callback()
                                        if (callback_manager)
                                            callback_manager->camera->set_aspect(width, height);
 
-                                       glViewport(0, 0, width, height);
-                                   });
+                                       glViewport(0, 0, width, height); });
 }
 
 void CallbackManager::set_cursor_position_callback()
@@ -72,9 +71,10 @@ void CallbackManager::update_camera_rotate()
 {
     double delta_mouse_pos_x = this->mouse_pos_x - this->old_mouse_pos_x;
     double delta_mouse_pos_y = this->mouse_pos_y - this->old_mouse_pos_y;
-
-    this->camera->free_rotate(delta_mouse_pos_x, delta_mouse_pos_y);
-
+    if (delta_mouse_pos_x != 0 || delta_mouse_pos_y != 0)
+    {
+        this->camera->free_rotate(delta_mouse_pos_x, delta_mouse_pos_y);
+    }
     this->old_mouse_pos_x = this->mouse_pos_x;
     this->old_mouse_pos_y = this->mouse_pos_y;
 }
