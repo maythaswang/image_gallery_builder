@@ -4,16 +4,21 @@ CallbackManager::CallbackManager(GLFWwindow *window, Camera *camera)
 {
     this->window = window;
     this->camera = camera;
+    this->is_focusing = 0;
 
     // Set callbacks
     this->set_window_resize_callback();
     this->set_keyboard_callback();
     this->set_cursor_position_callback();
+    this->set_mouse_click_callback();
 }
 
 void CallbackManager::process_input()
 {
-    this->update_camera_rotate();
+    if (this->is_focusing)
+    {
+        this->update_camera_rotate();
+    }
 }
 
 void CallbackManager::set_keyboard_callback()
@@ -26,8 +31,16 @@ void CallbackManager::set_keyboard_callback()
         if (callback_manager){
             if (action == GLFW_PRESS){
                 switch(key){
-                    case GLFW_KEY_ESCAPE: 
-                        glfwSetWindowShouldClose(callback_manager->window, true);
+                    case GLFW_KEY_ESCAPE:
+                        if(callback_manager->get_is_focusing()) 
+                        {
+                            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+                            callback_manager->toggle_focusing();
+                        } 
+                        else
+                        {
+                            glfwSetWindowShouldClose(callback_manager->window, true);
+                        }
                         break;
                     case GLFW_KEY_H: 
                         std::cout << "HELP MESSAGE HERE" << std::endl;
@@ -77,4 +90,38 @@ void CallbackManager::update_camera_rotate()
     }
     this->old_mouse_pos_x = this->mouse_pos_x;
     this->old_mouse_pos_y = this->mouse_pos_y;
+}
+
+void CallbackManager::set_mouse_click_callback()
+{
+    /**
+     * The idea is we start with a screen with cursor (non-focus mode).
+     * - In this mode we cannot move
+     * To focus, we click any mouse button
+     * - This allows rotation and stuffs
+     * - If we press esc in this mode, we return to the non-focus mode where another esc click will leave the app
+     */
+    glfwSetWindowUserPointer(this->window, reinterpret_cast<void *>(this));
+
+    glfwSetMouseButtonCallback(this->window, [](GLFWwindow *window, int button, int action, int mods)
+                               {
+        CallbackManager *callback_manager = reinterpret_cast<CallbackManager *>(glfwGetWindowUserPointer(window));
+        if (callback_manager)
+        {
+            if(action == GLFW_PRESS && !callback_manager->get_is_focusing())
+            {
+                callback_manager->toggle_focusing();
+                glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            }
+        } });
+}
+
+void CallbackManager::toggle_focusing()
+{
+    this->is_focusing = !this->is_focusing;
+}
+
+bool CallbackManager::get_is_focusing()
+{
+    return this->is_focusing;
 }

@@ -22,9 +22,13 @@ public:
      */
     void process_input();
 
+    bool get_is_focusing();
+    void toggle_focusing();
+
 private:
     GLFWwindow *window;
     Camera *camera;
+    bool is_focusing;
 
     double old_mouse_pos_x;
     double old_mouse_pos_y;
@@ -58,8 +62,14 @@ private:
 
     /**
      * @brief Update camera position
-     * 
+     *
      */
     void update_camera_rotate();
+
+    /**
+     * @brief Set the mouse click callback
+     *
+     */
+    void set_mouse_click_callback();
 };
 #endif

@@ -55,51 +55,51 @@ void Camera::free_rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
     GLfloat pitch = mouse_delta_y * rotation_sensitivity; // along right-axis
     // roll: along the center-axis
 
-    std::cout << "direction: " << direction.x << ' ' << direction.y << ' ' << direction.z << '\n';
-    std::cout << "right: " << right.x << ' ' << right.y << ' ' << right.z << '\n';
-    std::cout << "yaw: " << yaw << '\n';
-    std::cout << "pitch: " << pitch << '\n';
+    // std::cout << "direction: " << direction.x << ' ' << direction.y << ' ' << direction.z << '\n';
+    // std::cout << "right: " << right.x << ' ' << right.y << ' ' << right.z << '\n';
+    // std::cout << "yaw: " << yaw << '\n';
+    // std::cout << "pitch: " << pitch << '\n';
 
-    if (pitch > 89.0f)
-        pitch = 89.0f;
-    if (pitch < -89.0f)
-        pitch = -89.0f;
+    if (pitch > 89.9999f)
+        pitch = 89.9999f;
+    if (pitch < -89.9999f)
+        pitch = -89.9999f;
 
     // Rotation Matrix
     lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
     lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(pitch), right);
     lin_alg::mat3 rotation = lin_alg::mat3(rotationPitch);
 
-    std::cout << "rotationYaw: " << '\n';
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			std::cout << rotationYaw[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
+    // std::cout << "rotationYaw: " << '\n';
+	// for(int i = 0; i < 4; i++){
+	// 	for(int j = 0; j < 4; j++){
+	// 		std::cout << rotationYaw[i][j] << ' ';
+	// 	}
+	// 	std::cout << '\n';
+	// }
 
-    std::cout << "rotationPitch: " << '\n';
-	for(int i = 0; i < 4; i++){
-		for(int j = 0; j < 4; j++){
-			std::cout << rotationYaw[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
+    // std::cout << "rotationPitch: " << '\n';
+	// for(int i = 0; i < 4; i++){
+	// 	for(int j = 0; j < 4; j++){
+	// 		std::cout << rotationYaw[i][j] << ' ';
+	// 	}
+	// 	std::cout << '\n';
+	// }
 
-    std::cout << "rotation: " << '\n';
-	for(int i = 0; i < 3; i++){
-		for(int j = 0; j < 3; j++){
-			std::cout << rotationYaw[i][j] << ' ';
-		}
-		std::cout << '\n';
-	}
+    // std::cout << "rotation: " << '\n';
+	// for(int i = 0; i < 3; i++){
+	// 	for(int j = 0; j < 3; j++){
+	// 		std::cout << rotationYaw[i][j] << ' ';
+	// 	}
+	// 	std::cout << '\n';
+	// }
 
     lin_alg::vec3 eye_origin = this->eye - this->center;
     lin_alg::vec3 new_eye = rotation * eye_origin;
     lin_alg::vec3 direction_to_old =  eye_origin - new_eye;
     
     this->center = this->center + direction_to_old;
-    this->up = rotation * this->up;
+    // this->up = rotation * this->up;  // So that there is no weird rotation
     this->build_view_matrix();
 }
 
