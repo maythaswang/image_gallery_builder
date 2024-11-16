@@ -17,12 +17,27 @@ namespace lin_alg
 
         T x, y, z, w;
 
-        // Constructors
+        /**
+         * @brief Construct a new vec<4, T> object to value <0,0,0,0>
+         *
+         */
         vec<4, T>() : x(0), y(0), z(0), w(0) {}
+
+        /**
+         * @brief Construct a new vec<4, T> object with the values provided
+         *
+         */
         vec<4, T>(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
+
+        /**
+         * @brief Construct a new vec<4, T> object from vec<3, T> by adding a trialing 0 as `w`
+         *
+         * @param v
+         */
         vec<4, T>(vec<3, T> v) : x(v.x), y(v.y), z(v.z), w(0) {}
 
         // Operators
+
         T operator[](int index) const
         {
             switch (index)
@@ -95,7 +110,14 @@ namespace lin_alg
         return a;
     }
 
-    // Outer product of two vec4
+    /**
+     * @brief Calculate the outer product of two vectors
+     *
+     * @tparam T
+     * @param a
+     * @param b
+     * @return mat<4, T>
+     */
     template <typename T>
     mat<4, T> outer_product(const vec<4, T> &a, const vec<4, T> &b)
     {
@@ -106,6 +128,10 @@ namespace lin_alg
             a.w * b.x, a.w * b.y, a.w * b.z, a.w * b.w);
     }
 
+    /**
+     * @brief vec4 of type float
+     *
+     */
     typedef vec<4, float> vec4;
     typedef vec<4, int> ivec4;
 }

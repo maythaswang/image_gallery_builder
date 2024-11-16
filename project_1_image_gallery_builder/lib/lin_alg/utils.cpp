@@ -47,7 +47,7 @@ namespace lin_alg
         vec3 eye_to_center = eye - center;
 
         vec3 w = normalize(eye_to_center);
-        vec3 u = normalize(cross(normalize(up), w)); // cross product return vec3 if orthogonal
+        vec3 u = normalize(cross(normalize(up), w)); 
         vec3 v = cross(w, u);
 
         // Rotation matrix

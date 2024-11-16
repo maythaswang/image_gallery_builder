@@ -9,6 +9,7 @@
 
 namespace lin_alg
 {
+
     template <typename T>
     struct mat<3, T>
     {
@@ -17,19 +18,31 @@ namespace lin_alg
 
         T m[3][3];
 
-        // Constructors
+        /**
+         * @brief Construct a mat<3,T> Identity Matrix
+         *
+         */
         mat<3, T>()
         {
             m[0][0] = m[1][1] = m[2][2] = 1;
             m[0][1] = m[0][2] = m[1][0] = m[1][2] = m[2][0] = m[2][1] = 0;
         }
 
+        /**
+         * @brief Construct a mat<3,T> Identity Matrix scaled by scalar value
+         *
+         * @param scalar
+         */
         mat<3, T>(T scalar)
         {
             m[0][0] = m[1][1] = m[2][2] = scalar;
             m[0][1] = m[0][2] = m[1][0] = m[1][2] = m[2][0] = m[2][1] = 0;
         }
 
+        /**
+         * @brief Construct a new mat<3,T> object with the corresponding values
+         *
+         */
         mat<3, T>(T a11, T a12, T a13,
                   T a21, T a22, T a23,
                   T a31, T a32, T a33)
@@ -45,6 +58,12 @@ namespace lin_alg
             m[2][2] = a33;
         }
 
+        /**
+         * @brief Construct a new mat<3,T> object from mat4
+         * @note simply truncate mat<4,T>
+         *
+         * @param other
+         */
         mat<3, T>(mat<4, T> other)
         {
             m[0][0] = other[0][0];
@@ -101,12 +120,6 @@ namespace lin_alg
                 m[2][0] * scalar, m[2][1] * scalar, m[2][2] * scalar);
         }
 
-        /**
-         * @brief Might need to do some transposing first before using mat multiply (if I am free maybe change to column base fully.)
-         * @note self is always on the left and other is on the right
-         * @param other
-         * @return mat3
-         */
         mat3 operator*(const mat3 &other) const
         {
             mat3 result;
@@ -125,9 +138,8 @@ namespace lin_alg
         }
 
         /**
-         * @brief
-         * @note ASSUME COLUMN MAJOR WHEN DOING THIS
-         * @example A * vec, do right multiply
+         * @brief Right multiply
+         * @note A * vec
          * @param v
          * @return vec<3, T>
          */
@@ -140,6 +152,13 @@ namespace lin_alg
         }
     };
 
+    /**
+     * @brief Transpose mat3
+     *
+     * @tparam T
+     * @param m
+     * @return mat<3, T>
+     */
     template <typename T>
     mat<3, T> transpose(const mat<3, T> &m)
     {
@@ -154,6 +173,10 @@ namespace lin_alg
         return result;
     }
 
+    /**
+     * @brief 3x3 float matrix stored in row-major form
+     *
+     */
     typedef mat<3, float> mat3;
 
 }

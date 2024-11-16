@@ -16,12 +16,26 @@ namespace lin_alg
 
         T x, y, z;
 
-        // Constructors
+        /**
+         * @brief Construct a new vec<3, T> object to value <0,0,0>
+         *
+         */
         vec<3, T>() : x(0), y(0), z(0) {}
+
+        /**
+         * @brief Construct a new vec<3, T> object with the values provided
+         */
         vec<3, T>(T x, T y, T z) : x(x), y(y), z(z) {}
+
+        /**
+         * @brief Construct a new vec<3, T> object from vec<4,T> by truncating the last value
+         *
+         * @param v
+         */
         vec<3, T>(vec<4, T> v) : x(v.x), y(v.y), z(v.z) {}
 
         // Operators
+
         T operator[](int index) const
         {
             switch (index)
@@ -72,7 +86,7 @@ namespace lin_alg
             return vec3(x * scalar, y * scalar, z * scalar);
         }
     };
-
+    
     template <typename T>
     T dot(const vec<3, T> &a, const vec<3, T> &b)
     {
@@ -99,7 +113,14 @@ namespace lin_alg
         return a;
     }
 
-    // Outer product of two vec3
+    /**
+     * @brief Calculate the outer product of two vectors 
+     * 
+     * @tparam T 
+     * @param a 
+     * @param b 
+     * @return mat<3, T> 
+     */
     template <typename T>
     mat<3, T> outer_product(const vec<3, T> &a, const vec<3, T> &b)
     {
@@ -109,6 +130,10 @@ namespace lin_alg
             a.z * b.x, a.z * b.y, a.z * b.z);
     }
 
+    /**
+     * @brief vec3 of type float
+     * 
+     */
     typedef vec<3, float> vec3;
     typedef vec<3, int> ivec3;
 }

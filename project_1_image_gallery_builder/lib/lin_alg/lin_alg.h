@@ -7,29 +7,40 @@
 #include "./mat4.h"
 #include "./utils.h"
 
-#endif
-
-// NOTE- WILL NEED TO TRANSPOSE WHEN SENDING TO SHADER 
-// Linear Algebra helpers
 /**
- * types
- *  -> vec 3
- *      -> maybe vec 4?
- *  -> mat 3
- *      -> allow conversion to mat4
- *  -> mat 4
- *      -> allow conversion to mat3
- *
- * functions
- *  -> add
- *  -> subtract
- *  -> multiply
+ * LIBRARY FOR BASIC LINEAR ALGEBRA OPERATIONS FOR GRAPHICS PROGRAMMING
+ * Use lin_alg namespace to access types and functions provided
+ * The matrices are formatted in ROW-MAJOR Form. 
  * 
- * vector specific fn
- *  -> outer product 
- *  -> normalize
- *  -> dot
- *  -> cross
+ * NOTE - You will need to transpose the matrix when sending this to shader
  * 
-
+ * The types that are provided includes 
+ * - vec3
+ * - vec4
+ * - mat3 
+ * - mat4 
+ * 
+ * Along basic functionalities to help with graphics works including 
+ * - vec, mat addition
+ * - vec, mat subtraction
+ * - vec, mat scalar multiplication
+ * 
+ * - matrix multiplication 
+ * - outer product
+ * - normalize
+ * - dot product
+ * - cross product 
+ * - transpose
+ * 
+ * - radians
+ * - rotate
+ * - look_at
+ * - perspective
+ * - scale
+ * - translate
  */
+namespace lin_alg
+{
+    
+} 
+#endif
