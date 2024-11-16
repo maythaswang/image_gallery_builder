@@ -77,6 +77,10 @@ void CallbackManager::set_cursor_position_callback()
         {
             callback_manager->mouse_pos_x = posX;
             callback_manager->mouse_pos_y = posY;
+            if(!callback_manager->get_is_focusing()) {
+                callback_manager->old_mouse_pos_x = posX;
+                callback_manager->old_mouse_pos_y = posY;
+            }
         } });
 }
 

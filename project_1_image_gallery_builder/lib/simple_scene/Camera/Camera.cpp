@@ -13,7 +13,7 @@ Camera::Camera()
     this->z_near = 0.0001f;
     this->z_far = 2000000.0f;
 
-    this->rotation_sensitivity = 0.05f;
+    this->rotation_sensitivity = 0.2f;
     this->zoom_sensitivity = 0.3f;
     this->translation_sensitivity = 0.2f;
 
