@@ -73,15 +73,15 @@ namespace lin_alg
 
     mat4 perspective(float fovy, float aspect, float zNear, float zFar)
     {
-        const float theta = radians(fovy) / 2;
+        const float theta = fovy / 2.0f;
         const float d = 1 / std::tan(theta);
         const float A = -(zNear + zFar) / (zFar - zNear);
         const float B = -2 * (zNear * zFar) / (zFar - zNear);
 
         mat4 projection_mat = mat4(d / aspect, 0, 0, 0,
                                    0, d, 0, 0,
-                                   0, 0, A, -1,
-                                   0, 0, B, 0);
+                                   0, 0, A, B,
+                                   0, 0, -1, 0);
         return projection_mat;
     }
 

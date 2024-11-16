@@ -22,14 +22,14 @@
 // ---------------------------------------------------------------
 GLFWwindow *init_glfw_glad();
 unsigned int compile_shader();
-void render_routine(GLFWwindow *, Shader *, TextureManager *, GLuint, GLuint, CallbackManager *);
+void render_routine(GLFWwindow *, Shader *, TextureManager *, GLuint, GLuint, CallbackManager *, Camera * );
 void termination_routine(RenderComponents *render_components, Shader *shader_program);
 
 // CONSTANTS
 // ---------------------------------------------------------------
 
-const unsigned int SCREEN_WIDTH = 600;
-const unsigned int SCREEN_HEIGHT = 600;
+const unsigned int SCREEN_WIDTH = 640;
+const unsigned int SCREEN_HEIGHT = 480;
 const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
@@ -51,9 +51,7 @@ int main()
     CallbackManager callback_manager = CallbackManager(window);
     
     // Setup Camera
-    // Camera camera = Camera();    
-
-
+    Camera camera = Camera();
 
     // Setup Shader
     Shader shader_program = Shader();
@@ -90,7 +88,7 @@ int main()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthFunc(GL_LESS);
-        render_routine(window, &shader_program, &texture_manager, VAO, n_inds, &callback_manager);
+        render_routine(window, &shader_program, &texture_manager, VAO, n_inds, &callback_manager, &camera);
     }
 
     // Terminate
@@ -134,7 +132,7 @@ GLFWwindow *init_glfw_glad()
  * @param VAO
  * @param n_inds number of indices
  */
-void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager)
+void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager, Camera * camera)
 {
     // callback_manager->process_input();
 
@@ -143,6 +141,9 @@ void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *
 
     shader_program->use();
     texture_manager->use_all_textures(shader_program);
+    shader_program->set_mat4("modelview", camera->get_view_matrix());
+    shader_program->set_mat4("projection", camera->get_projection_matrix());
+
     // texture_manager->activate_all_textures();
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     // glDrawArrays(GL_TRIANGLES, 0, 6);

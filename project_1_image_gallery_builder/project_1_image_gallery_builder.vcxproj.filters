@@ -81,6 +81,12 @@
     <ClCompile Include="src\ProgramSetup\CallbackManager\CallbackManager.cpp">
       <Filter>Source Files\ProgramSetup\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Camera\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\lin_alg\utils.cpp">
+      <Filter>lib\lin_alg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
@@ -154,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="include\Lab4_textured_box.h">
       <Filter>tester</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Camera\Camera.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
