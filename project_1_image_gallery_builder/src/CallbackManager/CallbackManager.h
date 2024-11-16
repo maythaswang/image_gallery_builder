@@ -22,12 +22,32 @@ public:
      */
     void poll_events();
 
+    /**
+     * @brief Get the is_focusing status
+     * 
+     * @return true 
+     * @return false 
+     */
     bool get_is_focusing();
+
+    /**
+     * @brief toggle is_focusing on-off 
+     * 
+     */
     void toggle_focusing();
 
 private:
     GLFWwindow *window;
     ss::Camera *camera;
+
+    /**
+     * The idea is we start with a screen with cursor (non-focus mode).
+     * - In this mode we cannot move
+     * 
+     * To focus, we click any mouse button
+     * - This allows rotation and stuffs
+     * - If we press esc in this mode, we return to the non-focus mode where another esc click will leave the app
+     */
     bool is_focusing;
 
     double old_mouse_pos_x;
@@ -66,6 +86,10 @@ private:
      */
     void set_mouse_click_callback();
 
+    /**
+     * @brief Handle movement keys for WASD
+     * 
+     */
     void handle_key_move();
 };
 #endif

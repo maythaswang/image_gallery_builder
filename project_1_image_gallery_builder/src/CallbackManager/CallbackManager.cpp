@@ -99,13 +99,6 @@ void CallbackManager::update_camera_rotate()
 
 void CallbackManager::set_mouse_click_callback()
 {
-    /**
-     * The idea is we start with a screen with cursor (non-focus mode).
-     * - In this mode we cannot move
-     * To focus, we click any mouse button
-     * - This allows rotation and stuffs
-     * - If we press esc in this mode, we return to the non-focus mode where another esc click will leave the app
-     */
     glfwSetWindowUserPointer(this->window, reinterpret_cast<void *>(this));
 
     glfwSetMouseButtonCallback(this->window, [](GLFWwindow *window, int button, int action, int mods)
@@ -142,7 +135,6 @@ void CallbackManager::handle_key_move()
     {
         this->camera->free_forward(-0.5);
     }
-
 
     if (glfwGetKey(this->window, GLFW_KEY_D))
     {

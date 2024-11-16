@@ -22,25 +22,10 @@ namespace ss
         this->build_projection_matrix();
     }
 
-    void Camera::translate(GLfloat mouse_delta_x, GLfloat mouse_delta_y)
-    {
-        GLfloat distance = lin_alg::dot(this->center - this->eye, this->center - this->eye);
-        lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
-        lin_alg::vec3 right = lin_alg::normalize(lin_alg::cross(direction, this->up));
-
-        GLfloat x_translate = -mouse_delta_x * this->translation_sensitivity * std::min(distance, 100000000.0f);
-        GLfloat y_translate = mouse_delta_y * this->translation_sensitivity * std::min(distance, 100000000.0f);
-        lin_alg::vec3 translation_vector = lin_alg::normalize(right) * x_translate + lin_alg::normalize(this->up) * y_translate;
-
-        this->eye = this->eye + translation_vector;
-        this->center = this->center + translation_vector;
-        this->build_view_matrix();
-    }
-
-    void Camera::free_forward(GLfloat mouse_delta_y)
+    void Camera::free_forward(GLfloat speed)
     {
         lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
-        GLfloat zoom_power = mouse_delta_y * this->zoom_sensitivity;
+        GLfloat zoom_power = speed * this->zoom_sensitivity;
 
         this->eye = this->eye + (direction * zoom_power);
         this->center = this->center + (direction * zoom_power);

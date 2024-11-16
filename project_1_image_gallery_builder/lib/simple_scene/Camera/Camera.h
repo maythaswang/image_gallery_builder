@@ -23,15 +23,9 @@ namespace ss
         Camera();
 
         /**
-         * @brief Translate the camera based on mouse drag.
-         * @note The translation is done in the direction of up and right only.
-         */
-        void translate(GLfloat, GLfloat);
-
-        /**
-         * @brief Moves the eye and center forward based on mouse drag.
+         * @brief Moves the eye and center forward and backward
          *
-         * @param mouse_delta_y change in y position of mouse
+         * @param speed 
          */
         void free_forward(GLfloat);
 
@@ -43,6 +37,11 @@ namespace ss
          */
         void free_rotate(GLfloat mouse_delta_x, GLfloat mouse_delta_y);
 
+        /**
+         * @brief Moves the eye and center position sideways 
+         *
+         * @param speed 
+         */
         void free_side_translate(GLfloat);
 
         /**
