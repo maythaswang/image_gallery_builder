@@ -9,77 +9,79 @@
 #include <fstream>
 #include <sstream>
 
-// #include <lin_alg/lin_alg.h>
-
-/**
- * @brief Store, Initialize, Link, Compile, Destroy Shaders.
- *
- */
-class Shader
+namespace ss
 {
-public:
     /**
-     * @brief Construct a new Shader object
+     * @brief Store, Initialize, Link, Compile, Destroy Shaders.
      *
      */
-    Shader();
+    class Shader
+    {
+    public:
+        /**
+         * @brief Construct a new Shader object
+         *
+         */
+        Shader();
 
-    /**
-     * @brief Create a Shader according to the shader type specified.
-     * For instance, you can create fragment and vertex shader.
-     *
-     * @param fileName
-     * @param SHADER_TYPE
-     * @return status of shader creation
-     */
-    GLuint compile_shader(std::string, GLenum);
+        /**
+         * @brief Create a Shader according to the shader type specified.
+         * For instance, you can create fragment and vertex shader.
+         *
+         * @param fileName
+         * @param SHADER_TYPE
+         * @return status of shader creation
+         */
+        GLuint compile_shader(std::string, GLenum);
 
-    /**
-     * @brief Link shader that has been built by CompileShader.
-     * @note The shader that has been inputted will be deleted after this function call.
-     *
-     * @param shader
-     */
-    void link_shader(GLuint);
+        /**
+         * @brief Link shader that has been built by CompileShader.
+         * @note The shader that has been inputted will be deleted after this function call.
+         *
+         * @param shader
+         */
+        void link_shader(GLuint);
 
-    /**
-     * @brief Get the ShaderID
-     *
-     * @return GLuint
-     */
-    GLuint get_shader_id();
+        /**
+         * @brief Get the ShaderID
+         *
+         * @return GLuint
+         */
+        GLuint get_shader_id();
 
-    /**
-     * @brief Delete the shader program
-     *
-     */
-    void delete_shader();
+        /**
+         * @brief Delete the shader program
+         *
+         */
+        void delete_shader();
 
-    /**
-     * @brief Use the shader program.
-     *
-     */
-    void use();
+        /**
+         * @brief Use the shader program.
+         *
+         */
+        void use();
 
-    // Utility Setter for Uniform Variable
-    // ----------------------------------------------------------------------------
+        // Utility Setter for Uniform Variable
+        // ----------------------------------------------------------------------------
 
-    void set_bool(const std::string &name, bool value);
-    void set_int(const std::string &name, int value);
-    void set_float(const std::string &name, float value);
+        void set_bool(const std::string &name, bool value);
+        void set_int(const std::string &name, int value);
+        void set_float(const std::string &name, float value);
 
-    void set_int_arr(const std::string &name, int, int*);
-    void set_mat4(const std::string &name, const lin_alg::mat4 &);
-private:
-    GLuint shader_id;
-    bool has_program;
+        void set_int_arr(const std::string &name, int, int *);
+        void set_mat4(const std::string &name, const lin_alg::mat4 &);
 
-    /**
-     * @brief Read the shader file
-     *
-     * @param fileName
-     * @return const char*
-     */
-    std::string read_shader_file(std::string);
-};
+    private:
+        GLuint shader_id;
+        bool has_program;
+
+        /**
+         * @brief Read the shader file
+         *
+         * @param fileName
+         * @return const char*
+         */
+        std::string read_shader_file(std::string);
+    };
+}
 #endif

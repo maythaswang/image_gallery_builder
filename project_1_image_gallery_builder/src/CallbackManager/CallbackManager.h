@@ -14,7 +14,7 @@ public:
      * @param window glfw window where we want to use as our display window
      * @param camera the current camera
      */
-    CallbackManager(GLFWwindow *, Camera *);
+    CallbackManager(GLFWwindow *, ss::Camera *);
 
     /**
      * @brief Main function for listening for input and call other methods
@@ -27,7 +27,7 @@ public:
 
 private:
     GLFWwindow *window;
-    Camera *camera;
+    ss::Camera *camera;
     bool is_focusing;
 
     double old_mouse_pos_x;

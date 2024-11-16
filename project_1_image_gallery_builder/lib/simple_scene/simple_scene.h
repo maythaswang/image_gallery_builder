@@ -6,5 +6,13 @@
 #include "./TextureManager/TextureManager.h"
 #include "./Shader/Shader.h"
 #include "./Camera/Camera.h"
+#include "./Mesh/Mesh.h"
+#include "./Material/Material.h"
+#include "./Light/Light.h"
+
+namespace ss{
+    
+}
+
 
 #endif

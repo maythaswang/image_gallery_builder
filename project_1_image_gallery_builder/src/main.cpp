@@ -20,8 +20,8 @@
 // ---------------------------------------------------------------
 GLFWwindow *init_glfw_glad();
 unsigned int compile_shader();
-void render_routine(GLFWwindow *, Shader *, TextureManager *, GLuint, GLuint, CallbackManager *, Camera * );
-void termination_routine(RenderComponents *render_components, Shader *shader_program);
+void render_routine(GLFWwindow *, ss::Shader *, ss::TextureManager *, GLuint, GLuint, CallbackManager *, ss::Camera * );
+void termination_routine(RenderComponents *render_components, ss::Shader *shader_program);
 
 // CONSTANTS
 // ---------------------------------------------------------------
@@ -41,22 +41,19 @@ int main()
     }
 
     // Setup Camera
-    Camera camera = Camera();
-
-    Camera test_cam = Camera();
-    test_cam.free_rotate(-15,-15);
+    ss::Camera camera = ss::Camera();
 
     CallbackManager callback_manager = CallbackManager(window, &camera);
 
     // Setup Shader
-    Shader shader_program = Shader();
+    ss::Shader shader_program = ss::Shader();
     GLuint vertex_shader = shader_program.compile_shader("./resources/shader_source/simple_shader.vert", GL_VERTEX_SHADER);
     GLuint fragment_shader = shader_program.compile_shader("./resources/shader_source/simple_shader.frag", GL_FRAGMENT_SHADER);
     shader_program.link_shader(vertex_shader);
     shader_program.link_shader(fragment_shader);
 
     // Setup Textures
-    TextureManager texture_manager = TextureManager();
+    ss::TextureManager texture_manager = ss::TextureManager();
     texture_manager.create_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
     texture_manager.create_texture("resources/textures/brick.jpg", 0, GL_RGB, GL_RGB);
     texture_manager.create_texture("resources/textures/diamond_grip_steel.jpg", 0, GL_RGB, GL_RGB);
@@ -128,7 +125,7 @@ GLFWwindow *init_glfw_glad()
  * @param VAO
  * @param n_inds number of indices
  */
-void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager, Camera * camera)
+void render_routine(GLFWwindow *window, ss::Shader *shader_program, ss::TextureManager *texture_manager, GLuint VAO, GLuint n_inds, CallbackManager * callback_manager, ss::Camera * camera)
 {
     callback_manager->poll_events();
 
@@ -150,7 +147,7 @@ void render_routine(GLFWwindow *window, Shader *shader_program, TextureManager *
     glfwPollEvents();
 }
 
-void termination_routine(RenderComponents *render_components, Shader *shader_program)
+void termination_routine(RenderComponents *render_components, ss::Shader *shader_program)
 {
     glDeleteVertexArrays(1, render_components->VAO);
     glDeleteBuffers(3, render_components->VBO);

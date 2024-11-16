@@ -1,6 +1,6 @@
 #include "./CallbackManager.h"
 
-CallbackManager::CallbackManager(GLFWwindow *window, Camera *camera)
+CallbackManager::CallbackManager(GLFWwindow *window, ss::Camera *camera)
 {
     this->window = window;
     this->camera = camera;

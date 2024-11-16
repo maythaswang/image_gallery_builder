@@ -1,1 +1,5 @@
 // Light
+namespace ss
+{
+
+}
