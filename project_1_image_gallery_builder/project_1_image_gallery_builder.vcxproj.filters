@@ -16,15 +16,6 @@
     <Filter Include="tester">
       <UniqueIdentifier>{a9bebb86-dd57-4e07-8de3-a96334f7a2db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ProgramSetup">
-      <UniqueIdentifier>{14e4221f-e9f7-4163-a138-9cf2e0269918}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ProgramSetup\src">
-      <UniqueIdentifier>{5947624a-1a40-461b-9892-a900b0009b07}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\ProgramSetup\headers">
-      <UniqueIdentifier>{e5208167-476e-4d91-9b8c-88ad69da3659}</UniqueIdentifier>
-    </Filter>
     <Filter Include="external_dependencies">
       <UniqueIdentifier>{43b73062-5d9e-4f41-8f9c-27c9fe6449c1}</UniqueIdentifier>
     </Filter>
@@ -46,6 +37,15 @@
     <Filter Include="tester\lin_alg_test">
       <UniqueIdentifier>{a811aada-6208-41e9-a720-707e8cfa3789}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ProgramSetup">
+      <UniqueIdentifier>{14e4221f-e9f7-4163-a138-9cf2e0269918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProgramSetup\src">
+      <UniqueIdentifier>{5947624a-1a40-461b-9892-a900b0009b07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProgramSetup\headers">
+      <UniqueIdentifier>{e5208167-476e-4d91-9b8c-88ad69da3659}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -58,10 +58,10 @@
       <Filter>tester</Filter>
     </ClCompile>
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp">
-      <Filter>Source Files\ProgramSetup\src</Filter>
+      <Filter>ProgramSetup\src</Filter>
     </ClCompile>
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp">
-      <Filter>Source Files\ProgramSetup\src</Filter>
+      <Filter>ProgramSetup\src</Filter>
     </ClCompile>
     <ClCompile Include="external_dependencies\include\glad.c">
       <Filter>external_dependencies</Filter>
@@ -78,14 +78,14 @@
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp">
       <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
-    <ClCompile Include="src\ProgramSetup\CallbackManager\CallbackManager.cpp">
-      <Filter>Source Files\ProgramSetup\src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Camera\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="lib\lin_alg\utils.cpp">
       <Filter>lib\lin_alg</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CallbackManager\CallbackManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\Camera\Camera.cpp">
+      <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,17 +95,14 @@
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
       <Filter>tester</Filter>
     </ClInclude>
-    <ClInclude Include="src\ProgramSetup\CallbackManager\CallbackManager.h">
-      <Filter>Source Files\ProgramSetup\headers</Filter>
-    </ClInclude>
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h">
-      <Filter>Source Files\ProgramSetup\headers</Filter>
+      <Filter>ProgramSetup\headers</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h">
-      <Filter>Source Files\ProgramSetup\headers</Filter>
+      <Filter>ProgramSetup\headers</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h">
-      <Filter>Source Files\ProgramSetup</Filter>
+      <Filter>ProgramSetup</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\Shader\Shader.h">
       <Filter>lib\simple_scene\headers</Filter>
@@ -161,8 +158,11 @@
     <ClInclude Include="include\Lab4_textured_box.h">
       <Filter>tester</Filter>
     </ClInclude>
-    <ClInclude Include="src\Camera\Camera.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="src\CallbackManager\CallbackManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\Camera\Camera.h">
+      <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

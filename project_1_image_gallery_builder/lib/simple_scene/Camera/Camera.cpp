@@ -7,15 +7,15 @@ Camera::Camera()
     this->center = lin_alg::vec3(0, 0, 0);
     this->up = lin_alg::vec3(0, 1.0, 0);
 
-    this->fovy = 90;
-    this->aspect_w = 640;
-    this->aspect_h = 480;
-    this->z_near = 0.1;
-    this->z_far = 2000000.0;
+    this->fovy = 90.0f;
+    this->aspect_w = 640.0f;
+    this->aspect_h = 480.0f;
+    this->z_near = 0.1f;
+    this->z_far = 2000000.0f;
 
-    this->rotation_sensitivity = 0.7;
-    this->zoom_sensitivity = 0.3;
-    this->translation_sensitivity = 0.2;
+    this->rotation_sensitivity = 0.7f;
+    this->zoom_sensitivity = 0.3f;
+    this->translation_sensitivity = 0.2f;
 
     this->build_model_matrix();
     this->build_view_matrix();

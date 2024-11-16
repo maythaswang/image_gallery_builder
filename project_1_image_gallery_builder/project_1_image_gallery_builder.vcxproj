@@ -136,14 +136,14 @@
     <ClCompile Include="external_dependencies\include\glad.c" />
     <ClCompile Include="external_dependencies\include\stb\stb_image.cpp" />
     <ClCompile Include="lib\lin_alg\utils.cpp" />
+    <ClCompile Include="lib\simple_scene\Camera\Camera.cpp" />
     <ClCompile Include="lib\simple_scene\Shader\Shader.cpp" />
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp" />
     <ClCompile Include="lib\simple_scene\Texture\Texture.cpp" />
-    <ClCompile Include="src\Camera\Camera.cpp" />
+    <ClCompile Include="src\CallbackManager\CallbackManager.cpp" />
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Lab4_textured_box.cpp" />
-    <ClCompile Include="src\ProgramSetup\CallbackManager\CallbackManager.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp" />
   </ItemGroup>
@@ -158,12 +158,12 @@
     <ClInclude Include="lib\lin_alg\vec.h" />
     <ClInclude Include="lib\lin_alg\vec3.h" />
     <ClInclude Include="lib\lin_alg\vec4.h" />
+    <ClInclude Include="lib\simple_scene\Camera\Camera.h" />
     <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />
-    <ClInclude Include="src\Camera\Camera.h" />
+    <ClInclude Include="src\CallbackManager\CallbackManager.h" />
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h" />
-    <ClInclude Include="src\ProgramSetup\CallbackManager\CallbackManager.h" />
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />

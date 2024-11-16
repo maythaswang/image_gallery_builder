@@ -3,7 +3,7 @@
 // Camera class, use lin_alg to help
 #pragma once
 
-#include <GLCommon.h>
+#include "../SS_GLCommon.h"
 #include <lin_alg/lin_alg.h>
 
 /**

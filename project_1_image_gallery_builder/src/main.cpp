@@ -1,13 +1,11 @@
 #include <GLCommon.h>
-#include "ProgramSetup/ProgramSetup.h"
-#include "../tests/lin_alg_test/math_test.hpp"
+#include <simple_scene/simple_scene.h>
+#include <lin_alg/lin_alg.h>
 
-#include <simple_scene/Shader/Shader.h>
-#include <simple_scene/TextureManager/TextureManager.h>
+#include "./ProgramSetup/ProgramSetup.h"
+#include "./CallbackManager/CallbackManager.h"
 
-#include <Lab4_textured_box.h>
-
-#include "./Camera/Camera.h"
+#include "Lab4_textured_box.h"
 
 #include <iostream>
 
@@ -34,12 +32,6 @@ const char *SCREEN_NAME = "Image Gallery in OGL";
 
 int main()
 {   
-    //TEST
-    test_mat3();
-    test_mat4();
-    test_vec3();
-    test_vec4();
-
     // Initialize program and window
     GLFWwindow *window = init_glfw_glad();
     if (!window)
@@ -48,10 +40,10 @@ int main()
         return -1;
     }
 
-    CallbackManager callback_manager = CallbackManager(window);
-    
     // Setup Camera
     Camera camera = Camera();
+
+    CallbackManager callback_manager = CallbackManager(window, &camera);
 
     // Setup Shader
     Shader shader_program = Shader();

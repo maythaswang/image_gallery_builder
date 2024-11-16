@@ -1,8 +1,9 @@
 #include "./CallbackManager.h"
 
-CallbackManager::CallbackManager(GLFWwindow *window)
+CallbackManager::CallbackManager(GLFWwindow *window, Camera *camera)
 {
     this->window = window;
+    this->camera = camera;
 
     // Set callbacks
     this->set_keyboard_callback();
