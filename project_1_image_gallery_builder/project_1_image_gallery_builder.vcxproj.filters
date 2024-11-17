@@ -54,12 +54,6 @@
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Lab4_textured_box.cpp">
-      <Filter>utils\tester</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp">
-      <Filter>utils\tester</Filter>
-    </ClCompile>
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp">
       <Filter>utils\ProgramSetup\src</Filter>
     </ClCompile>
@@ -90,13 +84,13 @@
     <ClCompile Include="lib\simple_scene\Camera\Camera.cpp">
       <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
-      <Filter>utils\tester</Filter>
     </ClInclude>
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h">
       <Filter>utils\ProgramSetup\headers</Filter>
@@ -158,14 +152,14 @@
     <ClInclude Include="lib\lin_alg\vec4.h">
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
-    <ClInclude Include="include\Lab4_textured_box.h">
-      <Filter>utils\tester</Filter>
-    </ClInclude>
     <ClInclude Include="src\CallbackManager\CallbackManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\simple_scene\Camera\Camera.h">
       <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

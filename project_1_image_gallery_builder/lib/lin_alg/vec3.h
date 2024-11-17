@@ -65,6 +65,10 @@ namespace lin_alg
                 throw std::out_of_range("Index out of range for vec<3, T>");
             }
         }
+        vec3 operator+(const int &scalar) const
+        {
+            return vec3(x + scalar, y + scalar, z +scalar);
+        }
 
         vec3 operator+(const vec3 &other) const
         {

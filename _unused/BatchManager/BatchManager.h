@@ -49,6 +49,8 @@ private:
     std::vector<std::vector<GLfloat>> tex_coords;
     std::vector<std::vector<int>> material_ids;
     std::vector<int> texture_count;
+    
+    std::vector<int> material_batch; // if have tex we will categorize based on number otherwise immediately categorized to 0
 
     // Also might need a map to see which material belong to which batch.
     // - This can be mitigated if it is possible to ensure that when user input their textures

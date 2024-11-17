@@ -143,13 +143,11 @@
     <ClCompile Include="src\CallbackManager\CallbackManager.cpp" />
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Lab4_textured_box.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h" />
-    <ClInclude Include="include\Lab4_textured_box.h" />
     <ClInclude Include="lib\lin_alg\lin_alg.h" />
     <ClInclude Include="lib\lin_alg\mat.h" />
     <ClInclude Include="lib\lin_alg\mat3.h" />

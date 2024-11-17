@@ -10,6 +10,8 @@
 #include "./Material/Material.h"
 #include "./Light/Light.h"
 
+#include "./MaterialManager/MaterialManager.h"
+
 namespace ss{
     
 }

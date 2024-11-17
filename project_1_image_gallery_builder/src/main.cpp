@@ -5,16 +5,9 @@
 #include "./ProgramSetup/ProgramSetup.h"
 #include "./CallbackManager/CallbackManager.h"
 
-#include "Lab4_textured_box.h"
+#include "./GeometryBuilder/GeometryBuilder.h"
 
 #include <iostream>
-
-// TO RUN DIFFERENT FILES, PLEASE UNCOMMENT ONE OF THE LINES BELOW
-// ---------------------------------------------------------------
-
-#define CURRENT_MAIN build_box
-
-// ------------ PLEASE MODIFY THE LINES ABOVE TO TEST ------------
 
 // Forward Declarations
 // ---------------------------------------------------------------
@@ -22,6 +15,7 @@ GLFWwindow *init_glfw_glad();
 unsigned int compile_shader();
 void render_routine(GLFWwindow *, ss::Shader *, ss::TextureManager *, GLuint, GLuint, CallbackManager *, ss::Camera * );
 void termination_routine(RenderComponents *render_components, ss::Shader *shader_program);
+RenderComponents build_box();
 
 // CONSTANTS
 // ---------------------------------------------------------------
@@ -66,12 +60,14 @@ int main()
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     // Add mesh
-    RenderComponents render_components = CURRENT_MAIN();
+    /// SANDBOX REGION
+    RenderComponents render_components = build_box();
 
     GLuint VAO = render_components.VAO[0];
     GLuint VBO = render_components.VBO[0];
     GLuint EBO = render_components.EBO[0];
     GLuint n_inds = render_components.n_inds;
+    ///
 
     glEnable(GL_DEPTH_TEST);
 
@@ -155,4 +151,16 @@ void termination_routine(RenderComponents *render_components, ss::Shader *shader
     shader_program->delete_shader();
 
     glfwTerminate();
+}
+
+RenderComponents build_box()
+{
+    // Build cube geometry (resizing window will distort the object since we don't have mvp matrices prepped yet.)
+    GeometryBuilder Geometry_builder = GeometryBuilder();
+    std::vector<GLfloat> center = {0.0f, 0, 0}; // Let's have the center at origin.
+
+    RenderComponents render_components;
+    Geometry_builder.init_box(&render_components, center, 1.0f, 1.0f, 1.0f);
+
+    return render_components;
 }
