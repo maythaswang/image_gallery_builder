@@ -137,6 +137,7 @@
     <ClCompile Include="external_dependencies\include\stb\stb_image.cpp" />
     <ClCompile Include="lib\lin_alg\utils.cpp" />
     <ClCompile Include="lib\simple_scene\Camera\Camera.cpp" />
+    <ClCompile Include="lib\simple_scene\MaterialManager\MaterialManager.cpp" />
     <ClCompile Include="lib\simple_scene\Shader\Shader.cpp" />
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp" />
     <ClCompile Include="lib\simple_scene\Texture\Texture.cpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp" />
+    <ClCompile Include="src\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h" />
@@ -157,6 +159,7 @@
     <ClInclude Include="lib\lin_alg\vec3.h" />
     <ClInclude Include="lib\lin_alg\vec4.h" />
     <ClInclude Include="lib\simple_scene\Camera\Camera.h" />
+    <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h" />
     <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />
@@ -165,6 +168,7 @@
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />
+    <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="tests\lin_alg_test\assert_helper.hpp" />
     <ClInclude Include="tests\lin_alg_test\mat3_test.hpp" />
     <ClInclude Include="tests\lin_alg_test\mat4_test.hpp" />

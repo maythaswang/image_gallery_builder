@@ -87,6 +87,12 @@
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Scene\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\MaterialManager\MaterialManager.cpp">
+      <Filter>lib\lin_alg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
@@ -160,6 +166,12 @@
     </ClInclude>
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
       <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Scene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h">
+      <Filter>lib\lin_alg</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

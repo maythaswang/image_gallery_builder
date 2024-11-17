@@ -32,50 +32,74 @@ void Scene::build_scene()
 {
     this->render_components_updated = false;
     int offset = 0;
-    for (ss::Mesh m : mesh_storage)
+
+    for (ss::Mesh m : this->mesh_storage)
     {
         for (int i = 0; i < m.vertices.size(); i++)
         {
-            vertices.push_back(m.vertices[i]);
-            normals.push_back(m.normals[i]);
-            tex_coords.push_back(m.tex_coord[i * 2]);
-            tex_coords.push_back(m.tex_coord[i * 2 + 1]);
-            material_ids.push_back(m.mat_id);
+            this->vertices.push_back(m.vertices[i]);
+            this->normals.push_back(m.normals[i]);
+            this->tex_coords.push_back(m.tex_coord[i * 2]);
+            this->tex_coords.push_back(m.tex_coord[i * 2 + 1]);
+            this->material_ids.push_back(m.mat_id);
         }
 
         for (int i = 0; i < m.indices.size(); i++)
         {
-            indices.push_back(m.indices[i] + offset);
+            this->indices.push_back(m.indices[i] + offset);
         }
     }
 
+    this->render_components.n_vert = this->vertices.size();
+    this->render_components.n_inds = this->indices.size();
+
     this->init_buf();
+    // this->material_manager.prepare_materials();
 }
 
 RenderComponents Scene::get_render_components()
 {
     if (!this->render_components_updated)
     {
-        this->init_buf();
+        this->build_scene();
     }
     return this->render_components;
 }
 
+void Scene::use_materials(ss::Shader *shader_program)
+{
+    this->texture_manager.use_all_textures(shader_program);
+    this->material_manager.use_all_materials(shader_program);
+}
+
 void Scene::init_buf()
 {
+    // for (int i = 0; i < this->vertices.size(); i++)
+    // {
+    //     std::cout << this->vertices[i].x << ' ' << this->vertices[i].y << ' ' << this->vertices[i].z << '\n';
+    //     std::cout << this->normals[i].x << ' ' << this->normals[i].y << ' ' << this->normals[i].z << '\n';
+    //     std::cout << this->tex_coords[2 * i ] << ' ' << this->tex_coords[2 * i + 1] << '\n';
+    //     std::cout << this->material_ids[i] << '\n';
+    // }
+
+    // for (int i = 0; i < this->indices.size(); i++)
+    // {
+    //     std::cout << this->indices[i].x << ' ' << this->indices[i].y << ' ' << this->indices[i].z << '\n';
+    // }
+
     if (!this->render_components_initialized)
     {
         glGenVertexArrays(1, this->render_components.VAO);
-        glGenBuffers(3, this->render_components.VBO);
+        glGenBuffers(4, this->render_components.VBO);
         glGenBuffers(1, this->render_components.EBO);
     }
 
-    glBindVertexArray(*this->render_components.VAO);
+    glBindVertexArray(this->render_components.VAO[0]);
 
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->vertices[0][0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 
     glEnableVertexAttribArray(1);
@@ -95,12 +119,14 @@ void Scene::init_buf()
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 1, &this->material_ids[0], GL_STATIC_DRAW);
     glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *this->render_components.EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->render_components.n_inds * 3, &indices[0], GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->render_components.EBO[0]);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->render_components.n_inds * 3, &this->indices[0][0], GL_STATIC_DRAW);
 
     // Unbind VAOs, VBOs, EBOs
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-    
+
+    // std::cout << this->material_ids[0] <<'\n';
+
     this->render_components_updated = true;
 }

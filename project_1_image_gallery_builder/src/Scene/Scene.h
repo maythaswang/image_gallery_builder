@@ -25,6 +25,7 @@ public:
     void add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
     void add_mesh(ss::Mesh);
     void build_scene();
+    void use_materials(ss::Shader*);
 
     RenderComponents get_render_components();
 
@@ -39,7 +40,7 @@ private:
     std::vector<ss::Mesh> mesh_storage; // Maybe for rebuilding scene.
 
     std::vector<lin_alg::vec3> vertices;
-    std::vector<lin_alg::vec3> indices;
+    std::vector<lin_alg::ivec3> indices;
     std::vector<lin_alg::vec3> normals;
     std::vector<GLfloat> tex_coords;
     std::vector<GLfloat> material_ids;

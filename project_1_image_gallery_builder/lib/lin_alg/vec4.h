@@ -30,6 +30,12 @@ namespace lin_alg
         vec<4, T>(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
 
         /**
+         * @brief Copy constructor for vec<4, T>
+         * @param other The vec<4, T> object to copy
+         */
+        vec(const vec<4, T> &other) : x(other.x), y(other.y), z(other.z), w(other.w) {}
+
+        /**
          * @brief Construct a new vec<4, T> object from vec<3, T> by adding a trialing 0 as `w`
          *
          * @param v
@@ -83,11 +89,6 @@ namespace lin_alg
         }
 
         vec4 operator*(T scalar) const
-        {
-            return vec4(x * scalar, y * scalar, z * scalar, w * scalar);
-        }
-
-        vec4 operator*(int scalar) const
         {
             return vec4(x * scalar, y * scalar, z * scalar, w * scalar);
         }

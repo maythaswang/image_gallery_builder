@@ -110,6 +110,16 @@ namespace ss
         glUniform1iv(glGetUniformLocation(this->shader_id, name.c_str()), count, value);
     }
 
+    void Shader::set_float_arr(const std::string &name, int count, float *value)
+    {
+        glUniform1fv(glGetUniformLocation(this->shader_id, name.c_str()), count, value);
+    }
+
+    void Shader::set_vec3_arr(const std::string &name, const int count, const lin_alg::vec3 *value)
+    {
+        glUniform3fv(glGetUniformLocation(this->shader_id, name.c_str()), count, reinterpret_cast<const float *>(value));
+    }
+
     void Shader::set_mat4(const std::string &name, const lin_alg::mat4 &value)
     {
         glUniformMatrix4fv(glGetUniformLocation(this->shader_id, name.c_str()), 1, GL_TRUE, &value[0][0]);

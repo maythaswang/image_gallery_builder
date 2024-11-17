@@ -34,6 +34,12 @@ namespace lin_alg
          */
         vec<3, T>(vec<4, T> v) : x(v.x), y(v.y), z(v.z) {}
 
+        /**
+         * @brief Copy constructor for vec<3, T>
+         * @param other The vec<3, T> object to copy
+         */
+        vec(const vec<3, T> &other) : x(other.x), y(other.y), z(other.z) {}
+
         // Operators
 
         T operator[](int index) const

@@ -23,9 +23,9 @@ ss::Mesh GeometryBuilder::init_plane(GLfloat width, GLfloat depth, GLuint materi
         lin_alg::vec3(half_width, -half_depth, 0),
         lin_alg::vec3(half_width, half_depth, 0)};
 
-    std::vector<lin_alg::vec3> indices{
-        lin_alg::vec3(0, 1, 3),
-        lin_alg::vec3(0, 2, 3),
+    std::vector<lin_alg::ivec3> indices{
+        lin_alg::ivec3(0, 1, 3),
+        lin_alg::ivec3(0, 2, 3),
     };
 
     std::vector<lin_alg::vec3> normals{
@@ -46,7 +46,7 @@ ss::Mesh GeometryBuilder::init_plane(GLfloat width, GLfloat depth, GLuint materi
     return mesh;
 }
 
-void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<GLfloat> center, GLfloat height, GLfloat width, GLfloat depth)
+ss::Mesh GeometryBuilder::init_box(std::vector<GLfloat> center, GLfloat height, GLfloat width, GLfloat depth)
 {
     const GLuint n_vert = 8;
     const GLuint n_inds = 12;
@@ -60,6 +60,17 @@ void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<
 
     // Just hardcode it...
     std::vector<lin_alg::vec3> vertices{
+        lin_alg::vec3(x - half_width, y - half_height, z - half_depth),
+        lin_alg::vec3(x - half_width, y - half_height, z + half_depth),
+        lin_alg::vec3(x - half_width, y + half_height, z - half_depth),
+        lin_alg::vec3(x - half_width, y + half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y + half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y - half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y + half_height, z - half_depth),
+        lin_alg::vec3(x + half_width, y - half_height, z - half_depth)};
+
+    // NOT REAL NORMALS (JUST TO TEST)
+    std::vector<lin_alg::vec3> normals{
         lin_alg::vec3(x - half_width, y - half_height, z - half_depth),
         lin_alg::vec3(x - half_width, y - half_height, z + half_depth),
         lin_alg::vec3(x - half_width, y + half_height, z - half_depth),
@@ -94,20 +105,25 @@ void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<
         1.0f, 1.0f,
         1.0f, 0.0f};
 
-    std::vector<GLfloat> texture_ids = {
-        1.0f,
-        1.0f,
-        1.0f,
-        1.0f,
-        1.0f,
-        1.0f,
-        1.0f,
-        1.0f};
+    // std::vector<GLfloat> texture_ids = {
+    //     1.0f,
+    //     1.0f,
+    //     1.0f,
+    //     1.0f,
+    //     1.0f,
+    //     1.0f,
+    //     1.0f,
+    //     1.0f};
 
-    render_components->n_inds = n_inds;
-    render_components->n_vert = n_vert;
+    GLfloat mat_id= 1.0f; 
 
-    this->init_buf(render_components, &vertices[0], &indices[0], &texture_coords[0], &texture_ids[0]);
+    ss::Mesh mesh;
+    mesh.vertices = vertices;
+    mesh.indices = indices;
+    mesh.normals = normals;
+    mesh.tex_coord = texture_coords;
+    mesh.mat_id = mat_id;
+    return mesh;
 }
 
 // void GeometryBuilder::init_square_pyramid(RenderComponents *render_components, std::vector<GLfloat> center, GLfloat width)
@@ -309,38 +325,38 @@ void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<
 //     return indices;
 // }
 
-void GeometryBuilder::init_buf(RenderComponents *render_components, lin_alg::vec3 *vertices, lin_alg::ivec3 *indices, GLfloat *texture_coords, GLfloat *texture_ids)
-{
-    glGenVertexArrays(1, render_components->VAO);
-    glGenBuffers(3, render_components->VBO);
-    glGenBuffers(1, render_components->EBO);
+// void GeometryBuilder::init_buf(RenderComponents *render_components, lin_alg::vec3 *vertices, lin_alg::ivec3 *indices, GLfloat *texture_coords, GLfloat *texture_ids)
+// {
+//     glGenVertexArrays(1, render_components->VAO);
+//     glGenBuffers(3, render_components->VBO);
+//     glGenBuffers(1, render_components->EBO);
 
-    glBindVertexArray(*render_components->VAO); 
-    std::cout << vertices[0][0] << '\n';
+//     glBindVertexArray(*render_components->VAO); 
+//     std::cout << vertices[0][0] << '\n';
 
-    std::cout << texture_coords[2] << '\n';
+//     std::cout << texture_coords[2] << '\n';
 
-    glEnableVertexAttribArray(0);
+//     glEnableVertexAttribArray(0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 3, &vertices[0][0], GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+//     glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[0]);
+//     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 3, &vertices[0][0], GL_STATIC_DRAW);
+//     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 
-    glEnableVertexAttribArray(1);
+//     glEnableVertexAttribArray(1);
 
-    glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 2, &texture_coords[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void *)0);
+//     glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[1]);
+//     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 2, &texture_coords[0], GL_STATIC_DRAW);
+//     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void *)0);
 
-    glEnableVertexAttribArray(2);
-    glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 1, &texture_ids[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
+//     glEnableVertexAttribArray(2);
+//     glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[2]);
+//     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 1, &texture_ids[0], GL_STATIC_DRAW);
+//     glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *render_components->EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * render_components->n_inds * 3, &indices[0][0], GL_STATIC_DRAW);
+//     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *render_components->EBO);
+//     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * render_components->n_inds * 3, &indices[0][0], GL_STATIC_DRAW);
 
-    // Unbind VAOs, VBOs, EBOs
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
+//     // Unbind VAOs, VBOs, EBOs
+//     glBindBuffer(GL_ARRAY_BUFFER, 0);
+//     glBindVertexArray(0);
+// }

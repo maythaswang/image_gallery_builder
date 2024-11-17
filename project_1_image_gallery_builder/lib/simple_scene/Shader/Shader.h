@@ -69,6 +69,10 @@ namespace ss
         void set_float(const std::string &name, float value);
 
         void set_int_arr(const std::string &name, int, int *);
+        void set_float_arr(const std::string &name, int, float*);
+
+        void set_vec3_arr(const std::string &name, const int, const lin_alg::vec3 *);
+        
         void set_mat4(const std::string &name, const lin_alg::mat4 &);
 
     private:

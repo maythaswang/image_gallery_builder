@@ -11,10 +11,13 @@ namespace ss
     struct Mesh
     {
         std::vector<lin_alg::vec3> vertices;
-        std::vector<lin_alg::vec3> indices;
+        std::vector<lin_alg::ivec3> indices;
         std::vector<lin_alg::vec3> normals;
         std::vector<GLfloat> tex_coord;
-        int mat_id;
+        float mat_id;
+        Mesh() : mat_id(0) {}
+        Mesh(const Mesh &other) : vertices(other.vertices), indices(other.indices), normals(other.normals),
+                                  tex_coord(other.tex_coord), mat_id(other.mat_id) {}
     };
 }
 
