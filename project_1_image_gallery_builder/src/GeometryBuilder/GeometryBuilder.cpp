@@ -59,30 +59,30 @@ void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<
     GLfloat half_depth = depth * 0.5f;
 
     // Just hardcode it...
-    std::vector<GLfloat> vertices{
-        x - half_width, y - half_height, z - half_depth,
-        x - half_width, y - half_height, z + half_depth,
-        x - half_width, y + half_height, z - half_depth,
-        x - half_width, y + half_height, z + half_depth,
-        x + half_width, y + half_height, z + half_depth,
-        x + half_width, y - half_height, z + half_depth,
-        x + half_width, y + half_height, z - half_depth,
-        x + half_width, y - half_height, z - half_depth};
+    std::vector<lin_alg::vec3> vertices{
+        lin_alg::vec3(x - half_width, y - half_height, z - half_depth),
+        lin_alg::vec3(x - half_width, y - half_height, z + half_depth),
+        lin_alg::vec3(x - half_width, y + half_height, z - half_depth),
+        lin_alg::vec3(x - half_width, y + half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y + half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y - half_height, z + half_depth),
+        lin_alg::vec3(x + half_width, y + half_height, z - half_depth),
+        lin_alg::vec3(x + half_width, y - half_height, z - half_depth)};
 
     // I'll just keep it in the same function since its hard-coded.
-    std::vector<GLuint> indices{
-        0, 1, 3,
-        0, 2, 3,
-        4, 5, 7,
-        4, 6, 7,
-        1, 5, 0,
-        0, 5, 7,
-        0, 2, 7,
-        2, 6, 7,
-        2, 4, 6,
-        2, 3, 4,
-        1, 5, 3,
-        3, 5, 4};
+    std::vector<lin_alg::ivec3> indices{
+        lin_alg::ivec3(0, 1, 3),
+        lin_alg::ivec3(0, 2, 3),
+        lin_alg::ivec3(4, 5, 7),
+        lin_alg::ivec3(4, 6, 7),
+        lin_alg::ivec3(1, 5, 0),
+        lin_alg::ivec3(0, 5, 7),
+        lin_alg::ivec3(0, 2, 7),
+        lin_alg::ivec3(2, 6, 7),
+        lin_alg::ivec3(2, 4, 6),
+        lin_alg::ivec3(2, 3, 4),
+        lin_alg::ivec3(1, 5, 3),
+        lin_alg::ivec3(3, 5, 4)};
 
     std::vector<GLfloat> texture_coords = {
         0.0f, 0.0f,
@@ -309,18 +309,21 @@ void GeometryBuilder::init_box(RenderComponents *render_components, std::vector<
 //     return indices;
 // }
 
-void GeometryBuilder::init_buf(RenderComponents *render_components, GLfloat *vertices, GLuint *indices, GLfloat *texture_coords, GLfloat *texture_ids)
+void GeometryBuilder::init_buf(RenderComponents *render_components, lin_alg::vec3 *vertices, lin_alg::ivec3 *indices, GLfloat *texture_coords, GLfloat *texture_ids)
 {
     glGenVertexArrays(1, render_components->VAO);
     glGenBuffers(3, render_components->VBO);
     glGenBuffers(1, render_components->EBO);
 
-    glBindVertexArray(*render_components->VAO);
+    glBindVertexArray(*render_components->VAO); 
+    std::cout << vertices[0][0] << '\n';
+
+    std::cout << texture_coords[2] << '\n';
 
     glEnableVertexAttribArray(0);
 
     glBindBuffer(GL_ARRAY_BUFFER, render_components->VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 3, &vertices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * render_components->n_vert * 3, &vertices[0][0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 
     glEnableVertexAttribArray(1);
@@ -335,7 +338,7 @@ void GeometryBuilder::init_buf(RenderComponents *render_components, GLfloat *ver
     glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, *render_components->EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * render_components->n_inds * 3, &indices[0], GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * render_components->n_inds * 3, &indices[0][0], GL_STATIC_DRAW);
 
     // Unbind VAOs, VBOs, EBOs
     glBindBuffer(GL_ARRAY_BUFFER, 0);

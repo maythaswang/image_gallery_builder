@@ -20,6 +20,8 @@ namespace ss
 
         this->build_view_matrix();
         this->build_projection_matrix();
+
+        this->pitch = 0.0f;
     }
 
     void Camera::free_forward(GLfloat speed)
@@ -49,27 +51,46 @@ namespace ss
     {
         lin_alg::vec3 direction = lin_alg::normalize(this->center - this->eye);
         lin_alg::vec3 right = lin_alg::normalize(lin_alg::cross(direction, this->up));
-        GLfloat yaw = -mouse_delta_x * rotation_sensitivity;  // along up-axis
-        GLfloat pitch = mouse_delta_y * rotation_sensitivity; // along right-axis
+        GLfloat yaw = -mouse_delta_x * rotation_sensitivity;   // along up-axis
+        GLfloat lpitch = mouse_delta_y * rotation_sensitivity; // along right-axis
+
+        // PATCHWORK SOLUTION FOR NOW
         // roll: along the center-axis
+        pitch += lpitch;
+        if (pitch < 80.00f && pitch > -80.00f)
+        {
 
-        if (pitch > 89.9999f)
-            pitch = -89.9999f;
-        if (pitch < -89.9999f)
-            pitch = 89.9999f;
+            // std::cout << pitch << "normalized: center" << lin_alg::normalize(this->center).x << ' ' << lin_alg::normalize(this->center).y << ' ' << lin_alg::normalize(this->center).z << '\n';
+            //     pitch = 89.99f;
+            // if (pitch < -89.99f)
+            //     pitch = -89.99f;
 
-        // Rotation Matrix
-        lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
-        lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(pitch), right);
-        lin_alg::mat3 rotation = lin_alg::mat3(rotationPitch);
+            // Rotation Matrix
+            lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
+            lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(lpitch), right);
+            lin_alg::mat3 rotation = lin_alg::mat3(rotationPitch);
 
-        lin_alg::vec3 eye_origin = this->eye - this->center;
-        lin_alg::vec3 new_eye = rotation * eye_origin;
-        lin_alg::vec3 direction_to_old = eye_origin - new_eye;
+            lin_alg::vec3 eye_origin = this->eye - this->center;
+            lin_alg::vec3 new_eye = rotation * eye_origin;
+            lin_alg::vec3 direction_to_old = eye_origin - new_eye;
 
-        this->center = this->center + direction_to_old;
-        // this->up = rotation * this->up;  // So that there is no weird rotation
-        this->build_view_matrix();
+            // GLfloat bound = lin_alg::normalize(this->center + direction_to_old).y;
+            // // std::cout << bound << '\n';
+            // if (bound < 0.99 && bound > -0.99)
+            // {
+            this->center = this->center + direction_to_old;
+            // this->up = rotation * this->up;  // So that there is no weird rotation
+            this->build_view_matrix();
+            // }
+        }
+        else if (pitch > 89.999f)
+        {
+            pitch = 90;
+        }
+        else if (pitch < -89.999f)
+        {
+            pitch = -90;
+        }
     }
 
     void Camera::set_eye(lin_alg::vec3 eye)

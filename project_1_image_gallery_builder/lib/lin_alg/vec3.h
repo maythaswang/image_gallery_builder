@@ -67,7 +67,7 @@ namespace lin_alg
         }
         vec3 operator+(const int &scalar) const
         {
-            return vec3(x + scalar, y + scalar, z +scalar);
+            return vec3(x + scalar, y + scalar, z + scalar);
         }
 
         vec3 operator+(const vec3 &other) const
@@ -84,13 +84,8 @@ namespace lin_alg
         {
             return vec3(x * scalar, y * scalar, z * scalar);
         }
-
-        vec3 operator*(int scalar) const
-        {
-            return vec3(x * scalar, y * scalar, z * scalar);
-        }
     };
-    
+
     template <typename T>
     T dot(const vec<3, T> &a, const vec<3, T> &b)
     {
@@ -118,12 +113,12 @@ namespace lin_alg
     }
 
     /**
-     * @brief Calculate the outer product of two vectors 
-     * 
-     * @tparam T 
-     * @param a 
-     * @param b 
-     * @return mat<3, T> 
+     * @brief Calculate the outer product of two vectors
+     *
+     * @tparam T
+     * @param a
+     * @param b
+     * @return mat<3, T>
      */
     template <typename T>
     mat<3, T> outer_product(const vec<3, T> &a, const vec<3, T> &b)
@@ -136,7 +131,7 @@ namespace lin_alg
 
     /**
      * @brief vec3 of type float
-     * 
+     *
      */
     typedef vec<3, float> vec3;
     typedef vec<3, int> ivec3;

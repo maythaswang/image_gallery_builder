@@ -118,6 +118,7 @@ namespace ss
         GLfloat aspect_h;
         GLfloat z_near;
         GLfloat z_far;
+        GLfloat pitch;
 
         lin_alg::mat4 view_mat;
         lin_alg::mat4 projection_mat;

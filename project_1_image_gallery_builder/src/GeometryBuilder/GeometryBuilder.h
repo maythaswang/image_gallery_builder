@@ -73,7 +73,7 @@ private:
 	 * @param texture_coords
 	 * @param texture_ids
 	 */
-	void init_buf(RenderComponents *, GLfloat *, GLuint *, GLfloat *, GLfloat *);
+	void init_buf(RenderComponents *, lin_alg::vec3 *, lin_alg::ivec3 *, GLfloat *, GLfloat *);
 
 // 	/**
 // 	 * @brief Generate indices for sphere
