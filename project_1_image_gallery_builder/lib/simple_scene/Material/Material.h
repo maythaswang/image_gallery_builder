@@ -14,7 +14,7 @@ namespace ss
         lin_alg::vec3 specular; // I'm not gonna write one for specular map for now.
         
         float shininess;
-        bool has_tex = 0;
+        bool has_tex;
         
     };
 }

@@ -12,8 +12,9 @@ namespace ss
     {
         std::vector<lin_alg::vec3> vertices;
         std::vector<lin_alg::vec3> indices;
-        std::vector<float[2]> tex_coord;
-        float mat_id;
+        std::vector<lin_alg::vec3> normals;
+        std::vector<GLfloat> tex_coord;
+        int mat_id;
     };
 }
 
