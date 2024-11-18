@@ -18,10 +18,10 @@ ss::Mesh GeometryBuilder::init_plane(GLfloat width, GLfloat depth, GLuint materi
     GLfloat half_depth = depth * 0.5f;
 
     std::vector<lin_alg::vec3> vertices{
-        lin_alg::vec3(-half_width, -half_depth, 0),
-        lin_alg::vec3(-half_width, half_depth, 0),
-        lin_alg::vec3(half_width, -half_depth, 0),
-        lin_alg::vec3(half_width, half_depth, 0)};
+        lin_alg::vec3(-half_width, 0, -half_depth),
+        lin_alg::vec3(-half_width, 0, half_depth),
+        lin_alg::vec3(half_width, 0, -half_depth),
+        lin_alg::vec3(half_width, 0, half_depth)};
 
     std::vector<lin_alg::ivec3> indices{
         lin_alg::ivec3(0, 1, 3),
@@ -42,6 +42,7 @@ ss::Mesh GeometryBuilder::init_plane(GLfloat width, GLfloat depth, GLuint materi
     mesh.vertices = vertices;
     mesh.indices = indices;
     mesh.normals = normals;
+    mesh.tex_coord = tex_coords;
     mesh.mat_id = material_id;
     return mesh;
 }
@@ -115,7 +116,7 @@ ss::Mesh GeometryBuilder::init_box(std::vector<GLfloat> center, GLfloat height, 
     //     1.0f,
     //     1.0f};
 
-    GLfloat mat_id= 1.0f; 
+    GLfloat mat_id = 1.0f;
 
     ss::Mesh mesh;
     mesh.vertices = vertices;
@@ -331,7 +332,7 @@ ss::Mesh GeometryBuilder::init_box(std::vector<GLfloat> center, GLfloat height, 
 //     glGenBuffers(3, render_components->VBO);
 //     glGenBuffers(1, render_components->EBO);
 
-//     glBindVertexArray(*render_components->VAO); 
+//     glBindVertexArray(*render_components->VAO);
 //     std::cout << vertices[0][0] << '\n';
 
 //     std::cout << texture_coords[2] << '\n';

@@ -63,18 +63,35 @@ int main()
     // Add mesh
     /// SANDBOX REGION
 
-    // ss::Material material_one;
-    // material_one.ambient = lin_alg::vec3();
-    // material_one.diffuse = lin_alg::vec3();
-    // material_one.specular = lin_alg::vec3();
 
-    // material_one.shininess = 0.5f;
-    // material_one.texture_id = 1;
 
+    ss::Material material_zero;
+    material_zero.ambient = lin_alg::vec3(1,1,1);
+    material_zero.diffuse = lin_alg::vec3(1,1,1);
+    material_zero.specular = lin_alg::vec3(1,1,1);
+    material_zero.shininess = 0.7f;
+    material_zero.texture_id = 0;
+
+    ss::Material material_one;
+    material_one.ambient = lin_alg::vec3();
+    material_one.diffuse = lin_alg::vec3();
+    material_one.specular = lin_alg::vec3();
+
+    material_one.shininess = 0.5f;
+    material_one.texture_id = 1;
+
+    GeometryBuilder geometry_builder = GeometryBuilder();
     ss::Mesh box_mesh = build_box();
+    ss::Mesh plane_mesh = geometry_builder.init_plane(5,5,0);
     Scene scene = Scene();
-    // scene.add_material(material_one);
-    // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
+
+    std::cout << plane_mesh.indices[0][1] << '\n';
+
+    scene.add_material(material_zero);
+    scene.add_mesh(plane_mesh);
+
+    scene.add_material(material_one);
+    scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
     scene.add_mesh(box_mesh);
     scene.build_scene();
 
@@ -148,6 +165,8 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene
 
     shader_program->set_mat4("modelview", camera->get_view_matrix());
     shader_program->set_mat4("projection", camera->get_projection_matrix());
+
+    scene->use_materials(shader_program);
 
     // texture_manager->activate_all_textures();
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized

@@ -2,11 +2,11 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec3 a_normal;
 layout (location = 2) in vec2 a_tex_coord;
-layout (location = 3) in float a_tex_id;
+layout (location = 3) in float a_mat_id;
 
 out vec3 normal;
 out vec2 tex_coord;
-out float tex_id;
+out float mat_id;
 
 // Uniform Variables
 uniform mat4 modelview;
@@ -18,5 +18,5 @@ void main()
     // gl_Position =  vec4(aPos.x, aPos.y, aPos.z, 1.0);
     normal = a_normal;
     tex_coord = vec2(a_tex_coord.x, a_tex_coord.y);
-    tex_id = a_tex_id;
+    mat_id = a_mat_id;
 }

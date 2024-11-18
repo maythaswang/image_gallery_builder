@@ -32,9 +32,12 @@ void Scene::build_scene()
 {
     this->render_components_updated = false;
     int offset = 0;
+    
+
 
     for (ss::Mesh m : this->mesh_storage)
     {
+        offset = this->vertices.size();
         for (int i = 0; i < m.vertices.size(); i++)
         {
             this->vertices.push_back(m.vertices[i]);
@@ -54,7 +57,7 @@ void Scene::build_scene()
     this->render_components.n_inds = this->indices.size();
 
     this->init_buf();
-    // this->material_manager.prepare_materials();
+    this->material_manager.prepare_materials();
 }
 
 RenderComponents Scene::get_render_components()
@@ -74,19 +77,6 @@ void Scene::use_materials(ss::Shader *shader_program)
 
 void Scene::init_buf()
 {
-    // for (int i = 0; i < this->vertices.size(); i++)
-    // {
-    //     std::cout << this->vertices[i].x << ' ' << this->vertices[i].y << ' ' << this->vertices[i].z << '\n';
-    //     std::cout << this->normals[i].x << ' ' << this->normals[i].y << ' ' << this->normals[i].z << '\n';
-    //     std::cout << this->tex_coords[2 * i ] << ' ' << this->tex_coords[2 * i + 1] << '\n';
-    //     std::cout << this->material_ids[i] << '\n';
-    // }
-
-    // for (int i = 0; i < this->indices.size(); i++)
-    // {
-    //     std::cout << this->indices[i].x << ' ' << this->indices[i].y << ' ' << this->indices[i].z << '\n';
-    // }
-
     if (!this->render_components_initialized)
     {
         glGenVertexArrays(1, this->render_components.VAO);
@@ -125,8 +115,6 @@ void Scene::init_buf()
     // Unbind VAOs, VBOs, EBOs
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    // std::cout << this->material_ids[0] <<'\n';
 
     this->render_components_updated = true;
 }
