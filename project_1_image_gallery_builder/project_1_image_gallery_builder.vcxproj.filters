@@ -176,5 +176,14 @@
     <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h">
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
+    <ClInclude Include="lib\simple_scene\SceneComponents\Light.h">
+      <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\SceneComponents\Material.h">
+      <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\SceneComponents\Mesh.h">
+      <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

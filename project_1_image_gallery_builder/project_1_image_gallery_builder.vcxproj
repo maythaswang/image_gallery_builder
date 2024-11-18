@@ -161,6 +161,9 @@
     <ClInclude Include="lib\lin_alg\vec4.h" />
     <ClInclude Include="lib\simple_scene\Camera\Camera.h" />
     <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h" />
+    <ClInclude Include="lib\simple_scene\SceneComponents\Light.h" />
+    <ClInclude Include="lib\simple_scene\SceneComponents\Material.h" />
+    <ClInclude Include="lib\simple_scene\SceneComponents\Mesh.h" />
     <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />

@@ -11,6 +11,7 @@
 #include "./SceneComponents/Light.h"
 
 #include "./MaterialManager/MaterialManager.h"
+#include "./LightManager/LightManager.h"
 
 namespace ss{
     

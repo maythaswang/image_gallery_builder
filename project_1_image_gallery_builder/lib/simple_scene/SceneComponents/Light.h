@@ -6,14 +6,6 @@
 
 namespace ss
 {
-    struct DirectionalLight{
-        lin_alg::vec3 direction;
-
-        lin_alg::vec3 ambient;
-        lin_alg::vec3 diffuse;
-        lin_alg::vec3 specular;
-    };
-
     struct PointLight{
         lin_alg::vec3 position;
 
@@ -26,6 +18,16 @@ namespace ss
         float linear;
         float quadratic;
     };
+
+    struct DirectionalLight{
+        lin_alg::vec3 direction;
+
+        lin_alg::vec3 ambient;
+        lin_alg::vec3 diffuse;
+        lin_alg::vec3 specular;
+    };
+
+
 
     struct SpotLight{
         lin_alg::vec3 position;
