@@ -96,6 +96,9 @@
     <ClCompile Include="src\ProgramSetup\ProgramSetup.cpp">
       <Filter>utils\ProgramSetup</Filter>
     </ClCompile>
+    <ClCompile Include="src\RoomBuilder\RoomBuilder.cpp">
+      <Filter>lib\simple_scene\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="lib\simple_scene\SceneComponents\Mesh.h">
       <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoomBuilder\RoomBuilder.h">
+      <Filter>lib\simple_scene\src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

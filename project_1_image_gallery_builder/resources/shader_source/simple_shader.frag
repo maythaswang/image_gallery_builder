@@ -30,7 +30,7 @@ void main()
         if(texture_index != 0){ // 0 ist for no texture
             FragColor = texture(u_textures[texture_index-1],tex_coord);
         } else {
-            FragColor = vec4(1, mat_ambient[cur_mat_id][1] , mat_ambient[cur_mat_id][2], 1.0f);
+            FragColor = vec4(mat_ambient[cur_mat_id].x, mat_ambient[cur_mat_id].y, mat_ambient[cur_mat_id].z, 1);
         }
     } else {
         FragColor = vec4(0,0,0,1);

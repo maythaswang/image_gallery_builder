@@ -28,9 +28,12 @@ namespace ss
 
     void TextureManager::activate_all_textures()
     {
-        for (Texture texture : this->textures_storage)
+        if (this->textures_storage.size() != 0)
         {
-            texture.use_texture(texture.get_texture_id());
+            for (Texture texture : this->textures_storage)
+            {
+                texture.use_texture(texture.get_texture_id());
+            }
         }
     }
 

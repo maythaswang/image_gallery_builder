@@ -147,6 +147,7 @@
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramSetup.cpp" />
     <ClCompile Include="src\ProgramSetup\WindowFactory\WindowFactory.cpp" />
+    <ClCompile Include="src\RoomBuilder\RoomBuilder.cpp" />
     <ClCompile Include="src\Scene\Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />
+    <ClInclude Include="src\RoomBuilder\RoomBuilder.h" />
     <ClInclude Include="src\Scene\Scene.h" />
     <ClInclude Include="tests\lin_alg_test\assert_helper.hpp" />
     <ClInclude Include="tests\lin_alg_test\mat3_test.hpp" />

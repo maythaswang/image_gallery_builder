@@ -143,7 +143,7 @@ namespace lin_alg
             {
                 for (int j = 0; j < 4; ++j)
                 {
-                    result.m[i][j] = 0;
+                    result[i][j] = 0;
                     for (int k = 0; k < 4; ++k)
                     {
                         result[i][j] += m[i][k] * other[k][j];

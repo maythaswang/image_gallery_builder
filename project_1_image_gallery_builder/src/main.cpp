@@ -7,6 +7,7 @@
 
 #include "./GeometryBuilder/GeometryBuilder.h"
 #include "./Scene/Scene.h"
+#include "./RoomBuilder/RoomBuilder.h"
 
 #include <iostream>
 
@@ -22,10 +23,29 @@ const unsigned int SCREEN_WIDTH = 640;
 const unsigned int SCREEN_HEIGHT = 480;
 const char *SCREEN_NAME = "Image Gallery in OGL";
 
+// class Sandbox
+// {
+// public:
+//     Sandbox(Scene *scene) {
+//         this->scene = scene;
+//     };
+
+//     void add_box_test()
+//     {
+//         ss::Mesh mesh = this->geometry_builder.init_plane(2, 2, 1);
+
+//         this->scene->add_mesh(mesh);
+//     }
+
+// private:
+//     GeometryBuilder geometry_builder;
+//     Scene * scene;
+// };
+
 int main()
 {
     // Initialize program and window
-    GLFWwindow *window = init_glfw_glad(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_NAME);
+    GLFWwindow *window = init_glfw_glad(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_NAME);
     if (!window)
     {
         std::cerr << "Failed at program initialization stage." << std::endl;
@@ -60,33 +80,36 @@ int main()
     // texture_manager.use_all_textures(&shader_program);
     // texture_manager.activate_all_textures();
 
-    ss::Material material_zero;
-    material_zero.ambient = lin_alg::vec3(1,1,1);
-    material_zero.diffuse = lin_alg::vec3(1,1,1);
-    material_zero.specular = lin_alg::vec3(1,1,1);
-    material_zero.shininess = 0.7f;
-    material_zero.texture_id = 0;
+    // ss::Material material_zero;
+    // material_zero.ambient = lin_alg::vec3(1, 1, 1);
+    // material_zero.diffuse = lin_alg::vec3(1, 1, 1);
+    // material_zero.specular = lin_alg::vec3(1, 1, 1);
+    // material_zero.shininess = 0.7f;
+    // material_zero.texture_id = 0;
 
     ss::Material material_one;
     material_one.ambient = lin_alg::vec3();
     material_one.diffuse = lin_alg::vec3();
     material_one.specular = lin_alg::vec3();
-
     material_one.shininess = 0.5f;
     material_one.texture_id = 1;
 
     GeometryBuilder geometry_builder = GeometryBuilder();
     std::vector<GLfloat> center = {0.0f, 0, 0}; // Let's have the center at origin.
-    ss::Mesh box_mesh = geometry_builder.init_box(center,1,1,1);
-    ss::Mesh plane_mesh = geometry_builder.init_plane(3,3,0);
+    ss::Mesh box_mesh = geometry_builder.init_box(center, 1, 1, 1);
     Scene scene = Scene();
 
-    scene.add_material(material_zero);
-    scene.add_mesh(plane_mesh);
+    // scene.add_material(material_zero);
+    // scene.add_mesh(plane_mesh);
+
+    RoomBuilder room_builder = RoomBuilder(&scene, 1, 1);
+    room_builder.init_basic_materials();
+    room_builder.build_room(0, 0, 0, 1, 1, 1, 1, "", "", "", "");
 
     scene.add_material(material_one);
     scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
     scene.add_mesh(box_mesh);
+
     scene.build_scene();
 
     RenderComponents render_components = scene.get_render_components();
@@ -95,7 +118,6 @@ int main()
     GLuint VBO = render_components.VBO[0];
     GLuint EBO = render_components.EBO[0];
     GLuint n_inds = render_components.n_inds;
-
 
     glEnable(GL_DEPTH_TEST);
 

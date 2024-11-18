@@ -40,7 +40,7 @@ namespace lin_alg
          *
          * @param v
          */
-        vec<4, T>(vec<3, T> v) : x(v.x), y(v.y), z(v.z), w(0) {}
+        vec<4, T>(vec<3, T> v) : x(v.x), y(v.y), z(v.z), w(1) {}
 
         // Operators
 

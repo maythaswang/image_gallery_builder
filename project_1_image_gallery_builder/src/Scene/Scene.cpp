@@ -25,15 +25,13 @@ void Scene::add_texture(std::string file_path, GLuint lod, GLenum internal_forma
 
 void Scene::add_mesh(ss::Mesh mesh)
 {
-    mesh_storage.push_back(mesh);
+    this->mesh_storage.push_back(mesh);
 }
 
 void Scene::build_scene()
 {
     this->render_components_updated = false;
     int offset = 0;
-    
-
 
     for (ss::Mesh m : this->mesh_storage)
     {
@@ -46,7 +44,7 @@ void Scene::build_scene()
             this->tex_coords.push_back(m.tex_coord[i * 2 + 1]);
             this->material_ids.push_back(m.mat_id);
         }
-
+        
         for (int i = 0; i < m.indices.size(); i++)
         {
             this->indices.push_back(m.indices[i] + offset);

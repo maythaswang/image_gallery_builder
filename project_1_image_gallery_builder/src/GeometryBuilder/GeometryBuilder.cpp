@@ -116,7 +116,7 @@ ss::Mesh GeometryBuilder::init_box(std::vector<GLfloat> center, GLfloat height, 
     //     1.0f,
     //     1.0f};
 
-    GLfloat mat_id = 1.0f;
+    GLfloat mat_id = 4.0f;
 
     ss::Mesh mesh;
     mesh.vertices = vertices;
