@@ -29,6 +29,12 @@ uniform float attenuation[n_point_light_max];
 
 uniform sampler2D u_textures[32];
 
+vec4 compute_light(const in int light_id, const in int mat_id, const in vec3 halfvec){
+
+    return vec4(1,1,1,1);
+}
+
+
 void main()
 {
     int cur_mat_id = int(mat_id + 0.1);

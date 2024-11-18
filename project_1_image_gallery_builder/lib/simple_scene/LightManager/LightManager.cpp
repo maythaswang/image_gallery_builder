@@ -34,12 +34,16 @@ namespace ss
 
     void LightManager::use_all_point_lights(Shader *shader_program)
     {
-        shader_program->set_vec3_arr("pl_position", this->position.size(), &this->position[0]);
-        shader_program->set_vec3_arr("pl_ambient", this->ambient.size(), &this->ambient[0]);
-        shader_program->set_vec3_arr("pl_diffuse", this->diffuse.size(), &this->diffuse[0]);
-        shader_program->set_vec3_arr("pl_specular", this->specular.size(), &this->specular[0]);
-        shader_program->set_float_arr("pl_constant", this->constant.size(), &this->constant[0]);
-        shader_program->set_float_arr("pl_linear", this->linear.size(), &this->linear[0]);
-        shader_program->set_float_arr("pl_quadratic", this->quadratic.size(), &this->quadratic[0]);
+        shader_program->set_int("n_point_light", this->point_light_storage.size());
+        if (this->point_light_storage.size() > 0)
+        {
+            shader_program->set_vec3_arr("pl_position", this->position.size(), &this->position[0]);
+            shader_program->set_vec3_arr("pl_ambient", this->ambient.size(), &this->ambient[0]);
+            shader_program->set_vec3_arr("pl_diffuse", this->diffuse.size(), &this->diffuse[0]);
+            shader_program->set_vec3_arr("pl_specular", this->specular.size(), &this->specular[0]);
+            shader_program->set_float_arr("pl_constant", this->constant.size(), &this->constant[0]);
+            shader_program->set_float_arr("pl_linear", this->linear.size(), &this->linear[0]);
+            shader_program->set_float_arr("pl_quadratic", this->quadratic.size(), &this->quadratic[0]);
+        }
     }
 }
