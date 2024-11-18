@@ -12,11 +12,8 @@
 
 // Forward Declarations
 // ---------------------------------------------------------------
-GLFWwindow *init_glfw_glad();
-unsigned int compile_shader();
 void render_routine(GLFWwindow *, ss::Shader *, Scene *, GLuint, GLuint, CallbackManager *, ss::Camera *);
 void termination_routine(RenderComponents *render_components, ss::Shader *shader_program);
-ss::Mesh build_box();
 
 // CONSTANTS
 // ---------------------------------------------------------------
@@ -28,7 +25,7 @@ const char *SCREEN_NAME = "Image Gallery in OGL";
 int main()
 {
     // Initialize program and window
-    GLFWwindow *window = init_glfw_glad();
+    GLFWwindow *window = init_glfw_glad(SCREEN_WIDTH,SCREEN_HEIGHT,SCREEN_NAME);
     if (!window)
     {
         std::cerr << "Failed at program initialization stage." << std::endl;
@@ -47,6 +44,12 @@ int main()
     shader_program.link_shader(vertex_shader);
     shader_program.link_shader(fragment_shader);
 
+    // Draw in wireframe
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+    // Add mesh
+    /// SANDBOX REGION
+
     // Setup Textures
     // ss::TextureManager texture_manager = ss::TextureManager();
     // texture_manager.create_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
@@ -56,14 +59,6 @@ int main()
     // texture_manager.create_texture("resources/textures/wall.jpg", 0, GL_RGB, GL_RGB);
     // texture_manager.use_all_textures(&shader_program);
     // texture_manager.activate_all_textures();
-
-    // Draw in wireframe
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
-    // Add mesh
-    /// SANDBOX REGION
-
-
 
     ss::Material material_zero;
     material_zero.ambient = lin_alg::vec3(1,1,1);
@@ -81,11 +76,10 @@ int main()
     material_one.texture_id = 1;
 
     GeometryBuilder geometry_builder = GeometryBuilder();
-    ss::Mesh box_mesh = build_box();
-    ss::Mesh plane_mesh = geometry_builder.init_plane(5,5,0);
+    std::vector<GLfloat> center = {0.0f, 0, 0}; // Let's have the center at origin.
+    ss::Mesh box_mesh = geometry_builder.init_box(center,1,1,1);
+    ss::Mesh plane_mesh = geometry_builder.init_plane(3,3,0);
     Scene scene = Scene();
-
-    std::cout << plane_mesh.indices[0][1] << '\n';
 
     scene.add_material(material_zero);
     scene.add_mesh(plane_mesh);
@@ -119,33 +113,6 @@ int main()
 
 // SUBROUTINES
 // ---------------------------------------------------------------
-
-/**
- * @brief Initialize glfw and glad
- *
- * @return GLFWwindow* if success
- * @return NULL if failure
- */
-GLFWwindow *init_glfw_glad()
-{
-    bool glfw_initialized = ProgramInit::initialize_glfw();
-    if (!glfw_initialized)
-        return NULL;
-    WindowFactory window_factory = WindowFactory();
-    GLFWwindow *window = window_factory.create_window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_NAME);
-
-    if (!window)
-    {
-        glfwTerminate();
-        return NULL;
-    }
-
-    bool glad_initialized = ProgramInit::initialize_glad();
-    if (!glad_initialized)
-        return NULL;
-
-    return window;
-}
 
 /**
  * @brief Render a frame.
@@ -186,13 +153,4 @@ void termination_routine(RenderComponents *render_components, ss::Shader *shader
     shader_program->delete_shader();
 
     glfwTerminate();
-}
-
-ss::Mesh build_box()
-{
-    // Build cube geometry (resizing window will distort the object since we don't have mvp matrices prepped yet.)
-    GeometryBuilder Geometry_builder = GeometryBuilder();
-    std::vector<GLfloat> center = {0.0f, 0, 0}; // Let's have the center at origin.
-
-    return Geometry_builder.init_box(center, 1.0f, 1.0f, 1.0f);
 }

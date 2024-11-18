@@ -24,18 +24,15 @@ uniform sampler2D u_textures[32];
 
 void main()
 {
-    // FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-    // FragColor = vec4(tex_coord.x, tex_coord.y, 0.0f, 1.0f);
     int cur_mat_id = int(mat_id + 0.1);
-
-    int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a stupid hack so that things can just work for now
-    if(texture_index != 0){ // 0 ist for no texture
-        FragColor = texture(u_textures[texture_index-1],tex_coord);
+    if(cur_mat_id < 32){
+        int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a stupid hack so that things can just work for now
+        if(texture_index != 0){ // 0 ist for no texture
+            FragColor = texture(u_textures[texture_index-1],tex_coord);
+        } else {
+            FragColor = vec4(1, mat_ambient[cur_mat_id][1] , mat_ambient[cur_mat_id][2], 1.0f);
+        }
     } else {
-        FragColor = vec4(1, mat_ambient[cur_mat_id][1] , mat_ambient[cur_mat_id][2], 1.0f);
+        FragColor = vec4(0,0,0,1);
     }
-
-
-    // FragColor = vec4(1, mat_texture_id[cur_mat_id] , 0, 1);
-    // FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }

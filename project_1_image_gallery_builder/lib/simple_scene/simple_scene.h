@@ -6,9 +6,9 @@
 #include "./TextureManager/TextureManager.h"
 #include "./Shader/Shader.h"
 #include "./Camera/Camera.h"
-#include "./Mesh/Mesh.h"
-#include "./Material/Material.h"
-#include "./Light/Light.h"
+#include "./SceneComponents/Mesh.h"
+#include "./SceneComponents/Material.h"
+#include "./SceneComponents/Light.h"
 
 #include "./MaterialManager/MaterialManager.h"
 

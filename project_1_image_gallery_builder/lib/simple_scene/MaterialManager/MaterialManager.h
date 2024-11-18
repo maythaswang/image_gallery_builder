@@ -2,13 +2,17 @@
 #define SS_MATERIAL_MANAGER
 #pragma once
 #include "../SS_GLCommon.h"
-#include "../Material/Material.h"
+#include "../SceneComponents/Material.h"
 #include "../Shader/Shader.h"
 
 #include <vector>
 
 namespace ss
 {
+    /**
+     * @brief 
+     * @note AS FOR WHY I DON'T HAVE A MATERIAL ID <-> TEXTURE ID MAPPING SYSTEM. I DON'T KNOW TOO, DIDN'T HAVE TIME TO THINK AND NOW I AM SUFFERING THE CONSEQUENCE OF IT.
+     */
     class MaterialManager
     {
     public:
