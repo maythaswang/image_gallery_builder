@@ -87,16 +87,15 @@ int main()
     // material_zero.shininess = 0.7f;
     // material_zero.texture_id = 0;
 
-    ss::Material material_one;
-    material_one.ambient = lin_alg::vec3();
-    material_one.diffuse = lin_alg::vec3();
-    material_one.specular = lin_alg::vec3();
-    material_one.shininess = 0.5f;
-    material_one.texture_id = 1;
+    // ss::Material material_one;
+    // material_one.ambient = lin_alg::vec3();
+    // material_one.diffuse = lin_alg::vec3();
+    // material_one.specular = lin_alg::vec3();
+    // material_one.shininess = 0.5f;
+    // material_one.texture_id = 1;
 
     GeometryBuilder geometry_builder = GeometryBuilder();
-    std::vector<GLfloat> center = {0.0f, 0, 0}; // Let's have the center at origin.
-    ss::Mesh box_mesh = geometry_builder.init_box(center, 1, 1, 1);
+    ss::Mesh box_mesh = geometry_builder.init_box(1, 1, 1, 5);
     Scene scene = Scene();
 
     // scene.add_material(material_zero);
@@ -106,9 +105,9 @@ int main()
     room_builder.init_basic_materials();
     room_builder.build_room(0, 0, 0, 1, 1, 1, 1, "", "", "", "");
 
-    scene.add_material(material_one);
-    scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
-    scene.add_mesh(box_mesh);
+    // scene.add_material(material_one);
+    // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
+    // scene.add_mesh(box_mesh);
 
     scene.build_scene();
 
@@ -148,7 +147,7 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene
 {
     callback_manager->poll_events();
 
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClearColor(0.05f, 0.05f, 0.07f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     shader_program->use();
 

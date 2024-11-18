@@ -28,6 +28,10 @@ void Scene::add_mesh(ss::Mesh mesh)
     this->mesh_storage.push_back(mesh);
 }
 
+void Scene::add_point_light(ss::PointLight point_light){
+    this->light_manager.add_point_light(point_light);
+}
+
 void Scene::build_scene()
 {
     this->render_components_updated = false;

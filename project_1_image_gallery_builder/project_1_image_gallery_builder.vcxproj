@@ -137,6 +137,7 @@
     <ClCompile Include="external_dependencies\include\stb\stb_image.cpp" />
     <ClCompile Include="lib\lin_alg\utils.cpp" />
     <ClCompile Include="lib\simple_scene\Camera\Camera.cpp" />
+    <ClCompile Include="lib\simple_scene\LightManager\LightManager.cpp" />
     <ClCompile Include="lib\simple_scene\MaterialManager\MaterialManager.cpp" />
     <ClCompile Include="lib\simple_scene\Shader\Shader.cpp" />
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="lib\lin_alg\vec3.h" />
     <ClInclude Include="lib\lin_alg\vec4.h" />
     <ClInclude Include="lib\simple_scene\Camera\Camera.h" />
+    <ClInclude Include="lib\simple_scene\LightManager\LightManager.h" />
     <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h" />
     <ClInclude Include="lib\simple_scene\SceneComponents\Light.h" />
     <ClInclude Include="lib\simple_scene\SceneComponents\Material.h" />

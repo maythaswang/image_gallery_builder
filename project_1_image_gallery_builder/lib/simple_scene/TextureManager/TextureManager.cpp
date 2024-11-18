@@ -28,7 +28,7 @@ namespace ss
 
     void TextureManager::activate_all_textures()
     {
-        if (this->textures_storage.size() != 0)
+        if (this->textures_storage.size() > 1) // This is because we reserved slot 0 for no tex
         {
             for (Texture texture : this->textures_storage)
             {
@@ -39,7 +39,10 @@ namespace ss
 
     void TextureManager::use_all_textures(Shader *shader_program)
     {
-        this->activate_all_textures();
-        shader_program->set_int_arr("u_textures", this->texture_ids.size(), &this->texture_ids[0]);
+        if (this->textures_storage.size() > 1) // This is because we reserved slot 0 for no tex
+        {
+            this->activate_all_textures();
+            shader_program->set_int_arr("u_textures", this->texture_ids.size(), &this->texture_ids[0]);
+        }
     }
 }

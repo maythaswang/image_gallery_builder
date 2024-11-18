@@ -23,6 +23,7 @@ public:
 
     void add_material(ss::Material);
     void add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
+    void add_point_light(ss::PointLight);
     void add_mesh(ss::Mesh);
     void build_scene();
     void use_materials(ss::Shader*);
@@ -32,6 +33,7 @@ public:
 private:
     ss::MaterialManager material_manager;
     ss::TextureManager texture_manager;
+    ss::LightManager light_manager;
     RenderComponents render_components;
 
     bool render_components_initialized;

@@ -97,6 +97,9 @@
       <Filter>utils\ProgramSetup</Filter>
     </ClCompile>
     <ClCompile Include="src\RoomBuilder\RoomBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\simple_scene\LightManager\LightManager.cpp">
       <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -189,7 +192,10 @@
       <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
     <ClInclude Include="src\RoomBuilder\RoomBuilder.h">
-      <Filter>lib\simple_scene\src</Filter>
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lib\simple_scene\LightManager\LightManager.h">
+      <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

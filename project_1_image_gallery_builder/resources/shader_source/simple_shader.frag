@@ -1,26 +1,33 @@
 #version 430 core
 
-
-
 in vec3 normal;
 in vec2 tex_coord;
 in float mat_id;
 
 out vec4 FragColor;
 
-//  struct Material {
+// As to why no struct, I don't have time to change it to UBO yet, maybe later.
+
+// MATERIALS
 const int n_mat = 32;
 uniform vec3 mat_ambient[n_mat];            // Ambient color
 uniform vec3 mat_diffuse[n_mat];            // Diffuse color
-uniform vec3 mat_specular[n_mat];           // Specular color (not used in this shader)
+uniform vec3 mat_specular[n_mat];           // Specular color 
 uniform float mat_shininess[n_mat];         // Shininess factor
 uniform float mat_texture_id[n_mat];        // If not 0, use texture instead of ambient/diffuse colors
-// };
+
+// POINT LIGHTS 
+const int n_point_light_max = 32;
+uniform int n_point_light;
+uniform vec3 pl_position[n_point_light_max];
+uniform vec3 pl_ambient[n_point_light_max];
+uniform vec3 pl_diffuse[n_point_light_max];
+uniform vec3 pl_specular[n_point_light_max];
+uniform float constant[n_point_light_max];
+uniform float linear[n_point_light_max];
+uniform float attenuation[n_point_light_max];
 
 uniform sampler2D u_textures[32];
-// uniform Material mat[1];
-// uniform float mat_texture_id[1];
-
 
 void main()
 {
