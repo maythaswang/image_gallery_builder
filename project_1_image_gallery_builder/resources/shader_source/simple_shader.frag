@@ -38,6 +38,7 @@ void main()
             FragColor = texture(u_textures[texture_index-1],tex_coord);
         } else {
             FragColor = vec4(mat_ambient[cur_mat_id].x, mat_ambient[cur_mat_id].y, mat_ambient[cur_mat_id].z, 1);
+            // FragColor = vec4(pl_ambient[0].x,pl_ambient[0].y,pl_ambient[0].z,1);
         }
     } else {
         FragColor = vec4(0,0,0,1);

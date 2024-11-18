@@ -60,6 +60,7 @@ void Scene::build_scene()
 
     this->init_buf();
     this->material_manager.prepare_materials();
+    this->light_manager.prepare_point_light();
 }
 
 RenderComponents Scene::get_render_components()
@@ -75,6 +76,7 @@ void Scene::use_materials(ss::Shader *shader_program)
 {
     this->texture_manager.use_all_textures(shader_program);
     this->material_manager.use_all_materials(shader_program);
+    this->light_manager.use_all_point_lights(shader_program);
 }
 
 void Scene::init_buf()

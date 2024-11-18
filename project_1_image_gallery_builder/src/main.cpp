@@ -103,7 +103,7 @@ int main()
 
     RoomBuilder room_builder = RoomBuilder(&scene, 1, 1);
     room_builder.init_basic_materials();
-    room_builder.build_room(0, 0, 0, 1, 1, 1, 1, "", "", "", "");
+    room_builder.build_room(0, 0, 1, 1, 1, 1, 1, "", "", "", "");
 
     // scene.add_material(material_one);
     // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
