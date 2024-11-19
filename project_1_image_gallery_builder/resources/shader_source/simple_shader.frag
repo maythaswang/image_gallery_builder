@@ -27,9 +27,9 @@ uniform vec3 pl_position[n_point_light_max];
 uniform vec3 pl_ambient[n_point_light_max];
 uniform vec3 pl_diffuse[n_point_light_max];
 uniform vec3 pl_specular[n_point_light_max];
-uniform float constant[n_point_light_max];
-uniform float linear[n_point_light_max];
-uniform float attenuation[n_point_light_max];
+uniform float pl_constant[n_point_light_max];
+uniform float pl_linear[n_point_light_max];
+uniform float pl_quadratic[n_point_light_max];
 
 uniform sampler2D u_textures[32];
 
@@ -59,7 +59,12 @@ vec4 compute_light(const in int light_id, const in int mat_id,
   float specular_term = pow(max(dot(halfvec, norm), 0.0f), shininess);
   specular *= pl_specular[light_id] * specular_term;
 
-  return vec4(diffuse + specular, 1.0f);
+  // attenuation
+  float distance = length(pl_position[light_id] - current_pos);
+  float atten_divide = (pl_constant[light_id] + pl_linear[light_id] * distance + pl_quadratic[light_id] * pow(distance, 2));
+  float attenuation = (atten_divide > 0)? 1 / atten_divide: 0;
+
+  return vec4(diffuse* attenuation + specular * attenuation, 1.0f);
   // return vec4(diffuse, 1.0f);
 }
 
