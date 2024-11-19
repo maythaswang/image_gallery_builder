@@ -23,25 +23,6 @@ const unsigned int SCREEN_WIDTH = 640;
 const unsigned int SCREEN_HEIGHT = 480;
 const char *SCREEN_NAME = "Image Gallery in OGL";
 
-// class Sandbox
-// {
-// public:
-//     Sandbox(Scene *scene) {
-//         this->scene = scene;
-//     };
-
-//     void add_box_test()
-//     {
-//         ss::Mesh mesh = this->geometry_builder.init_plane(2, 2, 1);
-
-//         this->scene->add_mesh(mesh);
-//     }
-
-// private:
-//     GeometryBuilder geometry_builder;
-//     Scene * scene;
-// };
-
 int main()
 {
     // Initialize program and window
@@ -67,25 +48,8 @@ int main()
     // Draw in wireframe
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    // Add mesh
+    // Setting up scene
     /// SANDBOX REGION
-
-    // Setup Textures
-    // ss::TextureManager texture_manager = ss::TextureManager();
-    // texture_manager.create_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
-    // texture_manager.create_texture("resources/textures/brick.jpg", 0, GL_RGB, GL_RGB);
-    // texture_manager.create_texture("resources/textures/diamond_grip_steel.jpg", 0, GL_RGB, GL_RGB);
-    // texture_manager.create_texture("resources/textures/ground.jpg", 0, GL_RGB, GL_RGB);
-    // texture_manager.create_texture("resources/textures/wall.jpg", 0, GL_RGB, GL_RGB);
-    // texture_manager.use_all_textures(&shader_program);
-    // texture_manager.activate_all_textures();
-
-    // ss::Material material_zero;
-    // material_zero.ambient = lin_alg::vec3(1, 1, 1);
-    // material_zero.diffuse = lin_alg::vec3(1, 1, 1);
-    // material_zero.specular = lin_alg::vec3(1, 1, 1);
-    // material_zero.shininess = 0.7f;
-    // material_zero.texture_id = 0;
 
     ss::Material material_one;
     material_one.ambient = lin_alg::vec3();
@@ -148,18 +112,17 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene
     glClear(GL_COLOR_BUFFER_BIT);
     shader_program->use();
 
-
+    // A polling function might be good here.
     shader_program->set_vec3("eye_position", camera->get_eye());
     shader_program->set_mat4("view", camera->get_view_matrix());
     shader_program->set_mat4("projection", camera->get_projection_matrix());
 
     scene->use_materials(shader_program);
 
-    // texture_manager->activate_all_textures();
-    glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+    glBindVertexArray(VAO); 
     // glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 3 * n_inds, GL_UNSIGNED_INT, 0);
-    // glBindVertexArray(0); // no need to unbind it every time
+    // glBindVertexArray(0); 
 
     glfwSwapBuffers(window);
     glfwPollEvents();
