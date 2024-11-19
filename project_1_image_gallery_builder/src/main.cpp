@@ -13,6 +13,7 @@
 
 // Forward Declarations
 // ---------------------------------------------------------------
+void use_wireframe();
 void render_routine(GLFWwindow *, ss::Shader *, Scene *, GLuint, GLuint, CallbackManager *, ss::Camera *);
 void termination_routine(RenderComponents *render_components, ss::Shader *shader_program);
 
@@ -36,6 +37,7 @@ int main()
     // Setup Camera
     ss::Camera camera = ss::Camera();
 
+    // Setup Callbacks
     CallbackManager callback_manager = CallbackManager(window, &camera);
 
     // Setup Shader
@@ -45,30 +47,32 @@ int main()
     shader_program.link_shader(vertex_shader);
     shader_program.link_shader(fragment_shader);
 
-    // Draw in wireframe
-    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-
     // Setting up scene
-    /// SANDBOX REGION
 
-    ss::Material material_one;
-    material_one.ambient = lin_alg::vec3();
-    material_one.diffuse = lin_alg::vec3();
-    material_one.specular = lin_alg::vec3(0.05f,0.05f,0.05f);
-    material_one.shininess = 0.1f;
-    material_one.texture_id = 1;
-
-    GeometryBuilder geometry_builder = GeometryBuilder();
-    ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 5);
     Scene scene = Scene();
 
-    RoomBuilder room_builder = RoomBuilder(&scene, 1, 1);
+    RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
     room_builder.init_basic_materials();
     room_builder.build_room(0, 0, 1, 1, 1, 1, 1, "", "", "", "");
+    room_builder.build_room(0, 1, 1, 1, 1, 1, 1, "", "", "", "");
+    room_builder.build_room(1, 1, 0, 1, 1, 1, 1, "", "", "", "");
 
-    scene.add_material(material_one);
-    scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
-    scene.add_mesh(box_mesh);
+    /// ---------- SANDBOX BEGIN ----------
+
+    // GeometryBuilder geometry_builder = GeometryBuilder();
+    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 5);
+
+    // ss::Material material_one;
+    // material_one.ambient = lin_alg::vec3();
+    // material_one.diffuse = lin_alg::vec3();
+    // material_one.specular = lin_alg::vec3(0.05f,0.05f,0.05f);
+    // material_one.shininess = 0.1f;
+    // material_one.texture_id = 1;
+    // scene.add_material(material_one);
+    // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
+    // scene.add_mesh(box_mesh);
+
+    /// ---------- SANDBOX END ------------
 
     scene.build_scene();
 
@@ -96,14 +100,6 @@ int main()
 // SUBROUTINES
 // ---------------------------------------------------------------
 
-/**
- * @brief Render a frame.
- *
- * @param window
- * @param shaderProgram
- * @param VAO
- * @param n_inds number of indices
- */
 void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene, GLuint VAO, GLuint n_inds, CallbackManager *callback_manager, ss::Camera *camera)
 {
     callback_manager->poll_events();
@@ -119,10 +115,10 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene
 
     scene->use_materials(shader_program);
 
-    glBindVertexArray(VAO); 
+    glBindVertexArray(VAO);
     // glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 3 * n_inds, GL_UNSIGNED_INT, 0);
-    // glBindVertexArray(0); 
+    // glBindVertexArray(0);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -136,4 +132,9 @@ void termination_routine(RenderComponents *render_components, ss::Shader *shader
     shader_program->delete_shader();
 
     glfwTerminate();
+}
+
+void use_wireframe()
+{
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 }

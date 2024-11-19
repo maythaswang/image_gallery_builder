@@ -19,7 +19,7 @@ private:
     int x;
     int y;
 
-    void transform_plane(ss::Mesh *, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot);
+    void transform_plane(ss::Mesh *, int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot);
 };
 
 #endif

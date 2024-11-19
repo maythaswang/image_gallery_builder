@@ -80,7 +80,7 @@ void RoomBuilder::init_basic_materials()
  */
 void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, bool has_wall_S, bool has_wall_E, bool has_wall_W, std::string wall_image_N, std::string wall_image_S, std::string wall_image_E, std::string wall_image_W)
 {
-    if (row > this->x || col > this->y || row < 0 || col << 0)
+    if (row > this->x || col > this->y || row < 0 || col < 0)
     {
         std::cout << "Invalid Room [row,col]" << '\n';
         return;
@@ -92,14 +92,14 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     // Lamp
     lamp = this->geometry_builder.init_box(0.5, 0.1, 0.5, lamp_mat);
-    this->transform_plane(&lamp, lin_alg::vec3(0.0f, WIDTH - 0.08f, 0.0f), 0, lin_alg::vec3());
+    this->transform_plane(&lamp, row, col, lin_alg::vec3(0.0f, WIDTH - 0.08f, 0.0f), 0, lin_alg::vec3());
     this->scene->add_mesh(lamp);
 
     // Add lighting
     if (light_on)
     {
         ss::PointLight point_light;
-        point_light.position = lin_alg::vec3(0, WIDTH - 0.09, 0);
+        point_light.position = lin_alg::vec3(row * WIDTH, WIDTH - 0.09, col * DEPTH);
         point_light.ambient = lin_alg::vec3(0.1, 0.1, 0.1);
         point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.3);
         point_light.specular = lin_alg::vec3(0.2, 0.3, 0.2);
@@ -111,51 +111,55 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
+    this->transform_plane(&floor, row, col, lin_alg::vec3(0, 0, 0), 0.0f, lin_alg::vec3(0, 0, 0));
     this->scene->add_mesh(floor);
 
     ss::Mesh ceil = this->geometry_builder.init_plane(WIDTH, DEPTH, 1);
-    this->transform_plane(&ceil, lin_alg::vec3(0, DEPTH, 0), -180.0f, lin_alg::vec3(1, 0, 0));
+    this->transform_plane(&ceil, row, col, lin_alg::vec3(0, DEPTH, 0), -180.0f, lin_alg::vec3(1, 0, 0));
     this->scene->add_mesh(ceil);
 
     if (has_wall_N)
     {
         ss::Mesh wall_n = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_n, lin_alg::vec3(0, WIDTH / 2, DEPTH / 2), 90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
+        this->transform_plane(&wall_n, row, col, lin_alg::vec3(0, WIDTH / 2, DEPTH / 2), 90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
         this->scene->add_mesh(wall_n);
     }
 
     if (has_wall_S)
     {
         ss::Mesh wall_s = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_s, lin_alg::vec3(0, WIDTH / 2, -DEPTH / 2), -90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
+        this->transform_plane(&wall_s, row, col, lin_alg::vec3(0, WIDTH / 2, -DEPTH / 2), -90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
         this->scene->add_mesh(wall_s);
     }
 
     if (has_wall_E)
     {
         ss::Mesh wall_e = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_e, lin_alg::vec3(-WIDTH / 2, DEPTH / 2, 0), 90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
+        this->transform_plane(&wall_e, row, col, lin_alg::vec3(-WIDTH / 2, DEPTH / 2, 0), 90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
         this->scene->add_mesh(wall_e);
     }
 
     if (has_wall_W)
     {
         ss::Mesh wall_w = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_w, lin_alg::vec3(WIDTH / 2, DEPTH / 2, 0), -90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
+        this->transform_plane(&wall_w, row, col, lin_alg::vec3(WIDTH / 2, DEPTH / 2, 0), -90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
         this->scene->add_mesh(wall_w);
     }
 }
 
-void RoomBuilder::transform_plane(ss::Mesh *mesh, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot)
+void RoomBuilder::transform_plane(ss::Mesh *mesh, int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot)
 {
     std::vector<lin_alg::vec3> tmp_vert;
     std::vector<lin_alg::vec3> tmp_norm;
+
+    lin_alg::mat4 t_room = lin_alg::translate(lin_alg::vec3(row * WIDTH, 0, col * DEPTH));
+
     lin_alg::mat4 t_mat = lin_alg::translate(translate_vec);
 
     lin_alg::mat4 r_mat = lin_alg::rotate(lin_alg::mat4(1.0), lin_alg::radians(degree), axis_rot);
     for (int i = 0; i < mesh->vertices.size(); i++)
     {
-        tmp_vert.push_back(lin_alg::vec3(r_mat * lin_alg::transpose(t_mat) * lin_alg::vec4(mesh->vertices[i])));
+        tmp_vert.push_back(lin_alg::vec3(r_mat * lin_alg::transpose(t_mat) * lin_alg::transpose(t_room) * lin_alg::vec4(mesh->vertices[i])));
         tmp_norm.push_back(lin_alg::vec3(r_mat * lin_alg::vec4(mesh->normals[i])));
     }
 
