@@ -87,27 +87,24 @@ int main()
     // material_zero.shininess = 0.7f;
     // material_zero.texture_id = 0;
 
-    // ss::Material material_one;
-    // material_one.ambient = lin_alg::vec3();
-    // material_one.diffuse = lin_alg::vec3();
-    // material_one.specular = lin_alg::vec3();
-    // material_one.shininess = 0.5f;
-    // material_one.texture_id = 1;
+    ss::Material material_one;
+    material_one.ambient = lin_alg::vec3();
+    material_one.diffuse = lin_alg::vec3();
+    material_one.specular = lin_alg::vec3(0.05f,0.05f,0.05f);
+    material_one.shininess = 0.1f;
+    material_one.texture_id = 1;
 
     GeometryBuilder geometry_builder = GeometryBuilder();
-    ss::Mesh box_mesh = geometry_builder.init_box(1, 1, 1, 5);
+    ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 5);
     Scene scene = Scene();
-
-    // scene.add_material(material_zero);
-    // scene.add_mesh(plane_mesh);
 
     RoomBuilder room_builder = RoomBuilder(&scene, 1, 1);
     room_builder.init_basic_materials();
     room_builder.build_room(0, 0, 1, 1, 1, 1, 1, "", "", "", "");
 
-    // scene.add_material(material_one);
-    // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
-    // scene.add_mesh(box_mesh);
+    scene.add_material(material_one);
+    scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
+    scene.add_mesh(box_mesh);
 
     scene.build_scene();
 

@@ -92,44 +92,35 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     // Lamp
     lamp = this->geometry_builder.init_box(0.5, 0.1, 0.5, lamp_mat);
-    lin_alg::mat4 light_t_mat = lin_alg::translate(lin_alg::vec3(0.0f, WIDTH - 0.1, 0));
-    for (lin_alg::vec3 v : lamp.vertices)
-    {
-        light_tmp_vert.push_back(lin_alg::vec3(lin_alg::transpose(light_t_mat) * lin_alg::vec4(v)));
-    }
-
-    lamp.vertices = light_tmp_vert;
-
+    this->transform_plane(&lamp, lin_alg::vec3(0.0f, WIDTH - 0.08f, 0.0f), 0, lin_alg::vec3());
     this->scene->add_mesh(lamp);
 
     // Add lighting
     if (light_on)
     {
         ss::PointLight point_light;
-        point_light.position = lin_alg::vec3(0,WIDTH - 0.09,0);
+        point_light.position = lin_alg::vec3(0, WIDTH - 0.09, 0);
         point_light.ambient = lin_alg::vec3(0.1, 0.1, 0.1);
         point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.3);
         point_light.specular = lin_alg::vec3(0.2, 0.3, 0.2);
         point_light.constant = 0;
-        point_light.linear = 0.7;
+        point_light.linear = 0.8;
         point_light.quadratic = 0;
         this->scene->add_point_light(point_light);
     }
 
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
-    ss::Mesh ceil = this->geometry_builder.init_plane(WIDTH, DEPTH, 1);
+    this->scene->add_mesh(floor);
 
-    // std::cout << ceil.normals[0].x << ' ' << ceil.normals[0].y << ' ' << ceil.normals[0].z << '\n';
+    ss::Mesh ceil = this->geometry_builder.init_plane(WIDTH, DEPTH, 1);
     this->transform_plane(&ceil, lin_alg::vec3(0, DEPTH, 0), -180.0f, lin_alg::vec3(1, 0, 0));
-    // std::cout << ceil.normals[0].x << ' ' << ceil.normals[0].y << ' ' << ceil.normals[0].z << '\n';
+    this->scene->add_mesh(ceil);
 
     if (has_wall_N)
     {
         ss::Mesh wall_n = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        std::cout << wall_n.normals[0].x << ' ' << wall_n.normals[0].y << ' ' << wall_n.normals[0].z << '\n';
         this->transform_plane(&wall_n, lin_alg::vec3(0, WIDTH / 2, DEPTH / 2), 90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
-        std::cout << wall_n.normals[0].x << ' ' << wall_n.normals[0].y << ' ' << wall_n.normals[0].z << '\n';
         this->scene->add_mesh(wall_n);
     }
 
@@ -153,8 +144,6 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         this->transform_plane(&wall_w, lin_alg::vec3(WIDTH / 2, DEPTH / 2, 0), -90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
         this->scene->add_mesh(wall_w);
     }
-    this->scene->add_mesh(floor);
-    this->scene->add_mesh(ceil);
 }
 
 void RoomBuilder::transform_plane(ss::Mesh *mesh, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot)

@@ -40,8 +40,8 @@ vec4 compute_light(const in int light_id, const in int mat_id,
                    const in vec3 obj_normal, const in vec3 eye_direction,
                    const in vec3 current_pos) {
   // Load Material Values
-  vec3 ambient = mat_ambient[mat_id];
-  vec3 diffuse = mat_diffuse[mat_id];
+  int tex_id = int(mat_texture_id[mat_id] +0.1f);
+  vec3 diffuse = (tex_id == 0) ? mat_diffuse[mat_id] : vec3(texture(u_textures[tex_id-1], tex_coord));
   vec3 specular = mat_specular[mat_id];
   float shininess = mat_shininess[mat_id];
   vec3 norm = normalize(obj_normal);
@@ -61,10 +61,11 @@ vec4 compute_light(const in int light_id, const in int mat_id,
 
   // attenuation
   float distance = length(pl_position[light_id] - current_pos);
-  float atten_divide = (pl_constant[light_id] + pl_linear[light_id] * distance + pl_quadratic[light_id] * pow(distance, 2));
-  float attenuation = (atten_divide > 0)? 1 / atten_divide: 0;
+  float atten_divide = (pl_constant[light_id] + pl_linear[light_id] * distance +
+                        pl_quadratic[light_id] * pow(distance, 2));
+  float attenuation = (atten_divide > 0) ? 1 / atten_divide : 0;
 
-  return vec4(diffuse* attenuation + specular * attenuation, 1.0f);
+  return vec4(diffuse * attenuation + specular * attenuation, 1.0f);
   // return vec4(diffuse, 1.0f);
 }
 
@@ -75,17 +76,19 @@ void main() {
   if (cur_mat_id < 32) {
 
     // We will move this elsewhere
-    // int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a
+    int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a
     // stupid hack so that things can just work for now if (texture_index != 0)
-    // { // 0 ist for no texture
-    //   FragColor = texture(u_textures[texture_index - 1], tex_coord);
-    // } else {
-    //   FragColor = vec4(mat_ambient[cur_mat_id].x, mat_ambient[cur_mat_id].y,
-    //                    mat_ambient[cur_mat_id].z, 1);
-    //   // FragColor = vec4(pl_ambient[0].x,pl_ambient[0].y,pl_ambient[0].z,1);
-    // }
+
+    // ambient multiplier (Checks if the material is an emitter and then proceed
+    // as follows)
     float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
-    vec4 colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);
+
+    vec4 colour;
+    if (texture_index != 0) { // 0 ist for no texture
+      colour = texture(u_textures[texture_index - 1], tex_coord) * amb_mult;
+    } else {
+      colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);
+    }
 
     vec3 current_pos = vert_pos.xyz / vert_pos.w;
     vec3 eye_direction = normalize(eye_position - current_pos);
