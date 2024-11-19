@@ -1,5 +1,6 @@
 #version 430 core
 
+in vec4 vert_pos;
 in vec3 normal;
 in vec2 tex_coord;
 in float mat_id;
@@ -8,15 +9,18 @@ out vec4 FragColor;
 
 // As to why no struct, I don't have time to change it to UBO yet, maybe later.
 
+const float AMBIENT_MULTIPLIER = 0.2f;
+
 // MATERIALS
 const int n_mat = 32;
-uniform vec3 mat_ambient[n_mat];            // Ambient color
-uniform vec3 mat_diffuse[n_mat];            // Diffuse color
-uniform vec3 mat_specular[n_mat];           // Specular color 
-uniform float mat_shininess[n_mat];         // Shininess factor
-uniform float mat_texture_id[n_mat];        // If not 0, use texture instead of ambient/diffuse colors
+uniform vec3 mat_ambient[n_mat];     // Ambient color
+uniform vec3 mat_diffuse[n_mat];     // Diffuse color
+uniform vec3 mat_specular[n_mat];    // Specular color
+uniform float mat_shininess[n_mat];  // Shininess factor
+uniform float mat_texture_id[n_mat]; // If not 0, use texture instead of
+                                     // ambient/diffuse colors
 
-// POINT LIGHTS 
+// POINT LIGHTS
 const int n_point_light_max = 32;
 uniform int n_point_light;
 uniform vec3 pl_position[n_point_light_max];
@@ -29,24 +33,65 @@ uniform float attenuation[n_point_light_max];
 
 uniform sampler2D u_textures[32];
 
-vec4 compute_light(const in int light_id, const in int mat_id, const in vec3 halfvec){
+uniform vec3 eye_position; // Haven't added in
 
-    return vec4(1,1,1,1);
+// Use Blinn-Phong
+vec4 compute_light(const in int light_id, const in int mat_id,
+                   const in vec3 obj_normal, const in vec3 eye_direction,
+                   const in vec3 current_pos) {
+  // Load Material Values
+  vec3 ambient = mat_ambient[mat_id];
+  vec3 diffuse = mat_diffuse[mat_id];
+  vec3 specular = mat_specular[mat_id];
+  float shininess = mat_shininess[mat_id];
+  vec3 norm = normalize(obj_normal);
+
+  // ambient
+  // ambient *= AMBIENT_MULTIPLIER;
+
+  // diffuse (lambertian reflection)
+  vec3 light_direction = normalize(pl_position[light_id] - current_pos);
+  float lambertian_term = max(dot(light_direction, norm), 0.0f);
+  diffuse *= pl_diffuse[light_id] * lambertian_term;
+
+  // specular
+  vec3 halfvec = normalize(light_direction + eye_direction);
+  float specular_term = pow(max(dot(halfvec, norm), 0.0f), shininess);
+  specular *= pl_specular[light_id] * specular_term;
+
+  return vec4(diffuse + specular, 1.0f);
+  // return vec4(diffuse, 1.0f);
 }
 
+void main() {
 
-void main()
-{
-    int cur_mat_id = int(mat_id + 0.1);
-    if(cur_mat_id < 32){
-        int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a stupid hack so that things can just work for now
-        if(texture_index != 0){ // 0 ist for no texture
-            FragColor = texture(u_textures[texture_index-1],tex_coord);
-        } else {
-            FragColor = vec4(mat_ambient[cur_mat_id].x, mat_ambient[cur_mat_id].y, mat_ambient[cur_mat_id].z, 1);
-            // FragColor = vec4(pl_ambient[0].x,pl_ambient[0].y,pl_ambient[0].z,1);
-        }
-    } else {
-        FragColor = vec4(0,0,0,1);
+  int cur_mat_id = int(mat_id + 0.1);
+
+  if (cur_mat_id < 32) {
+
+    // We will move this elsewhere
+    // int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a
+    // stupid hack so that things can just work for now if (texture_index != 0)
+    // { // 0 ist for no texture
+    //   FragColor = texture(u_textures[texture_index - 1], tex_coord);
+    // } else {
+    //   FragColor = vec4(mat_ambient[cur_mat_id].x, mat_ambient[cur_mat_id].y,
+    //                    mat_ambient[cur_mat_id].z, 1);
+    //   // FragColor = vec4(pl_ambient[0].x,pl_ambient[0].y,pl_ambient[0].z,1);
+    // }
+    float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
+    vec4 colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);
+
+    vec3 current_pos = vert_pos.xyz / vert_pos.w;
+    vec3 eye_direction = normalize(eye_position - current_pos);
+
+    for (int i = 0; i < n_point_light; i++) {
+      colour +=
+          compute_light(i, cur_mat_id, normal, eye_direction, current_pos);
     }
+    FragColor = colour;
+
+  } else {
+    FragColor = vec4(0, 0, 0, 1);
+  }
 }

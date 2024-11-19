@@ -94,6 +94,8 @@ namespace ss
          */
         void set_z_far(GLfloat);
 
+        lin_alg::vec3 get_eye();
+
         /**
          * @brief Get the View Matrix
          *

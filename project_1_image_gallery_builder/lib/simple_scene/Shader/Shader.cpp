@@ -115,6 +115,11 @@ namespace ss
         glUniform1fv(glGetUniformLocation(this->shader_id, name.c_str()), count, value);
     }
 
+    void Shader::set_vec3(const std::string &name, const lin_alg::vec3 &value)
+    {
+        glUniform3fv(glGetUniformLocation(this->shader_id, name.c_str()), 1, reinterpret_cast<const float *>(&value));
+    }
+
     void Shader::set_vec3_arr(const std::string &name, const int count, const lin_alg::vec3 *value)
     {
         glUniform3fv(glGetUniformLocation(this->shader_id, name.c_str()), count, reinterpret_cast<const float *>(value));

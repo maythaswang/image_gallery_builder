@@ -151,7 +151,9 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene
     glClear(GL_COLOR_BUFFER_BIT);
     shader_program->use();
 
-    shader_program->set_mat4("modelview", camera->get_view_matrix());
+
+    shader_program->set_vec3("eye_position", camera->get_eye());
+    shader_program->set_mat4("view", camera->get_view_matrix());
     shader_program->set_mat4("projection", camera->get_projection_matrix());
 
     scene->use_materials(shader_program);

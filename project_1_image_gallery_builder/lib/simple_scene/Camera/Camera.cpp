@@ -93,6 +93,10 @@ namespace ss
         }
     }
 
+    lin_alg::vec3 Camera::get_eye(){
+        return this->eye;
+    }
+
     void Camera::set_eye(lin_alg::vec3 eye)
     {
         this->eye = eye;
