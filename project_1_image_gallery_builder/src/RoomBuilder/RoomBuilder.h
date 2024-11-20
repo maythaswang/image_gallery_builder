@@ -10,9 +10,11 @@
 class RoomBuilder
 {
 public:
+    RoomBuilder();
     RoomBuilder(Scene *, int, int);
     void init_basic_materials();
     void build_room(int, int, bool, bool, bool, bool, bool, std::string, std::string, std::string, std::string);
+    void set_scene_data(Scene *, int, int);
 
 private:
     Scene *scene;

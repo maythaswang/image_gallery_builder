@@ -24,9 +24,10 @@ const unsigned int SCREEN_WIDTH = 640;
 const unsigned int SCREEN_HEIGHT = 480;
 const char *SCREEN_NAME = "Image Gallery in OGL";
 
-int main()
+int main(int argc, char *argv[])
 {
     // Initialize program and window
+    // ----------------------------------------------------------------------------
     GLFWwindow *window = init_glfw_glad(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_NAME);
     if (!window)
     {
@@ -35,46 +36,45 @@ int main()
     }
 
     // Setup Camera
+    // ----------------------------------------------------------------------------
     ss::Camera camera = ss::Camera();
 
     // Setup Callbacks
+    // ----------------------------------------------------------------------------
     CallbackManager callback_manager = CallbackManager(window, &camera);
 
     // Setup Shader
+    // ----------------------------------------------------------------------------
     ss::Shader shader_program = ss::Shader();
     GLuint vertex_shader = shader_program.compile_shader("./resources/shader_source/simple_shader.vert", GL_VERTEX_SHADER);
     GLuint fragment_shader = shader_program.compile_shader("./resources/shader_source/simple_shader.frag", GL_FRAGMENT_SHADER);
     shader_program.link_shader(vertex_shader);
     shader_program.link_shader(fragment_shader);
 
-    // Setting up scene
-
+    // Init Scene
+    // ----------------------------------------------------------------------------
     Scene scene = Scene();
 
-    RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
-    room_builder.init_basic_materials();
-    room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
-    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
-    room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "1", "", "");
-    room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "1", "", "");
+    // Get input and setup scene
+    // ----------------------------------------------------------------------------
+    bool load_file_success = 0; 
+    if (argc == 2)
+    {
+    }
+    
+    if(!load_file_success)
+    {
+        std::cout << "failed to read input file, loading default sample: " << std::endl; 
+        RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
+        room_builder.init_basic_materials();
+        room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
+        room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
+        room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "1", "", "");
+        room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "1", "", "");
+    }
 
-    /// ---------- SANDBOX BEGIN ----------
-
-    // GeometryBuilder geometry_builder = GeometryBuilder();
-    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 8);
-
-    // ss::Material material_one;
-    // material_one.ambient = lin_alg::vec3(1,0,0);
-    // material_one.diffuse = lin_alg::vec3(1,1,1);
-    // material_one.specular = lin_alg::vec3(0.05f, 0.05f, 0.05f);
-    // material_one.shininess = 0.1f;
-    // material_one.texture_id = 3;
-    // scene.add_material(material_one);
-    // scene.add_texture("resources/textures/ground.jpg", 0, GL_RGB, GL_RGB);
-    // scene.add_mesh(box_mesh);
-
-    /// ---------- SANDBOX END ------------
-
+    // Prepare for render
+    // ----------------------------------------------------------------------------
     scene.build_scene();
 
     RenderComponents render_components = scene.get_render_components();

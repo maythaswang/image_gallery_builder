@@ -198,4 +198,12 @@
       <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shader_source\simple_shader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resources\shader_source\simple_shader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>

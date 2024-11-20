@@ -184,6 +184,10 @@
     <ClInclude Include="tests\lin_alg_test\vec3_test.hpp" />
     <ClInclude Include="tests\lin_alg_test\vec4_test.hpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shader_source\simple_shader.frag" />
+    <None Include="resources\shader_source\simple_shader.vert" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

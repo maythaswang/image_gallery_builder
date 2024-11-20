@@ -39,7 +39,6 @@ void Scene::build_scene()
 {
     this->render_components_updated = false;
     int offset = 0;
-
     for (ss::Mesh m : this->mesh_storage)
     {
         offset = this->vertices.size();
@@ -107,9 +106,10 @@ void Scene::init_buf()
     }
 
     glBindVertexArray(this->render_components.VAO[0]);
+    
+    if(!this->mesh_storage.empty()){
 
     glEnableVertexAttribArray(0);
-
     glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->vertices[0][0], GL_STATIC_DRAW);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
@@ -134,6 +134,7 @@ void Scene::init_buf()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->render_components.EBO[0]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->render_components.n_inds * 3, &this->indices[0][0], GL_STATIC_DRAW);
 
+    }
     // Unbind VAOs, VBOs, EBOs
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);

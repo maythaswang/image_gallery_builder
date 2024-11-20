@@ -1,0 +1,12 @@
+# X 0 0 0 0 
+# X X X X X
+# 0 X 0 X 0
+# X X X X X
+# 0 0 0 X 0
+
+SHOW ERROR HERE
+size 5 5
+room 0 1
+light 1 
+wall 1 1 1 1
+image_top diamond_grip_steel.jpg

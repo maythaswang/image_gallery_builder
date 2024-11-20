@@ -2,12 +2,15 @@
 const float WIDTH = 2;
 const float DEPTH = 2;
 
+RoomBuilder::RoomBuilder()
+{
+}
+
 RoomBuilder::RoomBuilder(Scene *scene, int x, int y)
 {
     this->scene = scene;
     this->x = x;
     this->y = y;
-    // this->material_count = 0;
 }
 
 void RoomBuilder::init_basic_materials()
@@ -133,7 +136,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         this->scene->add_mesh(wall_n);
         if (wall_image_N != "")
         {
-            this->add_canvas(row,col,translate_vec,degree,axis_rot,wall_image_N);
+            this->add_canvas(row, col, translate_vec, degree, axis_rot, wall_image_N);
         }
     }
 
@@ -148,7 +151,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         this->scene->add_mesh(wall_s);
         if (wall_image_S != "")
         {
-            this->add_canvas(row,col,translate_vec,degree,axis_rot,wall_image_S);
+            this->add_canvas(row, col, translate_vec, degree, axis_rot, wall_image_S);
         }
     }
 
@@ -203,13 +206,12 @@ int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canva
     GLfloat height = 0.5;
     if (tex_valid)
     {
-        tex_id = this->scene->get_texture_count()-1;
+        tex_id = this->scene->get_texture_count() - 1;
         this->scene->get_texture_data(tex_id, width, height);
 
         int total = (width + height);
-        width/=total; 
-        height/= total;
-
+        width /= total;
+        height /= total;
     }
     // Set material information
     canvas_image.ambient = lin_alg::vec3(1, 1, 1);
@@ -242,4 +244,10 @@ void RoomBuilder::add_canvas(int row, int col, lin_alg::vec3 translate_vec, GLfl
     this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
     this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
     this->scene->add_mesh(canvas_image_n);
+}
+
+void RoomBuilder::set_scene_data(Scene *scene , int row, int col){
+    this->scene = scene;
+    this->x = row; 
+    this->y = col;
 }
