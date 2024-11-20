@@ -25,9 +25,9 @@ public:
 	GeometryBuilder();
 	~GeometryBuilder();
 
-	ss::Mesh init_plane(GLfloat width, GLfloat depth, GLuint material_id);
-    ss::Mesh init_canvas_frame(GLfloat width, GLfloat height, GLuint material_id);
-	ss::Mesh init_canvas_image(GLfloat width, GLfloat height, GLuint material_id);
+	ss::Mesh init_plane(GLfloat width, GLfloat depth, GLuint mat_id);
+    ss::Mesh init_canvas_frame(GLfloat width, GLfloat depth, GLuint mat_id);
+	ss::Mesh init_canvas_image(GLfloat width, GLfloat depth, GLuint mat_id);
 
 	/**
 	 * @brief Create box
@@ -39,6 +39,8 @@ public:
 	 * @param depth depth of the box
 	 */
 	ss::Mesh init_box( GLfloat, GLfloat, GLfloat, GLfloat);
+
+	ss::Mesh init_box_flipped(GLfloat width, GLfloat height, GLfloat depth, GLfloat mat_id);
 
 	/**
 	 * @brief Initialize buffers using the given information and return it through ptr

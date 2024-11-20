@@ -7,6 +7,7 @@ Scene::Scene()
 
     this->render_components_initialized = false;
     this->render_components_updated = false;
+    this->material_count = 0;
 }
 
 Scene::~Scene()

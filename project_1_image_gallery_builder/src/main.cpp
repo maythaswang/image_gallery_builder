@@ -53,9 +53,10 @@ int main()
 
     RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
     room_builder.init_basic_materials();
-    room_builder.build_room(0, 0, 1, 1, 1, 1, 1, "", "", "", "");
-    room_builder.build_room(0, 1, 1, 1, 1, 1, 1, "", "", "", "");
-    room_builder.build_room(1, 1, 0, 1, 1, 1, 1, "", "", "", "");
+    room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "1", "", "");
+    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "1", "", "", "");
+    room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "", "", "", "");
+    room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "", "", "", "");
 
     /// ---------- SANDBOX BEGIN ----------
 

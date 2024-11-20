@@ -46,7 +46,8 @@ private:
     std::vector<lin_alg::vec3> normals;
     std::vector<GLfloat> tex_coords;
     std::vector<GLfloat> material_ids;
-
+    
+    int material_count;
 
     /**
      * @brief Initialize buffers using the given information

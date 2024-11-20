@@ -5,6 +5,7 @@
 #include "Scene/Scene.h"
 #include "GeometryBuilder/GeometryBuilder.h"
 #include <vector>
+#include <string>
 
 class RoomBuilder
 {
@@ -18,6 +19,7 @@ private:
     GeometryBuilder geometry_builder;
     int x;
     int y;
+    int material_count;
 
     void transform_plane(ss::Mesh *, int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot);
 };

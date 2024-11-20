@@ -7,6 +7,7 @@ RoomBuilder::RoomBuilder(Scene *scene, int x, int y)
     this->scene = scene;
     this->x = x;
     this->y = y;
+    this->material_count = 0;
 }
 
 void RoomBuilder::init_basic_materials()
@@ -51,32 +52,27 @@ void RoomBuilder::init_basic_materials()
     lamp_on.shininess = 0.7f;
     lamp_on.texture_id = 0;
 
+    // MAT ID 5 
+    ss::Material canvas_frame;
+    canvas_frame.ambient = lin_alg::vec3(1, 1, 1);
+    canvas_frame.diffuse = lin_alg::vec3(1, 1, 1);
+    canvas_frame.specular = lin_alg::vec3(1, 1, 1);
+    canvas_frame.shininess = 0.7f;
+    canvas_frame.texture_id = 0;
+
     this->scene->add_material(floor);
     this->scene->add_material(ceiling);
     this->scene->add_material(wall);
     this->scene->add_material(lamp_off);
     this->scene->add_material(lamp_on);
+    this->scene->add_material(canvas_frame);
+
+    this->material_count += 6;
 }
 
-// TODO: Maybe will need emittor type mesh
-
 /**
- * @brief RIGHT NOW THIS IS UNCLEANED AND IS VERY DIRTY ALSO NONE OF THE ITEMS HERE HAVE THEIR NORMALS IN PROPER PLACE YET
+ * @brief RIGHT NOW THIS IS UNCLEANED AND IS VERY DIRTY 
  * TODO: CLEAN THIS
- * TODO: CLEAN THIS
- * TODO: CLEAN THIS
- *
- * @param row
- * @param col
- * @param light_on
- * @param has_wall_N
- * @param has_wall_S
- * @param has_wall_E
- * @param has_wall_W
- * @param wall_image_N
- * @param wall_image_S
- * @param wall_image_E
- * @param wall_image_W
  */
 void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, bool has_wall_S, bool has_wall_E, bool has_wall_W, std::string wall_image_N, std::string wall_image_S, std::string wall_image_E, std::string wall_image_W)
 {
@@ -91,15 +87,13 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
     float lamp_mat = 3 + light_on;
 
     // Lamp
-    lamp = this->geometry_builder.init_box(0.5, 0.1, 0.5, lamp_mat);
-    this->transform_plane(&lamp, row, col, lin_alg::vec3(0.0f, WIDTH - 0.08f, 0.0f), 0, lin_alg::vec3());
-    this->scene->add_mesh(lamp);
 
     // Add lighting
     if (light_on)
     {
+        lamp = this->geometry_builder.init_box_flipped(0.5, 0.1, 0.5, lamp_mat);
         ss::PointLight point_light;
-        point_light.position = lin_alg::vec3(row * WIDTH, WIDTH - 0.09, col * DEPTH);
+        point_light.position = lin_alg::vec3(row * WIDTH, WIDTH - 0.05, col * DEPTH);
         point_light.ambient = lin_alg::vec3(0.1, 0.1, 0.1);
         point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.3);
         point_light.specular = lin_alg::vec3(0.2, 0.3, 0.2);
@@ -107,7 +101,12 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         point_light.linear = 0.8;
         point_light.quadratic = 0;
         this->scene->add_point_light(point_light);
+    } else {
+        lamp = this->geometry_builder.init_box(0.5, 0.1, 0.5, lamp_mat);
     }
+
+    this->transform_plane(&lamp, row, col, lin_alg::vec3(0.0f, WIDTH - 0.05f, 0.0f), 0, lin_alg::vec3());
+    this->scene->add_mesh(lamp);
 
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
@@ -120,16 +119,44 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     if (has_wall_N)
     {
+        lin_alg::vec3 translate_vec = lin_alg::vec3(0, WIDTH / 2, DEPTH / 2);
+        GLfloat degree = 90.0f; 
+        lin_alg::vec3 axis_rot = lin_alg::vec3(1.0f, 0.0f, 0.0f); 
+
         ss::Mesh wall_n = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_n, row, col, lin_alg::vec3(0, WIDTH / 2, DEPTH / 2), 90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
+
+        this->transform_plane(&wall_n, row, col, translate_vec, degree, axis_rot);
         this->scene->add_mesh(wall_n);
+        if(wall_image_N != ""){
+            ss::Mesh image_frame_n = this->geometry_builder.init_canvas_frame(WIDTH/2, DEPTH/2, 5);
+            this->transform_plane(&image_frame_n, 0,0,lin_alg::vec3(0,0.05,0), 0, lin_alg::vec3());
+            this->transform_plane(&image_frame_n, row,col,translate_vec, degree, axis_rot);
+            this->scene->add_mesh(image_frame_n);
+
+            // No material yet
+            ss::Mesh canvas_image_n = this->geometry_builder.init_plane(WIDTH/2, DEPTH/2, this->material_count);
+            this->transform_plane(&canvas_image_n, 0,0,lin_alg::vec3(0,0.1,0), 0, lin_alg::vec3());
+            this->transform_plane(&canvas_image_n, row,col,translate_vec, degree, axis_rot);
+            this->scene->add_mesh(canvas_image_n);
+            this->material_count+=1;
+        }
     }
 
     if (has_wall_S)
     {
+        lin_alg::vec3 translate_vec =  lin_alg::vec3(0, WIDTH / 2, -DEPTH / 2);
+        GLfloat degree =  -90.0f; 
+        lin_alg::vec3 axis_rot = lin_alg::vec3(1.0f, 0.0f, 0.0f); 
+
         ss::Mesh wall_s = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_s, row, col, lin_alg::vec3(0, WIDTH / 2, -DEPTH / 2), -90.0f, lin_alg::vec3(1.0f, 0.0f, 0.0f));
+        this->transform_plane(&wall_s, row, col,translate_vec,degree, axis_rot);
         this->scene->add_mesh(wall_s);
+        if(wall_image_S != ""){
+            ss::Mesh image_frame_n = this->geometry_builder.init_canvas_frame(WIDTH/2, DEPTH/2, 5);
+            this->transform_plane(&image_frame_n, 0,0,lin_alg::vec3(0,0.05,0), 0, lin_alg::vec3());
+            this->transform_plane(&image_frame_n, row,col,translate_vec, degree, axis_rot);
+            this->scene->add_mesh(image_frame_n);
+        }
     }
 
     if (has_wall_E)
