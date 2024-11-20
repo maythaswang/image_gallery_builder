@@ -47,7 +47,8 @@ private:
     std::vector<GLfloat> tex_coords;
     std::vector<GLfloat> material_ids;
     
-    int material_count;
+    int material_count; // Bound everything to material count
+    int texture_count;  
 
     /**
      * @brief Initialize buffers using the given information

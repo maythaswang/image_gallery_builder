@@ -22,6 +22,8 @@ private:
     int material_count;
 
     void transform_plane(ss::Mesh *, int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot);
+
+    int create_canvas_material(std::string texture_path);
 };
 
 #endif
