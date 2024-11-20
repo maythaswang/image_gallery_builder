@@ -21,7 +21,6 @@ namespace ss
                 this->specular.push_back(m.specular);
                 this->shininess.push_back(m.shininess);
                 this->texture_id.push_back(m.texture_id);
-                std::cout << m.texture_id << '\n';
             }
         }
     }

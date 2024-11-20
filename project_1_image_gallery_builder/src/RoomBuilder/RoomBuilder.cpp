@@ -18,12 +18,14 @@ void RoomBuilder::init_basic_materials()
     floor.diffuse = lin_alg::vec3(1.0f, 1.0f, 1.0f);
     floor.specular = lin_alg::vec3(0.1f, 0.1f, 0.1f);
     floor.shininess = 0.05f;
-    floor.texture_id = 0;
+    floor.texture_id = 1;
+
+    this->scene->add_texture("resources/textures/wood.png", 0, GL_RGB, GL_RGB);
 
     // MAT ID 1
     ss::Material ceiling;
-    ceiling.ambient = lin_alg::vec3(0.2f, 0.2f, 0.3f);
-    ceiling.diffuse = lin_alg::vec3(0.35f, 0.3f, 0.25f);
+    ceiling.ambient = lin_alg::vec3(0.8f, 0.8f, 0.8f);
+    ceiling.diffuse = lin_alg::vec3(0.75f, 0.7f, 0.65f);
     ceiling.specular = lin_alg::vec3(0.2f, 0.2f, 0.2f);
     ceiling.shininess = 0.1f;
     ceiling.texture_id = 0;
@@ -38,8 +40,8 @@ void RoomBuilder::init_basic_materials()
 
     // MAT ID 3
     ss::Material lamp_off;
-    lamp_off.ambient = lin_alg::vec3(0.2f, 0.2f, 0.3f);
-    lamp_off.diffuse = lin_alg::vec3(0.2f, 0.2f, 0.3f);
+    lamp_off.ambient = lin_alg::vec3(0.5f, 0.5f, 0.6f);
+    lamp_off.diffuse = lin_alg::vec3(0.4f, 0.4f, 0.55f);
     lamp_off.specular = lin_alg::vec3(0.2f, 0.2f, 0.2f);
     lamp_off.shininess = 0.7f;
     lamp_off.texture_id = 0;
@@ -109,8 +111,6 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     this->transform_plane(&lamp, row, col, lin_alg::vec3(0.0f, WIDTH - 0.05f, 0.0f), 0, lin_alg::vec3());
     this->scene->add_mesh(lamp);
-
-    std::cout << "lamp: " << lamp.mat_id << '\n';
 
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
@@ -242,5 +242,4 @@ void RoomBuilder::add_canvas(int row, int col, lin_alg::vec3 translate_vec, GLfl
     this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
     this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
     this->scene->add_mesh(canvas_image_n);
-    // std::cout << mat_id << '\n';
 }

@@ -15,7 +15,7 @@ namespace ss
         this->z_far = 2000000.0f;
 
         this->rotation_sensitivity = 0.2f;
-        this->zoom_sensitivity = 0.1f;
+        this->zoom_sensitivity = 0.05f;
         this->translation_sensitivity = 0.2f;
 
         this->build_view_matrix();
