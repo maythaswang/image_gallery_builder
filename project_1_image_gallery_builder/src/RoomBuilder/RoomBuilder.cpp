@@ -7,7 +7,7 @@ RoomBuilder::RoomBuilder(Scene *scene, int x, int y)
     this->scene = scene;
     this->x = x;
     this->y = y;
-    this->material_count = 0;
+    // this->material_count = 0;
 }
 
 void RoomBuilder::init_basic_materials()
@@ -22,25 +22,25 @@ void RoomBuilder::init_basic_materials()
 
     // MAT ID 1
     ss::Material ceiling;
-    ceiling.ambient = lin_alg::vec3(0.4f, 0.4f, 0.4f);
-    ceiling.diffuse = lin_alg::vec3(0.2f, 0.2f, 0.3f);
+    ceiling.ambient = lin_alg::vec3(0.2f, 0.2f, 0.3f);
+    ceiling.diffuse = lin_alg::vec3(0.35f, 0.3f, 0.25f);
     ceiling.specular = lin_alg::vec3(0.2f, 0.2f, 0.2f);
     ceiling.shininess = 0.1f;
     ceiling.texture_id = 0;
 
     // MAT ID 2
     ss::Material wall;
-    wall.ambient = lin_alg::vec3(0.2f, 0.3f, 0.3f);
-    wall.diffuse = lin_alg::vec3(0.2f, 0.4f, 0.2f);
+    wall.ambient = lin_alg::vec3(0.2f, 0.25f, 0.3f);
+    wall.diffuse = lin_alg::vec3(0.2f, 0.3, 0.3f);
     wall.specular = lin_alg::vec3(0.2f, 0.1f, 0.1f);
     wall.shininess = 0.1f;
     wall.texture_id = 0;
 
     // MAT ID 3
     ss::Material lamp_off;
-    lamp_off.ambient = lin_alg::vec3(0.1f, 0.1f, 0.4f);
-    lamp_off.diffuse = lin_alg::vec3(1, 1, 1);
-    lamp_off.specular = lin_alg::vec3(1, 1, 1);
+    lamp_off.ambient = lin_alg::vec3(0.2f, 0.2f, 0.3f);
+    lamp_off.diffuse = lin_alg::vec3(0.2f, 0.2f, 0.3f);
+    lamp_off.specular = lin_alg::vec3(0.2f, 0.2f, 0.2f);
     lamp_off.shininess = 0.7f;
     lamp_off.texture_id = 0;
 
@@ -67,7 +67,7 @@ void RoomBuilder::init_basic_materials()
     this->scene->add_material(lamp_on);
     this->scene->add_material(canvas_frame);
 
-    this->material_count += 6;
+    // this->material_count += 6;
 }
 
 /**
@@ -94,9 +94,9 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         lamp = this->geometry_builder.init_box_flipped(0.5, 0.1, 0.5, lamp_mat);
         ss::PointLight point_light;
         point_light.position = lin_alg::vec3(row * WIDTH, WIDTH - 0.05, col * DEPTH);
-        point_light.ambient = lin_alg::vec3(0.1, 0.1, 0.1);
+        point_light.ambient = lin_alg::vec3(0.3, 0.3, 0.3);
         point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.3);
-        point_light.specular = lin_alg::vec3(0.2, 0.3, 0.2);
+        point_light.specular = lin_alg::vec3(0.2, 0.2, 0.2);
         point_light.constant = 0;
         point_light.linear = 0.8;
         point_light.quadratic = 0;
@@ -136,12 +136,14 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
             this->transform_plane(&image_frame_n, row, col, translate_vec, degree, axis_rot);
             this->scene->add_mesh(image_frame_n);
 
-            // No material yet
-            ss::Mesh canvas_image_n = this->geometry_builder.init_plane(WIDTH / 2, DEPTH / 2, this->material_count);
+            // Create material for canvas image
+            GLfloat canvas_width, canvas_height;
+            int mat_id = this->create_canvas_material(wall_image_N, canvas_width, canvas_height);
+            ss::Mesh canvas_image_n = this->geometry_builder.init_plane(canvas_width, canvas_height, mat_id);
+
             this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
             this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
             this->scene->add_mesh(canvas_image_n);
-            this->material_count += 1;
         }
     }
 
@@ -198,18 +200,44 @@ void RoomBuilder::transform_plane(ss::Mesh *mesh, int row, int col, lin_alg::vec
     mesh->normals = tmp_norm;
 }
 
-int RoomBuilder::create_canvas_material(std::string texture_path)
+int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canvas_width, GLfloat &canvas_height)
 {
     // Poll material limit for the sceen, if
     ss::Material canvas_image;
-    this->scene->add_texture(texture_path, 0, GL_RGB, GL_RGB);
-    // int texture_id = this->scene->get_texture_count();
 
+    // We set the id to the latest one that is unused
+    int mat_id = this->scene->get_material_count();
+
+    // add new texture
+    int tex_valid = this->scene->add_texture(texture_path, 0, GL_RGB, GL_RGB);
+    int tex_id = 32;
+
+    GLfloat width = 0.5;
+    GLfloat height = 0.5;
+    std::cout << tex_valid << '\n';
+    if (tex_valid)
+    {
+        tex_id = this->scene->get_texture_count();
+        this->scene->get_texture_data(tex_id-1, width, height);
+
+        std::cout << width << ' ' << height << '\n';
+        int total = (width + height);
+        width/=total; 
+        height/= total;
+
+    }
+    // Set material information
     canvas_image.ambient = lin_alg::vec3(1, 1, 1);
     canvas_image.diffuse = lin_alg::vec3(1, 1, 1);
-    canvas_image.specular = lin_alg::vec3(1, 1, 1);
+    canvas_image.specular = lin_alg::vec3(0.2, 0.2, 0.2);
     canvas_image.shininess = 0.7f;
-    // canvas_image.texture_id = texture_id;
+    canvas_image.texture_id = tex_id; // basically send it to the void if the tex_id is weird
 
-    return -1;
+    // add new material
+    this->scene->add_material(canvas_image);
+
+    canvas_width = width * WIDTH;
+    canvas_height = height * DEPTH;
+
+    return mat_id;
 }

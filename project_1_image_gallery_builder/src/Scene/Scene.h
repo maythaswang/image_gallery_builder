@@ -22,13 +22,17 @@ public:
     ~Scene();
 
     void add_material(ss::Material);
-    void add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
+    int add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
     void add_point_light(ss::PointLight);
     void add_mesh(ss::Mesh);
     void build_scene();
     void use_materials(ss::Shader*);
 
     RenderComponents get_render_components();
+
+    void get_texture_data(int, GLfloat& , GLfloat&);
+    int get_texture_count();
+    int get_material_count();
 
 private:
     ss::MaterialManager material_manager;
@@ -47,9 +51,6 @@ private:
     std::vector<GLfloat> tex_coords;
     std::vector<GLfloat> material_ids;
     
-    int material_count; // Bound everything to material count
-    int texture_count;  
-
     /**
      * @brief Initialize buffers using the given information
      * 

@@ -53,15 +53,15 @@ int main()
 
     RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
     room_builder.init_basic_materials();
-    room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "1", "", "");
-    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "1", "", "", "");
+    room_builder.build_room(0, 0, 0, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
+    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/container.jpg", "", "", "");
     room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "", "", "", "");
     room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "", "", "", "");
 
     /// ---------- SANDBOX BEGIN ----------
 
     // GeometryBuilder geometry_builder = GeometryBuilder();
-    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 5);
+    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 6);
 
     // ss::Material material_one;
     // material_one.ambient = lin_alg::vec3();

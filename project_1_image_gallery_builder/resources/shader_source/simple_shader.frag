@@ -79,25 +79,30 @@ void main() {
     int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a
     // stupid hack so that things can just work for now if (texture_index != 0)
 
-    // ambient multiplier (Checks if the material is an emitter and then proceed
-    // as follows)
-    float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
+    if(texture_index < 32){
 
-    vec4 colour;
-    if (texture_index != 0) { // 0 ist for no texture
-      colour = texture(u_textures[texture_index - 1], tex_coord) * amb_mult;
-    } else {
-      colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);
+      // ambient multiplier (Checks if the material is an emitter and then proceed
+      // as follows)
+      float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
+
+      vec4 colour;
+      if (texture_index != 0) { // 0 ist for no texture
+        colour = texture(u_textures[texture_index - 1], tex_coord) * amb_mult;
+      } else {
+        colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);
+      }
+
+      vec3 current_pos = vert_pos.xyz / vert_pos.w;
+      vec3 eye_direction = normalize(eye_position - current_pos);
+
+      for (int i = 0; i < n_point_light; i++) {
+        colour +=
+            compute_light(i, cur_mat_id, normal, eye_direction, current_pos);
+      }
+      FragColor = colour;
     }
-
-    vec3 current_pos = vert_pos.xyz / vert_pos.w;
-    vec3 eye_direction = normalize(eye_position - current_pos);
-
-    for (int i = 0; i < n_point_light; i++) {
-      colour +=
-          compute_light(i, cur_mat_id, normal, eye_direction, current_pos);
-    }
-    FragColor = colour;
+    
+    else {FragColor = vec4(0, 0, 0, 1);}
 
   } else {
     FragColor = vec4(0, 0, 0, 1);

@@ -1,4 +1,6 @@
 #include "./Scene.h"
+const int MAX_MATERIAL = 32;
+
 
 Scene::Scene()
 {
@@ -7,7 +9,6 @@ Scene::Scene()
 
     this->render_components_initialized = false;
     this->render_components_updated = false;
-    this->material_count = 0;
 }
 
 Scene::~Scene()
@@ -19,9 +20,9 @@ void Scene::add_material(ss::Material material)
     material_manager.add_material(material);
 }
 
-void Scene::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
+int Scene::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
 {
-    texture_manager.create_texture(file_path, lod, internal_format, format);
+    return texture_manager.create_texture(file_path, lod, internal_format, format);
 }
 
 void Scene::add_mesh(ss::Mesh mesh)
@@ -29,7 +30,8 @@ void Scene::add_mesh(ss::Mesh mesh)
     this->mesh_storage.push_back(mesh);
 }
 
-void Scene::add_point_light(ss::PointLight point_light){
+void Scene::add_point_light(ss::PointLight point_light)
+{
     this->light_manager.add_point_light(point_light);
 }
 
@@ -49,7 +51,7 @@ void Scene::build_scene()
             this->tex_coords.push_back(m.tex_coord[i * 2 + 1]);
             this->material_ids.push_back(m.mat_id);
         }
-        
+
         for (int i = 0; i < m.indices.size(); i++)
         {
             this->indices.push_back(m.indices[i] + offset);
@@ -78,6 +80,20 @@ void Scene::use_materials(ss::Shader *shader_program)
     this->texture_manager.use_all_textures(shader_program);
     this->material_manager.use_all_materials(shader_program);
     this->light_manager.use_all_point_lights(shader_program);
+}
+
+void Scene::get_texture_data(int texture_id, GLfloat &width, GLfloat &height)
+{
+    return this->texture_manager.get_texture_data(texture_id, width, height);
+}
+
+int Scene::get_texture_count()
+{
+    return this->texture_manager.get_texture_count();
+}
+int Scene::get_material_count()
+{
+    return this->material_manager.get_material_count();
 }
 
 void Scene::init_buf()

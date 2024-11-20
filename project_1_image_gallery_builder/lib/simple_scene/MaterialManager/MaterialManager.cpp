@@ -34,4 +34,8 @@ namespace ss
         shader_program->set_float_arr("mat_texture_id", this->texture_id.size(), &this->texture_id[0]);
     }
 
+    int MaterialManager::get_material_count(){
+        return this->material_storage.size();
+    }
+
 }

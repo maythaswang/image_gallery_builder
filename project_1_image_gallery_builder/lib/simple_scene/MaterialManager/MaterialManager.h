@@ -22,6 +22,8 @@ namespace ss
         void add_material(Material);
         void prepare_materials();
         void use_all_materials(Shader* shader_program);
+        int get_material_count();
+
 
     private:
         std::vector<Material> material_storage;

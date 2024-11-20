@@ -54,6 +54,8 @@ namespace ss
          */
         bool get_has_texture();
 
+        void get_info(GLfloat &, GLfloat&);
+
     private:
         GLuint texture_id;
         bool has_texture;
@@ -68,6 +70,9 @@ namespace ss
          * @return false
          */
         bool read_file(std::string, GLuint, GLenum, GLenum);
+
+        GLfloat width;
+        GLfloat height;
     };
 }
 #endif

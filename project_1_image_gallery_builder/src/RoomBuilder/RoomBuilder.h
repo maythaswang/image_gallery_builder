@@ -19,11 +19,10 @@ private:
     GeometryBuilder geometry_builder;
     int x;
     int y;
-    int material_count;
 
     void transform_plane(ss::Mesh *, int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot);
 
-    int create_canvas_material(std::string texture_path);
+    int create_canvas_material(std::string texture_path, GLfloat &, GLfloat &);
 };
 
 #endif

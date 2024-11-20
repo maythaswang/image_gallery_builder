@@ -4,7 +4,7 @@ namespace ss
 {
     Camera::Camera()
     {
-        this->eye = lin_alg::vec3(0, 1.0, 3.0);
+        this->eye = lin_alg::vec3(0, 1.0, 2.0);
         this->center = lin_alg::vec3(0, 1.0, 0);
         this->up = lin_alg::vec3(0, 1.0, 0);
 

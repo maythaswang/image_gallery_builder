@@ -51,6 +51,10 @@ namespace ss
         void use_all_textures(Shader *);
         // void delete_texture();
 
+        void get_texture_data(int, GLfloat&, GLfloat &);
+
+        int get_texture_count();
+
     private:
         std::vector<Texture> textures_storage;
         std::vector<int> texture_ids;
