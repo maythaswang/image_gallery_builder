@@ -51,6 +51,7 @@ void Scene::build_scene()
             this->tex_coords.push_back(m.tex_coord[i * 2 + 1]);
             this->material_ids.push_back(m.mat_id);
         }
+        // std::cout << m.mat_id << ' ' << '\n';
 
         for (int i = 0; i < m.indices.size(); i++)
         {

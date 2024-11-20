@@ -21,12 +21,6 @@ namespace ss
 
     bool Texture::setup_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
     {
-        bool status = this->read_file(file_path, lod, internal_format, format);
-        if (!status)
-        {
-            return status;
-        }
-
         if (!this->has_texture)
         {
             glGenTextures(1, &this->texture_id);
@@ -42,8 +36,16 @@ namespace ss
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+        bool status = this->read_file(file_path, lod, internal_format, format);
+
         // unbind
         glBindTexture(GL_TEXTURE_2D, 0);
+
+        if (!status)
+        {
+            this->delete_texture();
+        }
+
         return status;
     }
 

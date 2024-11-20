@@ -53,24 +53,24 @@ int main()
 
     RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
     room_builder.init_basic_materials();
-    room_builder.build_room(0, 0, 0, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
-    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/container.jpg", "", "", "");
-    room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "", "", "", "");
-    room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "", "", "", "");
+    room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
+    room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
+    room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "1", "", "");
+    room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "1", "", "");
 
     /// ---------- SANDBOX BEGIN ----------
 
     // GeometryBuilder geometry_builder = GeometryBuilder();
-    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 6);
+    // ss::Mesh box_mesh = geometry_builder.init_box(1.5, 1.5, 1.5, 8);
 
     // ss::Material material_one;
-    // material_one.ambient = lin_alg::vec3();
-    // material_one.diffuse = lin_alg::vec3();
-    // material_one.specular = lin_alg::vec3(0.05f,0.05f,0.05f);
+    // material_one.ambient = lin_alg::vec3(1,0,0);
+    // material_one.diffuse = lin_alg::vec3(1,1,1);
+    // material_one.specular = lin_alg::vec3(0.05f, 0.05f, 0.05f);
     // material_one.shininess = 0.1f;
-    // material_one.texture_id = 1;
+    // material_one.texture_id = 3;
     // scene.add_material(material_one);
-    // scene.add_texture("resources/textures/container.jpg", 0, GL_RGB, GL_RGB);
+    // scene.add_texture("resources/textures/ground.jpg", 0, GL_RGB, GL_RGB);
     // scene.add_mesh(box_mesh);
 
     /// ---------- SANDBOX END ------------

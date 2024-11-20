@@ -110,6 +110,8 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
     this->transform_plane(&lamp, row, col, lin_alg::vec3(0.0f, WIDTH - 0.05f, 0.0f), 0, lin_alg::vec3());
     this->scene->add_mesh(lamp);
 
+    std::cout << "lamp: " << lamp.mat_id << '\n';
+
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
     this->transform_plane(&floor, row, col, lin_alg::vec3(0, 0, 0), 0.0f, lin_alg::vec3(0, 0, 0));
@@ -131,19 +133,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         this->scene->add_mesh(wall_n);
         if (wall_image_N != "")
         {
-            ss::Mesh image_frame_n = this->geometry_builder.init_canvas_frame(WIDTH / 2, DEPTH / 2, 5);
-            this->transform_plane(&image_frame_n, 0, 0, lin_alg::vec3(0, 0.05, 0), 0, lin_alg::vec3());
-            this->transform_plane(&image_frame_n, row, col, translate_vec, degree, axis_rot);
-            this->scene->add_mesh(image_frame_n);
-
-            // Create material for canvas image
-            GLfloat canvas_width, canvas_height;
-            int mat_id = this->create_canvas_material(wall_image_N, canvas_width, canvas_height);
-            ss::Mesh canvas_image_n = this->geometry_builder.init_plane(canvas_width, canvas_height, mat_id);
-
-            this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
-            this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
-            this->scene->add_mesh(canvas_image_n);
+            this->add_canvas(row,col,translate_vec,degree,axis_rot,wall_image_N);
         }
     }
 
@@ -158,10 +148,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         this->scene->add_mesh(wall_s);
         if (wall_image_S != "")
         {
-            ss::Mesh image_frame_n = this->geometry_builder.init_canvas_frame(WIDTH / 2, DEPTH / 2, 5);
-            this->transform_plane(&image_frame_n, 0, 0, lin_alg::vec3(0, 0.05, 0), 0, lin_alg::vec3());
-            this->transform_plane(&image_frame_n, row, col, translate_vec, degree, axis_rot);
-            this->scene->add_mesh(image_frame_n);
+            this->add_canvas(row,col,translate_vec,degree,axis_rot,wall_image_S);
         }
     }
 
@@ -214,13 +201,11 @@ int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canva
 
     GLfloat width = 0.5;
     GLfloat height = 0.5;
-    std::cout << tex_valid << '\n';
     if (tex_valid)
     {
-        tex_id = this->scene->get_texture_count();
-        this->scene->get_texture_data(tex_id-1, width, height);
+        tex_id = this->scene->get_texture_count()-1;
+        this->scene->get_texture_data(tex_id, width, height);
 
-        std::cout << width << ' ' << height << '\n';
         int total = (width + height);
         width/=total; 
         height/= total;
@@ -240,4 +225,22 @@ int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canva
     canvas_height = height * DEPTH;
 
     return mat_id;
+}
+
+void RoomBuilder::add_canvas(int row, int col, lin_alg::vec3 translate_vec, GLfloat degree, lin_alg::vec3 axis_rot, std::string image_path)
+{
+    ss::Mesh image_frame_n = this->geometry_builder.init_canvas_frame(WIDTH / 2, DEPTH / 2, 5);
+    this->transform_plane(&image_frame_n, 0, 0, lin_alg::vec3(0, 0.05, 0), 0, lin_alg::vec3());
+    this->transform_plane(&image_frame_n, row, col, translate_vec, degree, axis_rot);
+    this->scene->add_mesh(image_frame_n);
+
+    // Create material for canvas image
+    GLfloat canvas_width, canvas_height;
+    int mat_id = this->create_canvas_material(image_path, canvas_width, canvas_height);
+    ss::Mesh canvas_image_n = this->geometry_builder.init_plane(canvas_width, canvas_height, mat_id);
+
+    this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
+    this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
+    this->scene->add_mesh(canvas_image_n);
+    // std::cout << mat_id << '\n';
 }
