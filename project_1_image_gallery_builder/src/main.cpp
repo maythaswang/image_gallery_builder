@@ -9,6 +9,8 @@
 #include "./Scene/Scene.h"
 #include "./RoomBuilder/RoomBuilder.h"
 
+#include "InputParser/InputParser.h"
+
 #include <iostream>
 
 // Forward Declarations
@@ -57,20 +59,31 @@ int main(int argc, char *argv[])
 
     // Get input and setup scene
     // ----------------------------------------------------------------------------
-    bool load_file_success = 0; 
-    if (argc == 2)
+    bool load_file_success = 0;
+
+    if (argc == 1)
     {
-    }
-    
-    if(!load_file_success)
-    {
-        std::cout << "failed to read input file, loading default sample: " << std::endl; 
+        std::cout << "No argument provided, loading default sample..." << '\n';
+        load_file_success = 1;
+        
         RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
         room_builder.init_basic_materials();
-        room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "", "");
-        room_builder.build_room(0, 1, 1, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
-        room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "1", "", "");
-        room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "1", "", "");
+        room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "resources/textures/wall.jpg", "");
+        room_builder.build_room(0, 1, 0, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
+        room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "", "", "resources/textures/wood.png");
+        room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "", "", "resources/textures/diamond_grip_steel.jpg");
+    }
+    else if (argc == 3)
+    {   
+        std::cout << "Parsing file..." << '\n';
+        InputParser input_parser = InputParser();
+
+    }
+
+    if (!load_file_success)
+    {
+        std::cout << "Failed to read input file, exitting..." << std::endl;
+        return -1;
     }
 
     // Prepare for render

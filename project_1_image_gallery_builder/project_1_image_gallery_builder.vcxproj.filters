@@ -102,6 +102,9 @@
     <ClCompile Include="lib\simple_scene\LightManager\LightManager.cpp">
       <Filter>lib\simple_scene\src</Filter>
     </ClCompile>
+    <ClCompile Include="src\InputParser\InputParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
@@ -173,12 +176,6 @@
     <ClInclude Include="lib\simple_scene\Camera\Camera.h">
       <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
-    <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Scene\Scene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\simple_scene\MaterialManager\MaterialManager.h">
       <Filter>lib\lin_alg</Filter>
     </ClInclude>
@@ -191,11 +188,23 @@
     <ClInclude Include="lib\simple_scene\SceneComponents\Mesh.h">
       <Filter>lib\simple_scene\headers</Filter>
     </ClInclude>
-    <ClInclude Include="src\RoomBuilder\RoomBuilder.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="lib\simple_scene\LightManager\LightManager.h">
       <Filter>lib\simple_scene\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputParser\InputCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InputParser\InputParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RoomBuilder\RoomBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Scene\Scene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

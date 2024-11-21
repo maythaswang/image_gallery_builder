@@ -157,16 +157,35 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
     if (has_wall_E)
     {
+        lin_alg::vec3 translate_vec = lin_alg::vec3(-WIDTH / 2, DEPTH / 2, 0);
+        GLfloat degree = 90.0f;
+        lin_alg::vec3 axis_rot = lin_alg::vec3(0.0f, 0.0f, 1.0f);
+
         ss::Mesh wall_e = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_e, row, col, lin_alg::vec3(-WIDTH / 2, DEPTH / 2, 0), 90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
+        this->transform_plane(&wall_e, row, col, translate_vec, degree, axis_rot);
         this->scene->add_mesh(wall_e);
+
+        if (wall_image_E != "")
+        {
+            this->add_canvas(row, col, translate_vec, degree, axis_rot, wall_image_E);
+        }
     }
 
     if (has_wall_W)
     {
+        lin_alg::vec3 translate_vec = lin_alg::vec3(WIDTH / 2, DEPTH / 2, 0);
+        GLfloat degree = -90.0f;
+        lin_alg::vec3 axis_rot = lin_alg::vec3(0.0f, 0.0f, 1.0f);
+
         ss::Mesh wall_w = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
-        this->transform_plane(&wall_w, row, col, lin_alg::vec3(WIDTH / 2, DEPTH / 2, 0), -90.0f, lin_alg::vec3(0.0f, 0.0f, 1.0f));
+        this->transform_plane(&wall_w, row, col, translate_vec, degree, axis_rot);
         this->scene->add_mesh(wall_w);
+       
+        std::cout << wall_image_W << '\n';
+        if (wall_image_W != "")
+        {
+            this->add_canvas(row, col, translate_vec, degree, axis_rot, wall_image_W);
+        }
     }
 }
 
@@ -246,8 +265,9 @@ void RoomBuilder::add_canvas(int row, int col, lin_alg::vec3 translate_vec, GLfl
     this->scene->add_mesh(canvas_image_n);
 }
 
-void RoomBuilder::set_scene_data(Scene *scene , int row, int col){
+void RoomBuilder::set_scene_data(Scene *scene, int row, int col)
+{
     this->scene = scene;
-    this->x = row; 
+    this->x = row;
     this->y = col;
 }

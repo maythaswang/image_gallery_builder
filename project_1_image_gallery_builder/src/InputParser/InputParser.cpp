@@ -60,7 +60,7 @@ void InputParser::populate_command_map()
     };
 }
 
-void handle_command(InputCommand command)
+void InputParser::handle_command(InputCommand command)
 {
     switch (command)
     {

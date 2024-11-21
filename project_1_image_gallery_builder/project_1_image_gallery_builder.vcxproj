@@ -144,6 +144,7 @@
     <ClCompile Include="lib\simple_scene\Texture\Texture.cpp" />
     <ClCompile Include="src\CallbackManager\CallbackManager.cpp" />
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp" />
+    <ClCompile Include="src\InputParser\InputParser.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramInit\ProgramInit.cpp" />
     <ClCompile Include="src\ProgramSetup\ProgramSetup.cpp" />
@@ -172,6 +173,8 @@
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />
     <ClInclude Include="src\CallbackManager\CallbackManager.h" />
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h" />
+    <ClInclude Include="src\InputParser\InputCommand.h" />
+    <ClInclude Include="src\InputParser\InputParser.h" />
     <ClInclude Include="src\ProgramSetup\ProgramInit\ProgramInit.h" />
     <ClInclude Include="src\ProgramSetup\ProgramSetup.h" />
     <ClInclude Include="src\ProgramSetup\WindowFactory\WindowFactory.h" />
