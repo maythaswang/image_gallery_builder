@@ -82,13 +82,15 @@ int main(int argc, char *argv[])
 
         std::cout << "Parsing file..." << '\n';
         InputParser input_parser = InputParser();
-        input_parser.parse_file(scene_data, texture_dir, &scene);
+        load_file_success = input_parser.parse_file(scene_data, texture_dir, &scene);
     }
 
     if (!load_file_success)
     {
-        std::cout << "Failed to read input file, exitting..." << std::endl;
+        std::cout << "Failed to read input file, exitting..." << '\n';
         return -1;
+    } else {
+        std::cout << "Successfully loaded the scene." << '\n';
     }
 
     // Prepare for render

@@ -7,7 +7,7 @@ enum InputCommand
     IGNORE, // #
 
     // BASIC SETUP
-    SIZE, // size <row_n> <col_n>
+    DIMENSION, // dimension <row_n> <col_n>
     // PLAN, // for the next n row, we will take in the floor plan
           // <1> <1> <0> <0> <1> each separated by space
           // <0> <1> <0> <0> <1> each separated by space until row n (1: have room, 0:no room)

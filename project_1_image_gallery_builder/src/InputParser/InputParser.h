@@ -10,33 +10,49 @@
 #include <unordered_map>
 #include <string>
 
-class InputParser{
-    public: 
-        InputParser();
-        ~InputParser();
-        bool parse_file(std::string, std::string ,Scene *); 
+class InputParser
+{
+public:
+    InputParser();
+    ~InputParser();
+    bool parse_file(std::string, std::string, Scene *);
 
-    private: 
-        RoomBuilder room_builder;
-        Scene *scene;
-        std::unordered_map<std::string, InputCommand> command_map;
-        
-        // scene informations
-        int row,col;
-        std::string texture_dir;
+private:
+    RoomBuilder room_builder;
+    Scene *scene;
+    std::unordered_map<std::string, InputCommand> command_map;
 
-        int line_count;
+    // Scene informations
+    std::string texture_dir;
+    int line_count;
 
-        // Registers
-        int reg_i[2];
-        bool reg_b[5];
-        std::string reg_s[4];
+    // Input tmps
+    int row, col;
+    int room_row, room_col;
+    bool dimension_set;
+    bool light_on;
+    bool wall[4];
+    std::string img_top;
+    std::string img_bottom;
+    std::string img_left;
+    std::string img_right;
 
-        InputCommand string_to_command(std::string);
+    // Registers
+    bool reg_b[4];
+    int reg_i[4];
+    std::string reg_s[4];
 
-        void populate_command_map();
+    void handle_command(InputCommand, std::istringstream &);
 
-        void handle_command(InputCommand);
+    // utilities
+
+    InputCommand string_to_command(std::string);
+
+    void populate_command_map();
+
+    bool read_input(std::istringstream &, int, int);
+
+    void reset_value();
 };
 
-#endif 
+#endif
