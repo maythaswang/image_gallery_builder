@@ -14,19 +14,24 @@ class InputParser{
     public: 
         InputParser();
         ~InputParser();
-        bool parse_file(std::string, Scene *); 
+        bool parse_file(std::string, std::string ,Scene *); 
 
     private: 
         RoomBuilder room_builder;
         Scene *scene;
         std::unordered_map<std::string, InputCommand> command_map;
         
+        // scene informations
         int row,col;
-        // int plan[5][5];
+        std::string texture_dir;
+
+        int line_count;
+
+        // Registers
         int reg_i[2];
         bool reg_b[5];
         std::string reg_s[4];
-    
+
         InputCommand string_to_command(std::string);
 
         void populate_command_map();

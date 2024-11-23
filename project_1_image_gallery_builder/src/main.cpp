@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
     {
         std::cout << "No argument provided, loading default sample..." << '\n';
         load_file_success = 1;
-        
+
         RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
         room_builder.init_basic_materials();
         room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "resources/textures/wall.jpg", "");
@@ -74,10 +74,15 @@ int main(int argc, char *argv[])
         room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "", "", "resources/textures/diamond_grip_steel.jpg");
     }
     else if (argc == 3)
-    {   
+    {
+        std::string scene_data = argv[1];
+        std::string texture_dir = argv[2];
+        std::cout << "Scene data path: " << scene_data << '\n';
+        std::cout << "Texture directory path: " << texture_dir << "\n\n";
+
         std::cout << "Parsing file..." << '\n';
         InputParser input_parser = InputParser();
-
+        input_parser.parse_file(scene_data, texture_dir, &scene);
     }
 
     if (!load_file_success)

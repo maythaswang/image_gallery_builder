@@ -14,7 +14,7 @@ enum InputCommand
 
     // ROOM SETUP (these must be done in successions)
     // We will count room id in row-major form. 0,0 is on the top-left corner
-    ROOM,  // room <row> <col>
+    INDEX,  // index <row> <col> (room position)
     LIGHT, // light on/off (0:off, 1:on)
     WALL,  // wall <top> <bottom> <left> <right>  (0: no wall, 1:wall)
 
@@ -24,5 +24,7 @@ enum InputCommand
     IMAGE_BOTTOM, // image_bottom <image filename>
     IMAGE_LEFT,   // image_left <image filename>
     IMAGE_RIGHT,  // image_right <image filename>
+
+    BUILD_ROOM, // build_room build room with the settings defined before
 };
 #endif
