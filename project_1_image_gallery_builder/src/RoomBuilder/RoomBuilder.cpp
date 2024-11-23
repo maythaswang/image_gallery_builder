@@ -101,11 +101,11 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         ss::PointLight point_light;
         point_light.position = lin_alg::vec3(col * WIDTH, WIDTH - 0.05, row * DEPTH);
         point_light.ambient = lin_alg::vec3(0.3, 0.3, 0.3);
-        point_light.diffuse = lin_alg::vec3(0.4, 0.35, 0.3);
-        point_light.specular = lin_alg::vec3(0.2, 0.2, 0.2);
+        point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.4);
+        point_light.specular = lin_alg::vec3(0.3, 0.3, 0.3);
         point_light.constant = 0;
-        point_light.linear = 3;
-        point_light.quadratic = 0;
+        point_light.linear = 2;
+        point_light.quadratic = 0.5;
         this->scene->add_point_light(point_light);
     }
     else
@@ -235,7 +235,7 @@ int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canva
     // Set material information
     canvas_image.ambient = lin_alg::vec3(1, 1, 1);
     canvas_image.diffuse = lin_alg::vec3(1, 1, 1);
-    canvas_image.specular = lin_alg::vec3(0.2, 0.2, 0.2);
+    canvas_image.specular = lin_alg::vec3(0.3, 0.3, 0.3);
     canvas_image.shininess = 0.7f;
     canvas_image.texture_id = tex_id; // basically send it to the void if the tex_id is weird
 
