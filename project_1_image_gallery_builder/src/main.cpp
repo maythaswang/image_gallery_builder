@@ -89,7 +89,9 @@ int main(int argc, char *argv[])
     {
         std::cout << "Failed to read input file, exitting..." << '\n';
         return -1;
-    } else {
+    }
+    else
+    {
         std::cout << "Successfully loaded the scene." << '\n';
     }
 

@@ -6,7 +6,8 @@
 
 namespace ss
 {
-    struct PointLight{
+    struct PointLight
+    {
         lin_alg::vec3 position;
 
         lin_alg::vec3 ambient;
@@ -14,12 +15,25 @@ namespace ss
         lin_alg::vec3 specular;
 
         // Attenuation
-        float constant; 
+        float constant;
         float linear;
         float quadratic;
+
+        PointLight() : linear(1.0f) {};
+
+        PointLight(const PointLight &other)
+            : position(lin_alg::vec3(other.position)),
+              ambient(lin_alg::vec3(other.ambient)),
+              diffuse(lin_alg::vec3(other.diffuse)),
+              specular(lin_alg::vec3(other.specular)),
+              constant(other.constant),
+              linear(other.linear),
+              quadratic(other.quadratic) {
+              };
     };
 
-    struct DirectionalLight{
+    struct DirectionalLight
+    {
         lin_alg::vec3 direction;
 
         lin_alg::vec3 ambient;
@@ -27,9 +41,8 @@ namespace ss
         lin_alg::vec3 specular;
     };
 
-
-
-    struct SpotLight{
+    struct SpotLight
+    {
         lin_alg::vec3 position;
         lin_alg::vec3 direction;
         float cutoff;
@@ -40,10 +53,9 @@ namespace ss
         lin_alg::vec3 specular;
 
         // Attenuation
-        float constant; 
+        float constant;
         float linear;
         float quadratic;
     };
 }
-
 #endif

@@ -15,6 +15,8 @@ public:
 
     void add_material(ss::Material);
 
+    int add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
+
     void add_mesh(ss::Mesh);
 
     void next_batch();

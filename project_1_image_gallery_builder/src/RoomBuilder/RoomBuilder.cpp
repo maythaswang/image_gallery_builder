@@ -104,7 +104,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         point_light.diffuse = lin_alg::vec3(0.5, 0.45, 0.4);
         point_light.specular = lin_alg::vec3(0.3, 0.3, 0.3);
         point_light.constant = 0;
-        point_light.linear = 2;
+        point_light.linear = 1;
         point_light.quadratic = 0.5;
         this->scene->add_point_light(point_light);
     }

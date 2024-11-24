@@ -17,7 +17,11 @@ namespace ss
         float shininess;
 
         Material() : texture_id(0) {};
-        Material(const Material &other) : texture_id(other.texture_id), ambient(other.ambient), diffuse(other.diffuse), specular(other.specular), shininess(other.shininess) {};
+        Material(const Material &other) : texture_id(other.texture_id),
+                                          ambient(lin_alg::vec3(other.ambient)),
+                                          diffuse(lin_alg::vec3(other.diffuse)),
+                                          specular(lin_alg::vec3(other.specular)),
+                                          shininess(other.shininess) {};
     };
 }
 

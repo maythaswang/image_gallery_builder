@@ -31,7 +31,7 @@ bool InputParser::parse_file(std::string file_path, std::string texture_dir, Sce
     {
         return 0;
     }
-
+    std::string foo; // Trashcan 
     std::string line;
     std::string command_string;
     InputCommand command;
@@ -40,6 +40,12 @@ bool InputParser::parse_file(std::string file_path, std::string texture_dir, Sce
     {
         std::istringstream iss(line);
         iss >> command_string;
+        if (iss.fail())
+        {
+            iss.clear();
+            iss >> foo;
+            command_string = "";
+        }
         command = this->string_to_command(command_string);
         this->handle_command(command, iss);
         this->line_count += 1;
@@ -75,7 +81,7 @@ void InputParser::handle_command(InputCommand command, std::istringstream &iss)
                     this->dimension_set = 1;
 
                     this->room_builder.set_scene_data(this->scene, row, col);
-                    this->room_builder.init_basic_materials();  
+                    this->room_builder.init_basic_materials();
                 }
             }
         }
@@ -103,7 +109,9 @@ void InputParser::handle_command(InputCommand command, std::istringstream &iss)
                     this->room_row = this->reg_i[0];
                     this->room_col = this->reg_i[1];
                 }
-            } else {
+            }
+            else
+            {
                 std::cout << "Error at line " << this->line_count << "! Invalid room index!" << '\n';
             }
         }
@@ -180,7 +188,7 @@ void InputParser::handle_command(InputCommand command, std::istringstream &iss)
     case InputCommand::IMAGE_LEFT:
         if (!this->dimension_set)
         {
-            std::cout <<"Error at line " << this->line_count << "! Scene dimension has not been set!" << '\n';
+            std::cout << "Error at line " << this->line_count << "! Scene dimension has not been set!" << '\n';
         }
         else
         {
@@ -294,6 +302,7 @@ InputCommand InputParser::string_to_command(std::string input)
 void InputParser::populate_command_map()
 {
     this->command_map = {
+        {"", InputCommand::IGNORE},
         {"#", InputCommand::IGNORE},
         {"dimension", InputCommand::DIMENSION},
         {"index", InputCommand::INDEX},
