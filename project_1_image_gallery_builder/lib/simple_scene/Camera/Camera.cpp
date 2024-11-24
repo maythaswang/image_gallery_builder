@@ -55,16 +55,9 @@ namespace ss
         GLfloat lpitch = mouse_delta_y * rotation_sensitivity; // along right-axis
 
         // PATCHWORK SOLUTION FOR NOW
-        // roll: along the center-axis
         pitch += lpitch;
         if (pitch < 80.00f && pitch > -80.00f)
         {
-
-            // std::cout << pitch << "normalized: center" << lin_alg::normalize(this->center).x << ' ' << lin_alg::normalize(this->center).y << ' ' << lin_alg::normalize(this->center).z << '\n';
-            //     pitch = 89.99f;
-            // if (pitch < -89.99f)
-            //     pitch = -89.99f;
-
             // Rotation Matrix
             lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
             lin_alg::mat4 rotationPitch = lin_alg::rotate(rotationYaw, lin_alg::radians(lpitch), right);
@@ -74,26 +67,34 @@ namespace ss
             lin_alg::vec3 new_eye = rotation * eye_origin;
             lin_alg::vec3 direction_to_old = eye_origin - new_eye;
 
-            // GLfloat bound = lin_alg::normalize(this->center + direction_to_old).y;
-            // // std::cout << bound << '\n';
-            // if (bound < 0.99 && bound > -0.99)
-            // {
             this->center = this->center + direction_to_old;
-            // this->up = rotation * this->up;  // So that there is no weird rotation
             this->build_view_matrix();
-            // }
         }
-        else if (pitch > 89.999f)
+        else
         {
-            pitch = 90;
-        }
-        else if (pitch < -89.999f)
-        {
-            pitch = -90;
+            // Rotation Matrix
+            lin_alg::mat4 rotationYaw = lin_alg::rotate(lin_alg::mat4(1.0f), lin_alg::radians(yaw), this->up);
+            lin_alg::mat3 rotation = lin_alg::mat3(rotationYaw);
+
+            lin_alg::vec3 eye_origin = this->eye - this->center;
+            lin_alg::vec3 new_eye = rotation * eye_origin;
+            lin_alg::vec3 direction_to_old = eye_origin - new_eye;
+
+            this->center = this->center + direction_to_old;
+            this->build_view_matrix();
+            if (pitch > 89.999f)
+            {
+                pitch = 90;
+            }
+            else if (pitch < -89.999f)
+            {
+                pitch = -90;
+            }
         }
     }
 
-    lin_alg::vec3 Camera::get_eye(){
+    lin_alg::vec3 Camera::get_eye()
+    {
         return this->eye;
     }
 
