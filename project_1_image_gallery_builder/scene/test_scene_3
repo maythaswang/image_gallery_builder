@@ -23,7 +23,7 @@ build_room
 index 0 2 
 light 0 
 wall 1 0 0 0
-image_top 4.jpg
+image_top 4.png
 build_room
 
 index 0 3
@@ -142,6 +142,6 @@ build_room
 index 4 4 
 light 1
 wall 0 1 0 1
-image_bottom 30.png
-image_right 30.png
+image_bottom 38.png
+image_right 39.png
 build_room

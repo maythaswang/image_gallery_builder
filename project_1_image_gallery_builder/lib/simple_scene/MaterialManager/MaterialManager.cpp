@@ -21,6 +21,7 @@ namespace ss
                 this->specular.push_back(m.specular);
                 this->shininess.push_back(m.shininess);
                 this->texture_id.push_back(m.texture_id);
+                this->is_emittor.push_back(m.is_emittor);
             }
         }
     }
@@ -34,6 +35,7 @@ namespace ss
             shader_program->set_vec3_arr("mat_specular", this->specular.size(), &this->specular[0]);
             shader_program->set_float_arr("mat_shininess", this->shininess.size(), &this->shininess[0]);
             shader_program->set_float_arr("mat_texture_id", this->texture_id.size(), &this->texture_id[0]);
+            shader_program->set_int_arr("mat_is_emittor", this->is_emittor.size(), &this->is_emittor[0]);
         }
     }
 

@@ -15,13 +15,15 @@ namespace ss
         lin_alg::vec3 specular; // I'm not gonna write one for specular map for now.
 
         float shininess;
+        bool is_emittor;
 
-        Material() : texture_id(0) {};
+        Material() : texture_id(0), is_emittor(0) {};
         Material(const Material &other) : texture_id(other.texture_id),
                                           ambient(lin_alg::vec3(other.ambient)),
                                           diffuse(lin_alg::vec3(other.diffuse)),
                                           specular(lin_alg::vec3(other.specular)),
-                                          shininess(other.shininess) {};
+                                          shininess(other.shininess),
+                                          is_emittor(other.is_emittor) {};
     };
 }
 

@@ -32,6 +32,7 @@ namespace ss
         std::vector<lin_alg::vec3> specular;
         std::vector<float> shininess;
         std::vector<float> texture_id;
+        std::vector<int> is_emittor;
     };
 }
 #endif

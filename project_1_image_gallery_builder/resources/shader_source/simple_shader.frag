@@ -17,8 +17,8 @@ uniform vec3 mat_ambient[n_mat];     // Ambient color
 uniform vec3 mat_diffuse[n_mat];     // Diffuse color
 uniform vec3 mat_specular[n_mat];    // Specular color
 uniform float mat_shininess[n_mat];  // Shininess factor
-uniform float mat_texture_id[n_mat]; // If not 0, use texture instead of
-                                     // ambient/diffuse colors
+uniform float mat_texture_id[n_mat]; // If not 0, use texture instead of ambient/diffuse colors
+uniform bool mat_is_emittor[n_mat];
 
 // POINT LIGHTS
 const int n_point_light_max = 32;
@@ -81,13 +81,11 @@ void main() {
 
     if(texture_index < 32){
 
-      // ambient multiplier (Checks if the material is an emitter and then proceed
-      // as follows)
-      // Find a way to check emittor instead
-      float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
+      // ambient multiplier (Checks if the material is an emitter and then proceed as follows)
+      float amb_mult = (mat_is_emittor[cur_mat_id]) ? 0.7f : AMBIENT_MULTIPLIER;
 
       vec4 colour;
-      if (texture_index != 0) { // 0 ist for no texture
+      if (texture_index != 0) { // texture id 0 is reserved for no texture
         colour = texture(u_textures[texture_index - 1], tex_coord) * amb_mult;
       } else {
         colour = vec4(mat_ambient[cur_mat_id] * amb_mult, 1.0f);

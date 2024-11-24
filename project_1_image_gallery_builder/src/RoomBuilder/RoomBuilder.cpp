@@ -55,6 +55,7 @@ void RoomBuilder::init_basic_materials()
     lamp_on.diffuse = lin_alg::vec3(1, 1, 1);
     lamp_on.specular = lin_alg::vec3(1, 1, 1);
     lamp_on.shininess = 0.7f;
+    lamp_on.is_emittor = 1;
     lamp_on.texture_id = 0;
 
     // MAT ID 5
