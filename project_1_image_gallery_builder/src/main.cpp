@@ -68,10 +68,10 @@ int main(int argc, char *argv[])
 
         RoomBuilder room_builder = RoomBuilder(&batch_manager, 2, 2);
         room_builder.init_basic_materials();
-        room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "resources/textures/wall.jpg", "");
-        room_builder.build_room(0, 1, 0, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
-        room_builder.build_room(1, 0, 0, 0, 1, 0, 1, "1", "", "", "resources/textures/wood.png");
-        room_builder.build_room(1, 1, 0, 1, 0, 0, 1, "1", "", "", "resources/textures/diamond_grip_steel.jpg");
+        room_builder.build_room(0, 0, 1, 1, 0, 1, 0, "resources/textures/container.jpg", "", "resources/textures/wall.jpg", "");
+        room_builder.build_room(0, 1, 1, 1, 0, 0, 1, "resources/textures/brick.jpg", "", "", "");
+        room_builder.build_room(1, 0, 0, 0, 1, 1, 0, "", "1", "resources/textures/wood.png", "");
+        room_builder.build_room(1, 1, 0, 0, 1, 0, 1, "1", "", "", "resources/textures/diamond_grip_steel.jpg");
     }
     else if (argc == 3)
     {
@@ -99,8 +99,7 @@ int main(int argc, char *argv[])
     // ----------------------------------------------------------------------------
     batch_manager.build_all_batches();
 
-
-    // Prepare settings 
+    // Prepare settings
     glEnable(GL_DEPTH_TEST);
     glClearColor(0.05f, 0.05f, 0.07f, 1.0f);
     glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
