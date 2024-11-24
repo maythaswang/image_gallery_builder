@@ -1,0 +1,147 @@
+# X X X X X 
+# X 0 X 0 X
+# X X 0 X X
+# X 0 X 0 X
+# X X X X X
+
+dimension 5 5 
+
+index 0 0 
+light 1 
+wall 1 0 1 0 
+image_top 0.jpg
+image_left 1.jpg
+build_room
+
+index 0 1
+light 1
+wall 1 1 0 0 
+image_top 2.jpg
+image_bottom 3.jpg
+build_room
+
+index 0 2 
+light 0 
+wall 1 0 0 0
+image_top 4.jpg
+build_room
+
+index 0 3
+light 1 
+wall 1 1 0 0 
+image_top 5.png
+image_bottom 6.jpg
+build_room
+
+index 0 4 
+light 1
+wall 1 0 0 1
+image_top 7.jpg
+image_right 8.jpg
+build_room
+
+index 1 0
+light 1
+wall 0 0 1 1 
+image_left 9.jpg
+image_right 10.jpg
+build_room
+
+index 1 2
+light 1
+wall 0 1 1 1
+image_bottom 11.jpg
+image_left 12.jpg
+image_right 13.jpg
+build_room
+
+index 1 4
+light 1
+wall 0 0 1 1
+image_left 14.jpg
+image_right 15.jpg
+build_room
+
+index 2 0
+light 1
+wall 0 0 1 0 
+image_left 16.jpg
+build_room
+
+index 2 1
+light 1
+wall 1 1 0 1
+image_top 17.jpg
+image_bottom 18.jpg
+image_right 19.jpg
+build_room
+
+index 2 3 
+light 1
+wall 1 1 1 0
+image_top 20.jpg
+image_bottom 21.jpg
+image_left 22.png
+build_room
+
+index 2 4
+light 0 
+wall 0 0 0 1
+image_right 23.jpg
+build_room
+
+index 3 0
+light 1
+wall 0 0 1 1 
+image_left 24.jpg
+image_right 25.jpg
+build_room
+
+index 3 2
+light 1
+wall 1 0 1 1
+image_top 26.jpg
+image_left 27.jpg
+image_right 28.jpg
+build_room
+
+index 3 4
+light 0
+wall 0 0 1 1
+image_left 29.png
+image_right 30.png
+build_room
+
+index 4 0 
+light 1
+wall 0 1 1 0
+image_bottom 31.png
+image_left 32.jpg
+build_room
+
+index 4 1 
+light 1 
+wall 1 1 0 0 
+image_top 33.jpg
+image_bottom 34.png
+build_room
+
+index 4 2 
+light 1
+wall 0 1 0 0 
+image_bottom 35.png
+build_room
+
+index 4 3 
+light 1 
+wall 1 1 0 0 
+image_top 36.png
+image_bottom 37.png
+build_room
+
+index 4 4 
+light 1
+wall 0 1 0 1
+image_bottom 30.png
+image_right 30.png
+build_room

@@ -55,13 +55,32 @@ namespace ss
         int width, height, nrChannels;
         // stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
         unsigned char *data = stbi_load(file_path.c_str(), &width, &height, &nrChannels, 0);
+        GLenum img_format = format;
         if (data)
         {
+            switch (nrChannels)
+            {
+            case 1:
+                img_format = GL_RED;
+                break;
+            case 2:
+                img_format = GL_RG;
+                break;
+            case 3:
+                img_format = GL_RGB;
+                break;
+            case 4:
+                img_format = GL_RGBA;
+                break;
+
+            default:
+                break;
+            }
 
             glBindTexture(GL_TEXTURE_2D, this->texture_id);
             glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-            glTexImage2D(GL_TEXTURE_2D, lod, internal_format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+            glTexImage2D(GL_TEXTURE_2D, lod, internal_format, width, height, 0, img_format, GL_UNSIGNED_BYTE, data);
 
             glGenerateMipmap(GL_TEXTURE_2D);
 

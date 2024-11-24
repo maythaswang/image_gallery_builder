@@ -83,6 +83,7 @@ void main() {
 
       // ambient multiplier (Checks if the material is an emitter and then proceed
       // as follows)
+      // Find a way to check emittor instead
       float amb_mult = (cur_mat_id == 4) ? 0.7f : AMBIENT_MULTIPLIER;
 
       vec4 colour;
