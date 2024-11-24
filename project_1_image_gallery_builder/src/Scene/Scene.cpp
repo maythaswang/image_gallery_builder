@@ -75,7 +75,7 @@ void Scene::use_materials(ss::Shader *shader_program)
 {
     this->texture_manager.use_all_textures(shader_program);
     this->material_manager.use_all_materials(shader_program);
-    this->light_manager.use_all_point_lights(shader_program);
+    // this->light_manager.use_all_point_lights(shader_program);
 }
 
 void Scene::get_texture_data(int texture_id, GLfloat &width, GLfloat &height)

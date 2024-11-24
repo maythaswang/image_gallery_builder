@@ -15,11 +15,11 @@ class InputParser
 public:
     InputParser();
     ~InputParser();
-    bool parse_file(std::string, std::string, Scene *);
+    bool parse_file(std::string, std::string, BatchManager *);
 
 private:
     RoomBuilder room_builder;
-    Scene *scene;
+    BatchManager *batch_manager;
     std::unordered_map<std::string, InputCommand> command_map;
 
     // Scene informations

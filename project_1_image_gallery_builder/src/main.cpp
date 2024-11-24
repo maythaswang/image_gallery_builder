@@ -16,8 +16,8 @@
 // Forward Declarations
 // ---------------------------------------------------------------
 void use_wireframe();
-void render_routine(GLFWwindow *, ss::Shader *, Scene *, GLuint, GLuint, CallbackManager *, ss::Camera *);
-void termination_routine(RenderComponents *render_components, ss::Shader *shader_program);
+void render_routine(GLFWwindow *, ss::Shader *, BatchManager *, CallbackManager *, ss::Camera *);
+void termination_routine(ss::Shader *shader_program);
 
 // CONSTANTS
 // ---------------------------------------------------------------
@@ -55,7 +55,7 @@ int main(int argc, char *argv[])
 
     // Init Scene
     // ----------------------------------------------------------------------------
-    Scene scene = Scene();
+    BatchManager batch_manager = BatchManager();
 
     // Get input and setup scene
     // ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
         std::cout << "No argument provided, loading default sample..." << '\n';
         load_file_success = 1;
 
-        RoomBuilder room_builder = RoomBuilder(&scene, 2, 2);
+        RoomBuilder room_builder = RoomBuilder(&batch_manager, 2, 2);
         room_builder.init_basic_materials();
         room_builder.build_room(0, 0, 1, 0, 1, 1, 0, "", "resources/textures/container.jpg", "resources/textures/wall.jpg", "");
         room_builder.build_room(0, 1, 0, 1, 0, 1, 0, "resources/textures/brick.jpg", "", "", "");
@@ -82,7 +82,7 @@ int main(int argc, char *argv[])
 
         std::cout << "Parsing file..." << '\n';
         InputParser input_parser = InputParser();
-        load_file_success = input_parser.parse_file(scene_data, texture_dir, &scene);
+        load_file_success = input_parser.parse_file(scene_data, texture_dir, &batch_manager);
     }
 
     if (!load_file_success)
@@ -97,61 +97,63 @@ int main(int argc, char *argv[])
 
     // Prepare for render
     // ----------------------------------------------------------------------------
-    scene.build_scene();
+    batch_manager.build_all_batches();
 
-    RenderComponents render_components = scene.get_render_components();
 
-    GLuint VAO = render_components.VAO[0];
-    GLuint VBO = render_components.VBO[0];
-    GLuint EBO = render_components.EBO[0];
-    GLuint n_inds = render_components.n_inds;
-
+    // Prepare settings 
     glEnable(GL_DEPTH_TEST);
+    glClearColor(0.05f, 0.05f, 0.07f, 1.0f);
+    glfwWindowHint(GLFW_DOUBLEBUFFER, GLFW_TRUE);
+    glfwSwapInterval(1);
 
     // Render loop
     while (!glfwWindowShouldClose(window))
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glDepthFunc(GL_LESS);
-        render_routine(window, &shader_program, &scene, VAO, n_inds, &callback_manager, &camera);
+        render_routine(window, &shader_program, &batch_manager, &callback_manager, &camera);
     }
 
     // Terminate
-    termination_routine(&render_components, &shader_program);
+    termination_routine(&shader_program);
 }
 
 // SUBROUTINES
 // ---------------------------------------------------------------
 
-void render_routine(GLFWwindow *window, ss::Shader *shader_program, Scene *scene, GLuint VAO, GLuint n_inds, CallbackManager *callback_manager, ss::Camera *camera)
+void render_routine(GLFWwindow *window, ss::Shader *shader_program, BatchManager *batch_manager, CallbackManager *callback_manager, ss::Camera *camera)
 {
     callback_manager->poll_events();
 
     glClearColor(0.05f, 0.05f, 0.07f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     shader_program->use();
 
     // A polling function might be good here.
     shader_program->set_vec3("eye_position", camera->get_eye());
     shader_program->set_mat4("view", camera->get_view_matrix());
     shader_program->set_mat4("projection", camera->get_projection_matrix());
+    for (int i = 0; i < batch_manager->get_batch_count(); i++)
+    {
+        RenderComponents rc = batch_manager->use_current_batch(shader_program);
 
-    scene->use_materials(shader_program);
+        glBindVertexArray(rc.VAO[0]);
+        // glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawElements(GL_TRIANGLES, 3 * rc.n_inds, GL_UNSIGNED_INT, 0);
+        batch_manager->next_batch();
+    }
 
-    glBindVertexArray(VAO);
-    // glDrawArrays(GL_TRIANGLES, 0, 6);
-    glDrawElements(GL_TRIANGLES, 3 * n_inds, GL_UNSIGNED_INT, 0);
     // glBindVertexArray(0);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 
-void termination_routine(RenderComponents *render_components, ss::Shader *shader_program)
+void termination_routine(ss::Shader *shader_program)
 {
-    glDeleteVertexArrays(1, render_components->VAO);
-    glDeleteBuffers(4, render_components->VBO);
-    glDeleteBuffers(1, render_components->EBO);
+    // glDeleteVertexArrays(1, render_components->VAO);
+    // glDeleteBuffers(4, render_components->VBO);
+    // glDeleteBuffers(1, render_components->EBO);
     shader_program->delete_shader();
 
     glfwTerminate();

@@ -6,9 +6,9 @@ RoomBuilder::RoomBuilder()
 {
 }
 
-RoomBuilder::RoomBuilder(Scene *scene, int x, int y)
+RoomBuilder::RoomBuilder(BatchManager *batch_manager, int x, int y)
 {
-    this->scene = scene;
+    this->batch_manager = batch_manager;
     this->x = x;
     this->y = y;
 }
@@ -23,7 +23,7 @@ void RoomBuilder::init_basic_materials()
     floor.shininess = 0.05f;
     floor.texture_id = 1;
 
-    this->scene->add_texture("resources/textures/wood.png", 0, GL_RGB, GL_RGB);
+    this->batch_manager->add_texture("resources/textures/wood.png", 0, GL_RGB, GL_RGB);
 
     // MAT ID 1
     ss::Material ceiling;
@@ -65,12 +65,12 @@ void RoomBuilder::init_basic_materials()
     canvas_frame.shininess = 0.7f;
     canvas_frame.texture_id = 0;
 
-    this->scene->add_material(floor);
-    this->scene->add_material(ceiling);
-    this->scene->add_material(wall);
-    this->scene->add_material(lamp_off);
-    this->scene->add_material(lamp_on);
-    this->scene->add_material(canvas_frame);
+    this->batch_manager->add_material(floor);
+    this->batch_manager->add_material(ceiling);
+    this->batch_manager->add_material(wall);
+    this->batch_manager->add_material(lamp_off);
+    this->batch_manager->add_material(lamp_on);
+    this->batch_manager->add_material(canvas_frame);
 
     // this->material_count += 6;
 }
@@ -106,7 +106,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         point_light.constant = 0;
         point_light.linear = 1;
         point_light.quadratic = 0.5;
-        this->scene->add_point_light(point_light);
+        this->batch_manager->add_point_light(point_light);
     }
     else
     {
@@ -114,16 +114,16 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
     }
 
     this->transform_plane(&lamp, col, row, lin_alg::vec3(0.0f, WIDTH - 0.05f, 0.0f), 0, lin_alg::vec3());
-    this->scene->add_mesh(lamp);
+    this->batch_manager->add_mesh(lamp);
 
     // PLANES
     ss::Mesh floor = this->geometry_builder.init_plane(WIDTH, DEPTH, 0);
     this->transform_plane(&floor, col, row, lin_alg::vec3(0, 0, 0), 0.0f, lin_alg::vec3(0, 0, 0));
-    this->scene->add_mesh(floor);
+    this->batch_manager->add_mesh(floor);
 
     ss::Mesh ceil = this->geometry_builder.init_plane(WIDTH, DEPTH, 1);
     this->transform_plane(&ceil, col, row, lin_alg::vec3(0, DEPTH, 0), -180.0f, lin_alg::vec3(1, 0, 0));
-    this->scene->add_mesh(ceil);
+    this->batch_manager->add_mesh(ceil);
 
     if (has_wall_N)
     {
@@ -133,7 +133,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
         ss::Mesh wall_n = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
         this->transform_plane(&wall_n, col, row, translate_vec, degree, axis_rot);
-        this->scene->add_mesh(wall_n);
+        this->batch_manager->add_mesh(wall_n);
         if (wall_image_N != "")
         {
             this->add_canvas(col, row, translate_vec, degree, axis_rot, wall_image_N, 0);
@@ -149,7 +149,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
         ss::Mesh wall_s = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
 
         this->transform_plane(&wall_s, col, row, translate_vec, degree, axis_rot);
-        this->scene->add_mesh(wall_s);
+        this->batch_manager->add_mesh(wall_s);
         if (wall_image_S != "")
         {
             this->add_canvas(col, row, translate_vec, degree, axis_rot, wall_image_S, 1);
@@ -164,7 +164,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
         ss::Mesh wall_e = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
         this->transform_plane(&wall_e, col, row, translate_vec, degree, axis_rot);
-        this->scene->add_mesh(wall_e);
+        this->batch_manager->add_mesh(wall_e);
 
         if (wall_image_E != "")
         {
@@ -180,7 +180,7 @@ void RoomBuilder::build_room(int row, int col, bool light_on, bool has_wall_N, b
 
         ss::Mesh wall_w = this->geometry_builder.init_plane(WIDTH, DEPTH, 2);
         this->transform_plane(&wall_w, col, row, translate_vec, degree, axis_rot);
-        this->scene->add_mesh(wall_w);
+        this->batch_manager->add_mesh(wall_w);
 
         if (wall_image_W != "")
         {
@@ -214,36 +214,27 @@ int RoomBuilder::create_canvas_material(std::string texture_path, GLfloat &canva
     // Poll material limit for the sceen, if
     ss::Material canvas_image;
 
-    // We set the id to the latest one that is unused
-    int mat_id = this->scene->get_material_count();
-
     // add new texture
-    int tex_valid = this->scene->add_texture(texture_path, 0, GL_RGB, GL_RGB);
-    int tex_id = 32;
+    TextureInformation texture_payload = this->batch_manager->add_texture(texture_path, 0, GL_RGB, GL_RGB);
 
-    GLfloat width = 0.5;
-    GLfloat height = 0.5;
-    if (tex_valid)
+    if (texture_payload.valid)
     {
-        tex_id = this->scene->get_texture_count() - 1;
-        this->scene->get_texture_data(tex_id, width, height);
-
-        int total = (width + height);
-        width /= total;
-        height /= total;
+        int total = (texture_payload.width + texture_payload.height);
+        texture_payload.width /= total;
+        texture_payload.height /= total;
     }
     // Set material information
     canvas_image.ambient = lin_alg::vec3(1, 1, 1);
     canvas_image.diffuse = lin_alg::vec3(1, 1, 1);
     canvas_image.specular = lin_alg::vec3(0.3, 0.3, 0.3);
     canvas_image.shininess = 0.7f;
-    canvas_image.texture_id = tex_id; // basically send it to the void if the tex_id is weird
+    canvas_image.texture_id = texture_payload.id; // basically send it to the void if the tex_id is weird
 
     // add new material
-    this->scene->add_material(canvas_image);
-
-    canvas_width = width * WIDTH;
-    canvas_height = height * DEPTH;
+    int mat_id = this->batch_manager->add_material(canvas_image);
+    
+    canvas_width = texture_payload.width * WIDTH;
+    canvas_height = texture_payload.height * DEPTH;
 
     return mat_id;
 }
@@ -277,16 +268,16 @@ void RoomBuilder::add_canvas(int row, int col, lin_alg::vec3 translate_vec, GLfl
 
     this->transform_plane(&image_frame_n, 0, 0, lin_alg::vec3(0, 0.05, 0), 0, lin_alg::vec3());
     this->transform_plane(&image_frame_n, row, col, translate_vec, degree, axis_rot);
-    this->scene->add_mesh(image_frame_n);
+    this->batch_manager->add_mesh(image_frame_n);
 
     this->transform_plane(&canvas_image_n, 0, 0, lin_alg::vec3(0, 0.1, 0), 0, lin_alg::vec3());
     this->transform_plane(&canvas_image_n, row, col, translate_vec, degree, axis_rot);
-    this->scene->add_mesh(canvas_image_n);
+    this->batch_manager->add_mesh(canvas_image_n);
 }
 
-void RoomBuilder::set_scene_data(Scene *scene, int row, int col)
+void RoomBuilder::set_scene_data(BatchManager *batch_manager, int row, int col)
 {
-    this->scene = scene;
+    this->batch_manager = batch_manager;
     this->x = row;
     this->y = col;
 }

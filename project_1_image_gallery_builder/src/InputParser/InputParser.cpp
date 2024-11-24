@@ -13,7 +13,7 @@ InputParser::~InputParser()
 {
 }
 
-bool InputParser::parse_file(std::string file_path, std::string texture_dir, Scene *scene)
+bool InputParser::parse_file(std::string file_path, std::string texture_dir, BatchManager *batch_manager)
 {
     // Reset values
     this->line_count = 0;
@@ -23,7 +23,7 @@ bool InputParser::parse_file(std::string file_path, std::string texture_dir, Sce
     this->reset_value();
 
     // Set scene sources
-    this->scene = scene;
+    this->batch_manager = batch_manager;
     std::ifstream input_file(file_path);
     this->texture_dir = texture_dir + "/";
 
@@ -80,7 +80,7 @@ void InputParser::handle_command(InputCommand command, std::istringstream &iss)
                     this->col = col;
                     this->dimension_set = 1;
 
-                    this->room_builder.set_scene_data(this->scene, row, col);
+                    this->room_builder.set_scene_data(this->batch_manager, row, col);
                     this->room_builder.init_basic_materials();
                 }
             }

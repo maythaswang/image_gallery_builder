@@ -36,6 +36,7 @@ void BatchManager::add_mesh(ss::Mesh mesh)
     mesh.mat_id = tmp_id % MAX_MAT;
     // Add mesh based on material batch
     this->scene_storage[destination_batch].add_mesh(mesh);
+    // std::cout << destination_batch << ": " << mesh.mat_id << '\n';
 }
 
 TextureInformation BatchManager::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
@@ -44,8 +45,8 @@ TextureInformation BatchManager::add_texture(std::string file_path, GLuint lod, 
     TextureInformation tex_info;
     tex_info.id = 32;
     tex_info.valid = 0;
-    tex_info.width = 1;
-    tex_info.height = 1;
+    tex_info.width = 0.5;
+    tex_info.height = 0.5;
 
     // Search for correct batch
     int mat_id = this->material_count;
@@ -91,7 +92,7 @@ void BatchManager::build_all_batches()
     this->light_manager.prepare_point_light();
 }
 
-RenderComponents BatchManager::use_current_batch(ss::Shader * shader_program)
+RenderComponents BatchManager::use_current_batch(ss::Shader *shader_program)
 {
     if (this->scene_storage.size())
     {
