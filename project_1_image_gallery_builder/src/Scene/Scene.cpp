@@ -4,9 +4,6 @@ const int MAX_MATERIAL = 32;
 
 Scene::Scene()
 {
-    this->material_manager = ss::MaterialManager();
-    this->texture_manager = ss::TextureManager();
-
     this->render_components_initialized = false;
     this->render_components_updated = false;
 }
@@ -20,7 +17,7 @@ void Scene::add_material(ss::Material material)
     material_manager.add_material(material);
 }
 
-int Scene::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
+bool Scene::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
 {
     return texture_manager.create_texture(file_path, lod, internal_format, format);
 }
@@ -50,7 +47,6 @@ void Scene::build_scene()
             this->tex_coords.push_back(m.tex_coord[i * 2 + 1]);
             this->material_ids.push_back(m.mat_id);
         }
-        // std::cout << m.mat_id << ' ' << '\n';
 
         for (int i = 0; i < m.indices.size(); i++)
         {

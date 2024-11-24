@@ -7,21 +7,28 @@
 #include <vector>
 #include <iostream>
 
+struct TextureInformation{
+    int id; 
+    float width; 
+    float height;
+    bool valid;
+};
+
 class BatchManager
 {
 public:
     BatchManager();
     ~BatchManager();
 
-    void add_material(ss::Material);
+    int add_material(ss::Material);
 
-    int add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
+    TextureInformation add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
 
     void add_mesh(ss::Mesh);
 
-    void next_batch();
+    void add_point_light(ss::PointLight);
 
-    void get_render_components();
+    void next_batch();
 
     int get_batch_count();
 
@@ -29,18 +36,19 @@ public:
 
     void build_all_batches();
 
-    void use_current_batch();
+    RenderComponents use_current_batch(ss::Shader *);
 
     void set_dimension(int, int);
 
+    int get_destination_batch(int);
+
 private:
     int current_batch;
-    int batch_count;
     int material_count;
     int row, col;
     std::vector<Scene> scene_storage;
     ss::LightManager light_manager; // We will use this one for all batches.
-
+    
     // Also might need a map to see which material belong to which batch.
     // - This can be mitigated if it is possible to ensure that when user input their textures
     //   - auto-assign along with the image they want to add, if that was done there is no need to implement such??

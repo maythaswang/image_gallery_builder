@@ -142,6 +142,7 @@
     <ClCompile Include="lib\simple_scene\Shader\Shader.cpp" />
     <ClCompile Include="lib\simple_scene\TextureManager\TextureManager.cpp" />
     <ClCompile Include="lib\simple_scene\Texture\Texture.cpp" />
+    <ClCompile Include="src\BatchManager\BatchManager.cpp" />
     <ClCompile Include="src\CallbackManager\CallbackManager.cpp" />
     <ClCompile Include="src\GeometryBuilder\GeometryBuilder.cpp" />
     <ClCompile Include="src\InputParser\InputParser.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="lib\simple_scene\Shader\Shader.h" />
     <ClInclude Include="lib\simple_scene\TextureManager\TextureManager.h" />
     <ClInclude Include="lib\simple_scene\Texture\Texture.h" />
+    <ClInclude Include="src\BatchManager\BatchManager.h" />
     <ClInclude Include="src\CallbackManager\CallbackManager.h" />
     <ClInclude Include="src\GeometryBuilder\GeometryBuilder.h" />
     <ClInclude Include="src\InputParser\InputCommand.h" />

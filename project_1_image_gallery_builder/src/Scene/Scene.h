@@ -22,7 +22,7 @@ public:
     ~Scene();
 
     void add_material(ss::Material);
-    int add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
+    bool add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format);
     void add_point_light(ss::PointLight);
     void add_mesh(ss::Mesh);
     void build_scene();

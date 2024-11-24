@@ -105,6 +105,9 @@
     <ClCompile Include="src\InputParser\InputParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\BatchManager\BatchManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLCommon.h">
@@ -204,6 +207,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Scene\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\BatchManager\BatchManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
