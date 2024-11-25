@@ -15,7 +15,7 @@ Test Scene 1
 
 Since we were initially told to not use any external libraries, I have provided 2 homemade libraries which are not fully tested (which can be implied that there might be some edge cases I know not of.) <br> 
 <br> 
-The two libraries are provided under `./lib`
+The two libraries are provided under `./project_1_image_gallery_builder/lib`
 1. `lin_alg`: This library provides very basic functionalities that helps with linear algebra and graphics work, it can be used using `lin_alg` namespace
 2. `simple_scene`: This library provides basic components for creating a simple scene. Despite its name, it does not provide a scene class. You can use this library using `ss` namespace.
 <br>
@@ -93,8 +93,9 @@ Test Scene 2 if the room is filled with light
 
 <br>
 
-![](https://github.com/maythaswang/image_gallery_builder/blob/main/ex_result/test_scene_1.mp4)
-
-![](https://github.com/maythaswang/image_gallery_builder/blob/main/ex_result/test_scene_3.mp4)
+![](ex_result/scene_3_static.png)
+<div align="center">
+Test Scene 3
+</div>
 
 --------
