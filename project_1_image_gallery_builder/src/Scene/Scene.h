@@ -43,7 +43,7 @@ private:
     bool render_components_initialized;
     bool render_components_updated;
 
-    std::vector<ss::Mesh> mesh_storage; // Maybe for rebuilding scene.
+    std::vector<ss::Mesh> mesh_storage; 
 
     std::vector<lin_alg::vec3> vertices;
     std::vector<lin_alg::ivec3> indices;

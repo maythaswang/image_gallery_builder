@@ -57,18 +57,6 @@ ss::Mesh GeometryBuilder::init_canvas_frame(GLfloat width, GLfloat depth, GLuint
     GLfloat half_depth = depth * 0.5f;
 
     std::vector<lin_alg::vec3> vertices{
-        // // Bottom face
-        // lin_alg::vec3(-half_width, -half_height, -half_depth),
-        // lin_alg::vec3(-half_width, -half_height, half_depth),
-        // lin_alg::vec3(half_width, -half_height, half_depth),
-        // lin_alg::vec3(half_width, -half_height, -half_depth),
-
-        // // Top face
-        // lin_alg::vec3(-half_width, half_height, -half_depth),
-        // lin_alg::vec3(-half_width, half_height, half_depth),
-        // lin_alg::vec3(half_width, half_height, half_depth),
-        // lin_alg::vec3(half_width, half_height, -half_depth),
-
         // Front face
         lin_alg::vec3(-half_width, -half_height, half_depth),
         lin_alg::vec3(-half_width, half_height, half_depth),
@@ -95,18 +83,6 @@ ss::Mesh GeometryBuilder::init_canvas_frame(GLfloat width, GLfloat depth, GLuint
     };
 
     std::vector<lin_alg::vec3> normals{
-        // // Bottom face
-        // lin_alg::vec3(0.0f, 1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, 1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, 1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, 1.0f, 0.0f),
-
-        // // Top face
-        // lin_alg::vec3(0.0f, -1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, -1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, -1.0f, 0.0f),
-        // lin_alg::vec3(0.0f, -1.0f, 0.0f),
-
         // Front face
         lin_alg::vec3(0.0f, 0.0f, 1.0f),
         lin_alg::vec3(0.0f, 0.0f, 1.0f),
@@ -144,26 +120,6 @@ ss::Mesh GeometryBuilder::init_canvas_frame(GLfloat width, GLfloat depth, GLuint
 
     // Texture coordinates (mapping for each face)
     std::vector<GLfloat> texture_coords = {
-        // // Bottom face
-        // 0.0f,
-        // 0.0f,
-        // 1.0f,
-        // 0.0f,
-        // 1.0f,
-        // 1.0f,
-        // 0.0f,
-        // 1.0f,
-
-        // // Top face
-        // 0.0f,
-        // 0.0f,
-        // 1.0f,
-        // 0.0f,
-        // 1.0f,
-        // 1.0f,
-        // 0.0f,
-        // 1.0f,
-
         // Front face
         0.0f,
         0.0f,
@@ -216,7 +172,6 @@ ss::Mesh GeometryBuilder::init_canvas_frame(GLfloat width, GLfloat depth, GLuint
     return mesh;
 }
 
-// Make a non-flipped normal version of this.
 ss::Mesh GeometryBuilder::init_box(GLfloat width, GLfloat height, GLfloat depth, GLfloat mat_id)
 {
     const GLuint n_vert = 24;

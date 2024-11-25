@@ -5,6 +5,10 @@
 #include <iostream>
 #include <simple_scene/simple_scene.h>
 
+/**
+ * @brief Manager for callbacks and inputs
+ * 
+ */
 class CallbackManager
 {
 public:

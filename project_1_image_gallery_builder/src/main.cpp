@@ -137,12 +137,9 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, BatchManager
         RenderComponents rc = batch_manager->use_current_batch(shader_program);
 
         glBindVertexArray(rc.VAO[0]);
-        // glDrawArrays(GL_TRIANGLES, 0, 6);
         glDrawElements(GL_TRIANGLES, 3 * rc.n_inds, GL_UNSIGNED_INT, 0);
         batch_manager->next_batch();
     }
-
-    // glBindVertexArray(0);
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -150,11 +147,7 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, BatchManager
 
 void termination_routine(ss::Shader *shader_program)
 {
-    // glDeleteVertexArrays(1, render_components->VAO);
-    // glDeleteBuffers(4, render_components->VBO);
-    // glDeleteBuffers(1, render_components->EBO);
     shader_program->delete_shader();
-
     glfwTerminate();
 }
 
