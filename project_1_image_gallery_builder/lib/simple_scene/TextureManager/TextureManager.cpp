@@ -64,4 +64,12 @@ namespace ss
     {
         return this->textures_storage.size();
     }
+
+    void TextureManager::delete_all_textures()
+    {
+        for (int i = 0; i < this->textures_storage.size(); i++)
+        {
+            this->textures_storage[i].delete_texture();
+        }
+    }
 }

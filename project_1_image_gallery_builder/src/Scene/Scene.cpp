@@ -1,7 +1,6 @@
 #include "./Scene.h"
 const int MAX_MATERIAL = 32;
 
-
 Scene::Scene()
 {
     this->render_components_initialized = false;
@@ -102,38 +101,50 @@ void Scene::init_buf()
     }
 
     glBindVertexArray(this->render_components.VAO[0]);
-    
-    if(!this->mesh_storage.empty()){
 
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[0]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->vertices[0][0], GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+    if (!this->mesh_storage.empty())
+    {
 
-    glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(0);
+        glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[0]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->vertices[0][0], GL_STATIC_DRAW);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[1]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->normals[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
+        glEnableVertexAttribArray(1);
 
-    glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[1]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 3, &this->normals[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void *)0);
 
-    glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[2]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 2, &this->tex_coords[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void *)0);
+        glEnableVertexAttribArray(2);
 
-    glEnableVertexAttribArray(3);
-    glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[3]);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 1, &this->material_ids[0], GL_STATIC_DRAW);
-    glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
+        glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[2]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 2, &this->tex_coords[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (void *)0);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->render_components.EBO[0]);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->render_components.n_inds * 3, &this->indices[0][0], GL_STATIC_DRAW);
+        glEnableVertexAttribArray(3);
+        glBindBuffer(GL_ARRAY_BUFFER, this->render_components.VBO[3]);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->render_components.n_vert * 1, &this->material_ids[0], GL_STATIC_DRAW);
+        glVertexAttribPointer(3, 1, GL_FLOAT, GL_FALSE, 1 * sizeof(GLfloat), (void *)0);
 
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->render_components.EBO[0]);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->render_components.n_inds * 3, &this->indices[0][0], GL_STATIC_DRAW);
     }
     // Unbind VAOs, VBOs, EBOs
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 
     this->render_components_updated = true;
+}
+
+void Scene::delete_render_components()
+{
+    // delete all textures
+    this->texture_manager.delete_all_textures();
+
+    glDeleteVertexArrays(1, this->render_components.VAO);
+    glDeleteBuffers(4, this->render_components.VBO);
+    glDeleteBuffers(1, this->render_components.EBO);
+    
+    this->render_components_initialized = 0;
 }

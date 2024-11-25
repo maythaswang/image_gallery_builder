@@ -107,6 +107,12 @@ public:
      */
     int get_material_count();
 
+    /**
+     * @brief delete the scene render components
+     * 
+     */
+    void delete_render_components();
+
 private:
     ss::MaterialManager material_manager;
     ss::TextureManager texture_manager;

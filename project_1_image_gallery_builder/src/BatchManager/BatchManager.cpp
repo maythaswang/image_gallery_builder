@@ -36,7 +36,6 @@ void BatchManager::add_mesh(ss::Mesh mesh)
     mesh.mat_id = tmp_id % MAX_MAT;
     // Add mesh based on material batch
     this->scene_storage[destination_batch].add_mesh(mesh);
-    // std::cout << destination_batch << ": " << mesh.mat_id << '\n';
 }
 
 TextureInformation BatchManager::add_texture(std::string file_path, GLuint lod, GLenum internal_format, GLenum format)
@@ -110,7 +109,6 @@ void BatchManager::set_dimension(int row, int col)
 
 int BatchManager::get_destination_batch(int id)
 {
-    // this looks wrong
     int batch_count = this->scene_storage.size();
     int destination_batch = id / MAX_MAT;
 
@@ -121,4 +119,12 @@ int BatchManager::get_destination_batch(int id)
     }
 
     return destination_batch;
+}
+
+void BatchManager::delete_all_render_components()
+{
+    for (int i = 0; i < this->scene_storage.size(); i++)
+    {
+        this->scene_storage[i].delete_render_components();
+    }
 }

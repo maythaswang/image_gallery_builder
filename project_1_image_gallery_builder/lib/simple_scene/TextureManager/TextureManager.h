@@ -66,6 +66,12 @@ namespace ss
          */
         int get_texture_count();
 
+        /**
+         * @brief Delete all textures stored
+         * 
+         */
+        void delete_all_textures();
+
     private:
         std::vector<Texture> textures_storage;
         std::vector<int> texture_ids;

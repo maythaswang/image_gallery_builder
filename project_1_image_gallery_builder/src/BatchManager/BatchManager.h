@@ -110,6 +110,12 @@ public:
      */
     int get_destination_batch(int id);
 
+    /**
+     * @brief Delete render components of every batches.
+     * 
+     */
+    void delete_all_render_components();
+
 private:
     int current_batch;
     int material_count;

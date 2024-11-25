@@ -17,7 +17,7 @@
 // ---------------------------------------------------------------
 void use_wireframe();
 void render_routine(GLFWwindow *, ss::Shader *, BatchManager *, CallbackManager *, ss::Camera *);
-void termination_routine(ss::Shader *shader_program);
+void termination_routine(ss::Shader *shader_program, BatchManager *batch_manager);
 
 // CONSTANTS
 // ---------------------------------------------------------------
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
     }
 
     // Terminate
-    termination_routine(&shader_program);
+    termination_routine(&shader_program, &batch_manager);
 }
 
 // SUBROUTINES
@@ -145,9 +145,11 @@ void render_routine(GLFWwindow *window, ss::Shader *shader_program, BatchManager
     glfwPollEvents();
 }
 
-void termination_routine(ss::Shader *shader_program)
+void termination_routine(ss::Shader *shader_program, BatchManager *batch_manager)
 {
     shader_program->delete_shader();
+    batch_manager->delete_all_render_components();
+
     glfwTerminate();
 }
 
