@@ -15,7 +15,17 @@ class InputParser
 public:
     InputParser();
     ~InputParser();
-    bool parse_file(std::string, std::string, BatchManager *);
+
+    /**
+     * @brief Parse the scene data file and generate the scene accordingly using batch_manager
+     *
+     * @param file_path scene data file path
+     * @param texture_dir texture directory
+     * @param batch_manager batch manager
+     * @return true if successs
+     * @return false if failed
+     */
+    bool parse_file(std::string file_path, std::string texture_dir, BatchManager *batch_manager);
 
 private:
     RoomBuilder room_builder;
@@ -42,16 +52,47 @@ private:
     int reg_i[4];
     std::string reg_s[4];
 
-    void handle_command(InputCommand, std::istringstream &);
+    /**
+     * @brief Handle each command
+     *
+     * @param command
+     * @param iss string stream containting the line information (but not command)
+     */
+    void handle_command(InputCommand command, std::istringstream &iss);
 
     // utilities
 
-    InputCommand string_to_command(std::string);
+    /**
+     * @brief Turns command string into command enum
+     *
+     * @param input string command
+     * @return The corresponding command if there exist a match,
+     * @return otherwise return command ignore and print errors
+     */
+    InputCommand string_to_command(std::string input);
 
+    /**
+     * @brief Populate string to command map
+     *
+     */
     void populate_command_map();
 
-    bool read_input(std::istringstream &, int, int);
+    /**
+     * @brief read input based from the provided information
+     *
+     * @param iss string stream containing the line information
+     * @param size the number of items you wish to read
+     * @param input_type input type where {0:bool, 1:int, 2:string}
+     *
+     * @return true if success,
+     * @return false if failure
+     */
+    bool read_input(std::istringstream &iss, int size, int input_type);
 
+    /**
+     * @brief Reset all intermediate states to default
+     *
+     */
     void reset_value();
 };
 

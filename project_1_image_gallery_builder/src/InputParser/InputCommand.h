@@ -8,9 +8,6 @@ enum InputCommand
 
     // BASIC SETUP
     DIMENSION, // dimension <row_n> <col_n>
-    // PLAN, // for the next n row, we will take in the floor plan
-          // <1> <1> <0> <0> <1> each separated by space
-          // <0> <1> <0> <0> <1> each separated by space until row n (1: have room, 0:no room)
 
     // ROOM SETUP (these must be done in successions)
     // We will count room id in row-major form. 0,0 is on the top-left corner
@@ -19,7 +16,7 @@ enum InputCommand
     WALL,  // wall <top> <bottom> <left> <right>  (0: no wall, 1:wall)
 
     // These are optionals
-    // NOTE: THESE FILES MUST BE IN ./scene/<scene_name>/textures/<filename>
+    // NOTE: THESE FILES MUST BE IN <texture_dir>/<filename>
     IMAGE_TOP,    // image_top <image filename>
     IMAGE_BOTTOM, // image_bottom <image filename>
     IMAGE_LEFT,   // image_left <image filename>
