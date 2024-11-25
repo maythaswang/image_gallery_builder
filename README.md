@@ -39,20 +39,36 @@ To create your own, simply do two things.
    -  The image will only get rendered if a wall in that direction exist.
    -  The image setting function calls are optional.
 
-| Commands | Description |
-|----------|-------------------------------------------------------|
-| `# <something>` | These are comments |
-| `dimension <row> <col>` | Setup dimensions of the scene (this must be done as the first thing. |
-| `index <row> <col>` | Room position `<row>` `<col>` | 
-| `light_on <0 or 1>` | Set light on or off `{off: 0, on: 1}`| 
+| Commands                             | Description                                                                         |
+|--------------------------------------|-------------------------------------------------------------------------------------|
+| `# <something>`                      | These are comments                                                                  |
+| `dimension <row> <col>`              | Setup dimensions of the scene (this must be done as the first thing.                |
+| `index <row> <col>`                  | Room position `<row>` `<col>`                                                       | 
+| `light_on <0 or 1>`                  | Set light on or off `{off: 0, on: 1}`                                               | 
 | `wall <top> <bottom> <left> <right>` | Set whether a wall exist in the corresponding direction `{wall_off: 0, wall_on: 1}` | 
-| `image_top <filename.type>` | Set the image on top with the corresponding `<filename.type>` |
-| `image_bottom <filename.type>` | Set the image on bottom with the corresponding `<filename.type>` |
-| `image_left <filename.type>` | Set the image on left with the corresponding `<filename.type>` |
-| `image_right <filename.type>` | Set the image on right with the corresponding `<filename.type>` |
+| `image_top <filename.type>`          | Set the image on top with the corresponding `<filename.type>`                       |
+| `image_bottom <filename.type>`       | Set the image on bottom with the corresponding `<filename.type>`                    |
+| `image_left <filename.type>`         | Set the image on left with the corresponding `<filename.type>`                      |
+| `image_right <filename.type>`        | Set the image on right with the corresponding `<filename.type>`                     |
 
 For example scenes, you may use the scenes provided in: <br>
 `./scene/<scene_name>` and `./test_scene_tex` ※ Considering if you are running from visual studio.
+
+----------
+
+### Controls
+
+| Commands                             | Description                                                                         |
+|--------------------------------------|-------------------------------------------------------------------------------------|
+| `W`                                  | Move forward                                                                        |
+| `A`                                  | Move left                                                                           |
+| `S`                                  | Move backwards                                                                      | 
+| `D`                                  | Move right                                                                          | 
+| `esc`                                | Exit focus mode if focus mode is on, otherwise exit program.                        | 
+| `click on screen`                    | Enter focus mode.                                                                   | 
+| `mouse movement`                     | Rotate camera.                                                                      |
+
+- Focus mode will make your cursor disappear, you can only move or interact when focus mode is on.
 
 ----------
 
