@@ -54,7 +54,14 @@ namespace ss
          */
         bool get_has_texture();
 
-        void get_info(GLfloat &, GLfloat&);
+        /**
+         * @brief Get the info object
+         *
+         * @param width width of the texture
+         * @param height height of the texture
+         *
+         */
+        void get_info(GLfloat &width, GLfloat &height);
 
     private:
         GLuint texture_id;

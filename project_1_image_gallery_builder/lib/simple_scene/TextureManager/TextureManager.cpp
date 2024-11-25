@@ -58,10 +58,10 @@ namespace ss
             width = 0;
             height = 0;
         }
-
     }
 
-    int TextureManager::get_texture_count(){
+    int TextureManager::get_texture_count()
+    {
         return this->textures_storage.size();
     }
 }

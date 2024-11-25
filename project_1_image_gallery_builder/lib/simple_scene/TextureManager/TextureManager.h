@@ -49,10 +49,21 @@ namespace ss
          *
          */
         void use_all_textures(Shader *);
-        // void delete_texture();
 
-        void get_texture_data(int, GLfloat&, GLfloat &);
+        /**
+         * @brief
+         *
+         * @param texture_id texture id
+         * @param width width of the texture
+         * @param height height of the texture
+         */
+        void get_texture_data(int texture_id, GLfloat &width, GLfloat &height);
 
+        /**
+         * @brief Get number of textures stored.
+         *
+         * @return number of textures
+         */
         int get_texture_count();
 
     private:

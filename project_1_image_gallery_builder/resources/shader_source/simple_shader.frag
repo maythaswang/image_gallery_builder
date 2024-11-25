@@ -33,7 +33,7 @@ uniform float pl_quadratic[n_point_light_max];
 
 uniform sampler2D u_textures[32];
 
-uniform vec3 eye_position; // Haven't added in
+uniform vec3 eye_position;
 
 // Use Blinn-Phong
 vec4 compute_light(const in int light_id, const in int mat_id,
@@ -45,9 +45,6 @@ vec4 compute_light(const in int light_id, const in int mat_id,
   vec3 specular = mat_specular[mat_id];
   float shininess = mat_shininess[mat_id];
   vec3 norm = normalize(obj_normal);
-
-  // ambient
-  // ambient *= AMBIENT_MULTIPLIER;
 
   // diffuse (lambertian reflection)
   vec3 light_direction = normalize(pl_position[light_id] - current_pos);
@@ -66,7 +63,6 @@ vec4 compute_light(const in int light_id, const in int mat_id,
   float attenuation = (atten_divide > 0) ? 1 / atten_divide : 0;
 
   return vec4(diffuse * attenuation + specular * attenuation, 1.0f);
-  // return vec4(diffuse, 1.0f);
 }
 
 void main() {
@@ -75,9 +71,8 @@ void main() {
 
   if (cur_mat_id < 32) {
 
-    // We will move this elsewhere
-    int texture_index = int(mat_texture_id[cur_mat_id] + 0.1); // Just a
-    // stupid hack so that things can just work for now if (texture_index != 0)
+    int texture_index = int(mat_texture_id[cur_mat_id] + 0.1);
+    // Just a stupid hack so that things can just work for now if (texture_index != 0)
 
     if(texture_index < 32){
 

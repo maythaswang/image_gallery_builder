@@ -4,8 +4,7 @@
 #include <lin_alg/lin_alg.h>
 #include <vector>
 
-// TODO: Will be used for generating a scene later when batching.
-// This struct will use 1 Mesh 1 material method for simplicity before batching
+// This struct will use 1 Mesh 1 material method for simplicity before batching due to time constraint
 namespace ss
 {
     struct Mesh

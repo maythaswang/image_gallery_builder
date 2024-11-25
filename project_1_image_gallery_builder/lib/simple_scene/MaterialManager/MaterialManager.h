@@ -10,18 +10,40 @@
 namespace ss
 {
     /**
-     * @brief 
-     * @note AS FOR WHY I DON'T HAVE A MATERIAL ID <-> TEXTURE ID MAPPING SYSTEM. I DON'T KNOW TOO, DIDN'T HAVE TIME TO THINK AND NOW I AM SUFFERING THE CONSEQUENCE OF IT.
+     * @brief Store, Prepare, Use materials. 
+     * @note Due to time constraint, there is no proper material <=> texture ID system.
      */
     class MaterialManager
     {
     public:
         MaterialManager();
         ~MaterialManager();
-
+        
+        /**
+         * @brief Add materials to the material storage in this class.
+         * @param material Material object
+         */
         void add_material(Material);
+
+        /**
+         * @brief Prepare all materials for the use stage after all required materials have been added.
+         * @note Due to time constraint in implementation, this function should only be called once.
+         * @note Any subsequent calls will create unintended effects (since the vector is not rebuilt but appened.) 
+         */
         void prepare_materials();
+
+        /**
+         * @brief Use all prepared materials as uniforms.
+         * 
+         * @param shader_program 
+         */
         void use_all_materials(Shader* shader_program);
+
+        /**
+         * @brief Get total material count
+         * 
+         * @return number of materials
+         */
         int get_material_count();
 
 
