@@ -1,8 +1,13 @@
 Modified by: Maythas Wangcharoenwong 20241125
 # Image Gallery Builder
 --------
-This program takes in scene data and renders out an Image Gallery scene using the corresponding textures provided. <br>
-TODO: provide some images of the scenes here...
+This program takes in scene data and renders out an Image Gallery scene using the corresponding textures provided in the directory. <br>
+
+![](ex_result/scene_1_static.png)
+
+<div align="center">
+Test Scene 1 
+</div>
 
 --------
 
@@ -72,9 +77,24 @@ For example scenes, you may use the scenes provided in: <br>
 
 ----------
 
-### Examples
+### Example Result
 
-TODO: Scene example here..
+![](ex_result/scene_2_static.png)
+<div align="center">
+Test Scene 2
+</div>
 
+<br>
+
+![](ex_result/scene_2_static_if_light.png)
+<div align="center">
+Test Scene 2 if the room is filled with light
+</div>
+
+<br>
+
+![](https://github.com/maythaswang/image_gallery_builder/blob/main/ex_result/test_scene_1.mp4)
+
+![](https://github.com/maythaswang/image_gallery_builder/blob/main/ex_result/test_scene_3.mp4)
 
 --------
